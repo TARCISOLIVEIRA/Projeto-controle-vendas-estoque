@@ -1,6 +1,6 @@
 
 
-package controleestoque.util;
+package controledeestoque1;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
