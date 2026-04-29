@@ -154,6 +154,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         jPanel2.add(txtNome);
         txtNome.setBounds(80, 40, 176, 30);
 
+        btnPesquisar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/pesquisar1.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -343,6 +344,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
 
         painel_guias.addTab("consulta de Funcionários", jPanel3);
 
+        btnNovo.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/novo.png"))); // NOI18N
         btnNovo.setText("NOVO");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -351,6 +353,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
 
+        btnSalvar.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/salvar.png"))); // NOI18N
         btnSalvar.setText("SALVAR");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -359,6 +362,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
 
+        btnEditar.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/editar.png"))); // NOI18N
         btnEditar.setText("EDITAR");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -367,6 +371,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
 
+        btnExcluir.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/excluir.png"))); // NOI18N
         btnExcluir.setText("EXCLUIR");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -375,6 +380,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
 
+        jButton6.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/printer.png"))); // NOI18N
         jButton6.setText("IMPRIMIR");
 
@@ -384,7 +390,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         TituloCadastro.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         TituloCadastro.setForeground(new java.awt.Color(255, 255, 255));
         TituloCadastro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TituloCadastro.setText("CADASTRO DE FUNCIONARIOS");
+        TituloCadastro.setText("CADASTRO DE FUNCIONÁRIOS");
         TituloCadastro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout PaineltituloLayout = new javax.swing.GroupLayout(Paineltitulo);
@@ -677,45 +683,91 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         
-        
+           try {
+
+        // 🔒 Verifica se selecionou na tabela
+        if (tabela.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, 
+                "Selecione um funcionário na tabela antes de editar!");
+            return;
+        }
+
+        // 🔒 Validações obrigatórias
+        if (txtNome.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Nome não pode estar vazio!");
+            return;
+        }
+
+        if (txtCpf.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "CPF não pode estar vazio!");
+            return;
+        }
+
+        if (txtEmail.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Email não pode estar vazio!");
+            return;
+        }
+
+        // 📦 Objeto
         Funcionario obj = new Funcionario();
+
         obj.setNome(txtNome.getText());
         obj.setRg(txtRg.getText());
         obj.setCpf(txtCpf.getText());
         obj.setEmail(txtEmail.getText());
         obj.setSenha(txtSenha.getText());
         obj.setCargo(txtCargo.getText());
-        obj.setNivel(cbfEstado.getSelectedItem().toString());
+
+        // ✅ ComboBox correto para nível
+        obj.setNivel(cbfNilvel_acesso.getSelectedItem().toString());
+
         obj.setTelefone(txtTelefone.getText());
         obj.setCelular(txtCelular.getText());
         obj.setCep(txtCep.getText());
         obj.setEndereco(txtEndereco.getText());
-        
-        
-        if(txtNumero.getText().trim().isEmpty()){
-           obj.setNumero(0);
+
+        // 🔢 Número (tratamento correto)
+        if (txtNumero.getText().trim().isEmpty()) {
+            obj.setNumero(0);
         } else {
             obj.setNumero(Integer.parseInt(txtNumero.getText()));
         }
-        
-        
-        
-        
+
         obj.setComplemento(txtComplemento.getText());
         obj.setBairro(txtBairro.getText());
         obj.setCidade(txtCidade.getText());
         obj.setEstado(cbfEstado.getSelectedItem().toString());
+
         obj.setId(Integer.valueOf(txtCodigo.getText()));
-       
-        
+
+        // 💾 DAO
         FuncionarioDAO dao = new FuncionarioDAO();
-        dao.Editar (obj);
+        dao.Editar(obj);
+
+        // 🧹 Limpar tela
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
+
+        JOptionPane.showMessageDialog(null, 
+            "Funcionário atualizado com sucesso!");
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, 
+            "Digite apenas números no campo Número!");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, 
+            "Erro ao atualizar: " + e.getMessage());
+    }
         
-        JOptionPane.showMessageDialog(null,"Salvou");
-            
         
+        
+        
+        
+        
+        
+        
+        
+        //// ATÉ AQUI
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed

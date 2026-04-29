@@ -630,8 +630,6 @@ public class FormularioCliente extends javax.swing.JFrame {
 
         // 🔥 Conversões seguras
         obj.setNumero(Integer.parseInt(txtNumero.getText()));
-        
-
         obj.setComplemento(txtComplemento.getText());
         obj.setBairro(txtBairro.getText());
         obj.setCidade(txtCidade.getText());
