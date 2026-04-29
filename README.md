@@ -1,6 +1,6 @@
-# 🛒 Sistema de Controle de Vendas e Estoque
+#  Sistema de Controle de Vendas e Estoque
 
-## 📌 Descrição
+##  Descrição
 O Sistema de Controle de Vendas e Estoque é uma aplicação desenvolvida em Java utilizando Swing para interface gráfica e MySQL como banco de dados.  
 O objetivo do sistema é auxiliar no gerenciamento de produtos, fornecedores e vendas, proporcionando maior controle e organização para o usuário.
 
