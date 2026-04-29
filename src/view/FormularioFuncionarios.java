@@ -514,6 +514,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
+        txtCodigo.setEnabled(false);
         
         painel_guias.setSelectedIndex(0);
                      
