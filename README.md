@@ -1,12 +1,12 @@
-# 🛒 Sistema de Controle de Vendas e Estoque
+#  Sistema de Controle de Vendas e Estoque
 
-## 📌 Descrição
+##  Descrição
 O Sistema de Controle de Vendas e Estoque é uma aplicação desenvolvida em Java utilizando Swing para interface gráfica e MySQL como banco de dados.  
 O objetivo do sistema é auxiliar no gerenciamento de produtos, fornecedores e vendas, proporcionando maior controle e organização para o usuário.
 
 ---
 
-## 🎯 Objetivo
+##  Objetivo
 Facilitar o controle de:
 - Cadastro de produtos
 - Cadastro de fornecedores
@@ -36,18 +36,18 @@ Facilitar o controle de:
 - Associação com produtos
 - Listagem de fornecedores
 
-### 💰 Vendas
+###  Vendas
 - Registro de vendas
 - Cálculo automático do total
 - Associação de produtos à venda
 
-### 📊 Estoque
+###  Estoque
 - Controle de quantidade de produtos
 - Atualização automática após vendas
 
 ---
 
-## 🗃️ Banco de Dados
+## Banco de Dados
 O sistema utiliza as seguintes tabelas principais:
 - tb_clientes
 - tb_fornecedores
@@ -60,7 +60,7 @@ O sistema utiliza as seguintes tabelas principais:
 
 Com relacionamento entre produtos e fornecedores através de chave estrangeira.
 
-## 📁 tb_clientes
+##  tb_clientes
 
 ```sql
 CREATE TABLE tb_clientes (
@@ -83,7 +83,7 @@ CREATE TABLE tb_clientes (
 
 ```
 
-## 📁 tb_fornecedores 
+##  tb_fornecedores 
 
 ```sql
 CREATE TABLE tb_fornecedores (
@@ -105,7 +105,7 @@ CREATE TABLE tb_fornecedores (
 
 ```
 
-## 📁 tb_funcionarios 
+##  tb_funcionarios 
 
 ```sql
 CREATE TABLE tb_funcionarios (
@@ -131,7 +131,7 @@ CREATE TABLE tb_funcionarios (
 
 ```
 
-## 📁 tb_produtos
+##  tb_produtos
 ```sql
 CREATE TABLE tb_produtos (
   id int  NOT NULL AUTO_INCREMENT,
@@ -144,7 +144,7 @@ CREATE TABLE tb_produtos (
 
 ```
 
-## 📁 tb_vendas
+##  tb_vendas
 ```sql
 CREATE TABLE tb_vendas (
   id int  NOT NULL AUTO_INCREMENT,
@@ -162,7 +162,7 @@ CONSTRAINT fk_vendas_cliente FOREIGN KEY (cliente_id) REFERENCES tb_clientes(id)
 
 
 ```
-## 📁 tb_itensvendas
+##  tb_itensvendas
 ```sql
 CREATE TABLE tb_itensvendas (
   id int  NOT NULL AUTO_INCREMENT,
@@ -178,7 +178,7 @@ CREATE TABLE tb_itensvendas (
 
 ```
 
-## 📁 tb_alerta_estoque
+##  tb_alerta_estoque
 ```sql
 CREATE TABLE tb_alerta_estoque (
 Id int not null auto increment,
