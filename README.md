@@ -15,7 +15,7 @@ Facilitar o controle de:
 
 ---
 
-## ⚙️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 - Java (Swing)
 - MySQL
 - JDBC (conexão com banco de dados)
@@ -23,15 +23,15 @@ Facilitar o controle de:
 
 ---
 
-## 🧩 Funcionalidades
+## Funcionalidades
 
-### 📦 Produtos
+### Produtos
 - Cadastro de produtos
 - Atualização de dados
 - Exclusão de produtos
 - Listagem de produtos
 
-### 🏢 Fornecedores
+###  Fornecedores
 - Cadastro de fornecedores
 - Associação com produtos
 - Listagem de fornecedores
