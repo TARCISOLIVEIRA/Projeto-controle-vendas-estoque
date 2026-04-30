@@ -1,0 +1,87 @@
+[33mcommit 9e2b94c7e8ffe0c0c2d1460a3bf80e413edfa502[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mtarciso-tela-funcionario[m[33m, [m[1;31morigin/tarciso-tela-funcionario[m[33m)[m
+Author: Tarciso dos Santos de Oliveira <tarcisoliveira28@gmail.com>
+Date:   Wed Apr 29 15:39:07 2026 -0300
+
+    feat: relatório de clientes com JasperReports integrado ao botao imprimir.
+
+[33mcommit 59d013a87b8eb31bf8c9cfa4133835d3d94dc5ad[m
+Author: Tarciso dos Santos de Oliveira <tarcisoliveira28@gmail.com>
+Date:   Wed Apr 29 14:14:23 2026 -0300
+
+    Melhorias no botao editar de funcionarios
+
+[33mcommit 1fc6ccb473236bed4797748dee4b816f881a3744[m
+Author: Tarciso dos Santos de Oliveira <tarcisoliveira28@gmail.com>
+Date:   Wed Apr 29 07:36:19 2026 -0300
+
+    reajustei  botoao novo fica desabilitado
+
+[33mcommit c21ed3254d2248f38a8c25a9c59a75fba1ba7307[m
+Author: Tarciso dos Santos de Oliveira <tarcisoliveira28@gmail.com>
+Date:   Tue Apr 28 19:59:21 2026 -0300
+
+    removendo nbproject do versionamento
+
+[33mcommit 55a6422e68e06231cb1e18c438a2c6168708f2af[m
+Author: Tarciso dos Santos de Oliveira <tarcisoliveira28@gmail.com>
+Date:   Tue Apr 28 19:57:30 2026 -0300
+
+    aplicando gitignore
+
+[33mcommit 4b8699bb55b7657087cdb887708e53fc0e0608de[m
+Author: Tarciso dos Santos de Oliveira <tarcisoliveira28@gmail.com>
+Date:   Tue Apr 28 19:51:46 2026 -0300
+
+    Removendo arquivos no NetBeans do versionamento
+
+[33mcommit ef42b2a6cfefab2f999e6e94c8bb1e335f968106[m
+Author: Tarciso dos Santos de Oliveira <tarcisoliveira28@gmail.com>
+Date:   Tue Apr 28 19:49:23 2026 -0300
+
+    atualizando gitignore com NetBeans
+
+[33mcommit 98ea82a6f7e81e1922b337275ae65482fc675cd6[m
+Author: Tarciso dos Santos de Oliveira <tarcisoliveira28@gmail.com>
+Date:   Tue Apr 28 19:34:53 2026 -0300
+
+    implementação tela e classe de funcionarios
+
+[33mcommit 1d3b14db083ea3d5539b6ba1ce9d8b58bf8aea53[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Merge: c156e1b a2f1386
+Author: Tarciso dos Santos de Oliveira <tarcisoliveira28@gmail.com>
+Date:   Mon Apr 27 18:23:27 2026 -0300
+
+    Merge branch 'tarciso'
+
+[33mcommit a2f1386294ecd635b23db466944124cb883bddb3[m[33m ([m[1;31morigin/tarciso[m[33m, [m[1;32mtarciso[m[33m)[m
+Author: Tarciso dos Santos de Oliveira <tarcisoliveira28@gmail.com>
+Date:   Mon Apr 27 18:19:47 2026 -0300
+
+    alterações no formulário client5es
+
+[33mcommit c156e1b84027413ca05da55780ff9fa317245dd0[m
+Author: Tarciso dos Santos de Oliveira <84403833+TARCISOLIVEIRA@users.noreply.github.com>
+Date:   Tue Apr 21 19:34:04 2026 -0300
+
+    Create README.md
+    
+    realizado atualização do read.me.
+
+[33mcommit 917edc42b282ad1d24b79834da0efa49dc66700a[m[33m ([m[1;31morigin/masili[m[33m, [m[1;31morigin/cresleis[m[33m, [m[1;31morigin/carlos[m[33m, [m[1;32mmasili[m[33m, [m[1;32mcresleis[m[33m, [m[1;32mcarlos[m[33m)[m
+Merge: 7b493b5 7711860
+Author: Tarciso dos Santos de Oliveira <tarcisoliveira28@gmail.com>
+Date:   Tue Apr 21 01:55:17 2026 -0300
+
+    Merge branch 'main' of https://github.com/TARCISOLIVEIRA/Projeto-controle-vendas-estoque
+
+[33mcommit 7711860ca5843371ad98b7d8314a5fdf7f527069[m
+Author: Tarciso dos Santos de Oliveira <84403833+TARCISOLIVEIRA@users.noreply.github.com>
+Date:   Tue Apr 21 17:00:33 2026 -0300
+
+    Initial commit
+
+[33mcommit 7b493b51834520d439e23468bb86f42104a65a1b[m
+Author: Tarciso dos Santos de Oliveira <tarcisoliveira28@gmail.com>
+Date:   Tue Apr 21 01:51:30 2026 -0300
+
+    primeiro commit

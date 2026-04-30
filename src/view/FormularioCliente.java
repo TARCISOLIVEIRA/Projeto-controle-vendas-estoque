@@ -687,10 +687,10 @@ public class FormularioCliente extends javax.swing.JFrame {
 
     try {
 
-        // 🔌 Conexão com banco (sua classe)
+        // ? Conexão com banco (sua classe)
         conn = new ConexaoBanco().pegarConexao();
 
-        // 📄 Carregar relatório do package
+        // ?Carregar relatório do package
         InputStream relatorio = getClass().getResourceAsStream(
                 "/relatorios/relatorioClientes.jasper"
         );
@@ -708,7 +708,7 @@ public class FormularioCliente extends javax.swing.JFrame {
                 conn
         );
 
-        // 👁️ Exibir relatório
+        // ?️ Exibir relatório
         JasperViewer.viewReport(print, false);
 
     } catch (Exception e) {

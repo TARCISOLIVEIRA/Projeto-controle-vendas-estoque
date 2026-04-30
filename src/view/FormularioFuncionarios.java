@@ -1,14 +1,20 @@
 
 package view;
 
+import controledeestoque1.ConexaoBanco;
 import dao.ClientesDAO;
 import dao.FuncionarioDAO;
 import java.awt.event.KeyEvent;
+import java.io.InputStream;
+import java.sql.Connection;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Clientes;
 import model.Funcionario;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import utilitario.Utilitarios;
 
 
@@ -113,7 +119,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         btnSalvar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
         Paineltitulo = new javax.swing.JPanel();
         TituloCadastro = new javax.swing.JLabel();
 
@@ -380,9 +386,14 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/printer.png"))); // NOI18N
-        jButton6.setText("IMPRIMIR");
+        btnImprimir.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/printer.png"))); // NOI18N
+        btnImprimir.setText("IMPRIMIR");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         Paineltitulo.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -422,7 +433,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -437,7 +448,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
                         .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEditar)
                         .addComponent(btnExcluir)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 47, Short.MAX_VALUE))
         );
@@ -823,6 +834,51 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
        }
     }//GEN-LAST:event_tabelaKeyReleased
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // TODO add your handling code here:
+        
+             Connection conn = null;
+
+    try {
+
+        // ? Conexão com banco (sua classe)
+        conn = new ConexaoBanco().pegarConexao();
+
+        // ?Carregar relatório do package
+        InputStream relatorio = getClass().getResourceAsStream(
+                "/relatorios/relatorioFuncionario.jasper"
+        );
+
+        if (relatorio == null) {
+            JOptionPane.showMessageDialog(null, 
+                "Relatório não encontrado!");
+            return;
+        }
+
+        // 🧾 Gerar relatório
+        JasperPrint print = JasperFillManager.fillReport(
+                relatorio,
+                null,
+                conn
+        );
+
+        // ?️ Exibir relatório
+        JasperViewer.viewReport(print, false);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "Erro ao gerar relatório: " + e.getMessage());
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -862,13 +918,13 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
     private javax.swing.JLabel TituloCadastro;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnpesquisar1;
     private javax.swing.JComboBox<String> cbfEstado;
     private javax.swing.JComboBox<String> cbfNilvel_acesso;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
