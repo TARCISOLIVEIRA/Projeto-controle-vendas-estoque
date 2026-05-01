@@ -3,43 +3,39 @@ package view;
 
 import controledeestoque1.ConexaoBanco;
 import dao.ClientesDAO;
-import dao.FuncionarioDAO;
+import dao.FornecedorDAO;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.util.List;
+import java.util.List; 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Clientes;
-import model.Funcionario;
+import model.Fornecedor;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import utilitario.Utilitarios;
 
 
-public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
+public class FormularioFornecedor extends javax.swing.JFrame  {
       
       public void listar(){
-       FuncionarioDAO dao = new FuncionarioDAO();
-       List<Funcionario> lista = dao.Listar();
+       FornecedorDAO dao = new FornecedorDAO();
+       List<Fornecedor> lista = dao.Listar();
+       
+          System.out.println("total" + lista.size());
         
        DefaultTableModel dados = (DefaultTableModel)tabela.getModel();
        dados.setNumRows(0);
-       for(Funcionario c : lista){
+       for(Fornecedor c : lista){
            dados.addRow(new Object[]{
            c.getId(),
            c.getNome(),
-           c.getRg(),
-           c.getCpf(),
+           
+           c.getCnpj(),
            c.getEmail(),
-           
-           c.getSenha(),
-           c.getCargo(),
-           c.getNivel(),
-           
-           
-           c.getTelefone(),        
+           c.getTelefone(),
            c.getCelular(),
            c.getCep(),
            c.getEndereco(),
@@ -56,8 +52,8 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
                  
    
     
-    public FormularioFuncionarios() {
-       // super(parent , modal);
+    public FormularioFornecedor() {
+        //super(parent, modal);
         initComponents();
       
         
@@ -98,17 +94,8 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         jLabel26 = new javax.swing.JLabel();
         txtComplemento = new javax.swing.JTextField();
         cbfEstado = new javax.swing.JComboBox<>();
-        jLabel27 = new javax.swing.JLabel();
-        txtRg = new javax.swing.JTextField();
-        jLabel28 = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JFormattedTextField();
+        txtCnpj = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
-        txtCargo = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        cbfNilvel_acesso = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         txtPesquisarNome = new javax.swing.JTextField();
@@ -124,7 +111,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         TituloCadastro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Funcionarios");
+        setTitle("Cadastro de Fornecedor");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -158,9 +145,9 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
         jPanel2.add(txtNome);
-        txtNome.setBounds(80, 40, 176, 30);
+        txtNome.setBounds(80, 40, 340, 30);
 
-        btnPesquisar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnPesquisar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/pesquisar1.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -169,7 +156,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
         jPanel2.add(btnPesquisar);
-        btnPesquisar.setBounds(270, 0, 170, 70);
+        btnPesquisar.setBounds(290, 0, 160, 30);
 
         jLabel19.setText("email");
         jPanel2.add(jLabel19);
@@ -203,7 +190,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
 
         jLabel22.setText("Cep");
         jPanel2.add(jLabel22);
-        jLabel22.setBounds(10, 140, 50, 15);
+        jLabel22.setBounds(10, 120, 50, 15);
 
         try {
             txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -211,35 +198,35 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             ex.printStackTrace();
         }
         jPanel2.add(txtCep);
-        txtCep.setBounds(70, 130, 133, 30);
+        txtCep.setBounds(70, 120, 133, 30);
 
         jLabel23.setText("Endereco ");
         jPanel2.add(jLabel23);
-        jLabel23.setBounds(210, 140, 90, 15);
+        jLabel23.setBounds(210, 120, 90, 15);
         jPanel2.add(txtEndereco);
-        txtEndereco.setBounds(310, 130, 180, 30);
+        txtEndereco.setBounds(310, 120, 190, 30);
 
         jLabel8.setText("nº");
         jPanel2.add(jLabel8);
-        jLabel8.setBounds(510, 140, 20, 15);
+        jLabel8.setBounds(540, 130, 20, 15);
         jPanel2.add(txtNumero);
-        txtNumero.setBounds(580, 130, 70, 30);
+        txtNumero.setBounds(610, 120, 90, 30);
 
         jLabel24.setText("Bairro");
         jPanel2.add(jLabel24);
-        jLabel24.setBounds(10, 180, 120, 20);
+        jLabel24.setBounds(10, 170, 120, 20);
         jPanel2.add(txtBairro);
-        txtBairro.setBounds(80, 170, 110, 30);
+        txtBairro.setBounds(160, 160, 110, 30);
 
         jLabel25.setText("Cidade");
         jPanel2.add(jLabel25);
-        jLabel25.setBounds(210, 180, 100, 15);
+        jLabel25.setBounds(290, 170, 100, 15);
         jPanel2.add(txtCidade);
-        txtCidade.setBounds(270, 180, 120, 30);
+        txtCidade.setBounds(390, 160, 130, 30);
 
         jLabel26.setText("Complemento ");
         jPanel2.add(jLabel26);
-        jLabel26.setBounds(400, 190, 100, 15);
+        jLabel26.setBounds(10, 240, 100, 15);
 
         txtComplemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,58 +234,23 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
         jPanel2.add(txtComplemento);
-        txtComplemento.setBounds(500, 180, 50, 30);
+        txtComplemento.setBounds(110, 230, 50, 30);
 
         cbfEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PE", "SP", "RJ", "MA", "AC", "AL", "BA", "MA", "SE", "RN", "CE", "AM", "RO", "PI", "PB", "MG", "MS", "RR", "TO", "PA" }));
         jPanel2.add(cbfEstado);
-        cbfEstado.setBounds(490, 220, 80, 24);
-
-        jLabel27.setText("RG:");
-        jPanel2.add(jLabel27);
-        jLabel27.setBounds(10, 230, 50, 15);
-        jPanel2.add(txtRg);
-        txtRg.setBounds(60, 220, 110, 30);
-
-        jLabel28.setText("CPF");
-        jPanel2.add(jLabel28);
-        jLabel28.setBounds(180, 230, 50, 15);
+        cbfEstado.setBounds(580, 240, 80, 24);
 
         try {
-            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jPanel2.add(txtCpf);
-        txtCpf.setBounds(230, 220, 100, 30);
+        jPanel2.add(txtCnpj);
+        txtCnpj.setBounds(240, 230, 120, 30);
 
-        jLabel1.setText("Senha");
+        jLabel1.setText("Cnpj");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(310, 260, 40, 20);
-        jPanel2.add(txtSenha);
-        txtSenha.setBounds(390, 260, 130, 30);
-
-        jLabel2.setText("Cargo");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(580, 190, 50, 15);
-        jPanel2.add(txtCargo);
-        txtCargo.setBounds(660, 180, 90, 30);
-
-        jLabel3.setText("Nivel de Acesso");
-        jPanel2.add(jLabel3);
-        jLabel3.setBounds(10, 260, 110, 15);
-
-        cbfNilvel_acesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Adm", "Usu" }));
-        cbfNilvel_acesso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbfNilvel_acessoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(cbfNilvel_acesso);
-        cbfNilvel_acesso.setBounds(110, 260, 160, 24);
-
-        jLabel4.setText("Estado");
-        jPanel2.add(jLabel4);
-        jLabel4.setBounds(360, 230, 70, 15);
+        jLabel1.setBounds(180, 240, 60, 15);
 
         painel_guias.addTab("Dados Pessoais", jPanel2);
 
@@ -321,7 +273,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
 
             },
             new String [] {
-                "id", "Nome", "Rg", "Cpf", "Email", "Senha", "Cargo", "Nivel", "Telefone", "Celular", "Cep", "Endereco", "numero", "complemento", "Bairro", "Cidade", "Estado"
+                "id", "Nome", "Cnpj", "Email", "Telefone", "Celular", "Cep", "Endereco", "numero", "complemento", "Bairro", "Cidade", "Estado"
             }
         ));
         tabela.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -329,17 +281,12 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
                 tabelaMouseClicked(evt);
             }
         });
-        tabela.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tabelaKeyReleased(evt);
-            }
-        });
         jScrollPane1.setViewportView(tabela);
 
         jPanel3.add(jScrollPane1);
         jScrollPane1.setBounds(0, 50, 740, 240);
 
-        btnpesquisar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/pesquisar1.png"))); // NOI18N
+        btnpesquisar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/buscar.png"))); // NOI18N
         btnpesquisar1.setText("Pesquisar");
         btnpesquisar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -347,11 +294,10 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
         jPanel3.add(btnpesquisar1);
-        btnpesquisar1.setBounds(370, 0, 130, 40);
+        btnpesquisar1.setBounds(370, 0, 130, 50);
 
-        painel_guias.addTab("consulta de Funcionários", jPanel3);
+        painel_guias.addTab("consulta de Fornecedor", jPanel3);
 
-        btnNovo.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/novo.png"))); // NOI18N
         btnNovo.setText("NOVO");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -360,7 +306,6 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
 
-        btnSalvar.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/salvar.png"))); // NOI18N
         btnSalvar.setText("SALVAR");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -369,7 +314,6 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
 
-        btnEditar.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/editar.png"))); // NOI18N
         btnEditar.setText("EDITAR");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -378,7 +322,6 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
 
-        btnExcluir.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/excluir.png"))); // NOI18N
         btnExcluir.setText("EXCLUIR");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -387,7 +330,6 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             }
         });
 
-        btnImprimir.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/printer.png"))); // NOI18N
         btnImprimir.setText("IMPRIMIR");
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -402,14 +344,14 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         TituloCadastro.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         TituloCadastro.setForeground(new java.awt.Color(255, 255, 255));
         TituloCadastro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TituloCadastro.setText("CADASTRO DE FUNCIONÁRIOS");
+        TituloCadastro.setText("CADASTRO DE FORNECEDOR ");
         TituloCadastro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout PaineltituloLayout = new javax.swing.GroupLayout(Paineltitulo);
         Paineltitulo.setLayout(PaineltituloLayout);
         PaineltituloLayout.setHorizontalGroup(
             PaineltituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TituloCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
+            .addComponent(TituloCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         PaineltituloLayout.setVerticalGroup(
             PaineltituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,17 +375,17 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(Paineltitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addComponent(painel_guias, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painel_guias, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -451,25 +393,21 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
                         .addComponent(btnExcluir)
                         .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 47, Short.MAX_VALUE))
+                .addGap(0, 38, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(799, 587));
+        setSize(new java.awt.Dimension(758, 578));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        Funcionario obj = new Funcionario();
+        
+        Fornecedor obj = new Fornecedor();
         obj.setNome(txtNome.getText());
-        obj.setRg(txtRg.getText());
-        obj.setCpf(txtCpf.getText());
+        
+        obj.setCnpj(txtCnpj.getText());
         obj.setEmail(txtEmail.getText());
-        
-        obj.setSenha(txtSenha.getText());
-        obj.setCargo(txtCargo.getText());
-        obj.setNivel(cbfNilvel_acesso.getSelectedItem().toString());
-        
         obj.setTelefone(txtTelefone.getText());
         obj.setCelular(txtCelular.getText());
         obj.setCep(txtCep.getText());
@@ -480,12 +418,12 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         obj.setCidade(txtCidade.getText());
         obj.setEstado(cbfEstado.getSelectedItem().toString());
         
-        FuncionarioDAO dao = new FuncionarioDAO();
+        FornecedorDAO dao = new FornecedorDAO();
         dao.Salvar(obj);
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
         
-       
+      
             
         
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -495,38 +433,34 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
     }//GEN-LAST:event_txtComplementoActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-
-       String nome = "%"+txtPesquisarNome.getText()+"%";
-       FuncionarioDAO dao = new FuncionarioDAO();
-       List<Funcionario> lista = dao.Filtrar(nome);
+        // TODO add your handling code here:
         
-       DefaultTableModel dados = (DefaultTableModel)tabela.getModel();
-       dados.setNumRows(0);
-       for(Funcionario c : lista){
-           dados.addRow(new Object[]{
-           c.getId(),
-           c.getNome(),
-           c.getRg(),
-           c.getCpf(),
-           c.getEmail(),
+        String nome =  txtNome.getText();
+        Fornecedor obj = new Fornecedor();
+        FornecedorDAO dao = new FornecedorDAO();
+        
+        obj = dao.buscarFornecedor(nome);
+        if(obj.getNome() != null){
+           txtCodigo.setText(String.valueOf(obj.getId()));
+           txtNome.setText(obj.getNome());
            
-           c.getSenha(),
-           c.getCargo(),
-           c.getNivel(),
+           txtCnpj.setText(obj.getCnpj());
            
-           c.getTelefone(),
-           c.getCelular(),
-           c.getCep(),
-           c.getEndereco(),
-           c.getNumero(),
-           c.getComplemento(),
-           c.getBairro(),
-           c.getCidade(),
-           c.getEstado()
-               
-       });
-       }
-       
+           txtEmail.setText(obj.getEmail());
+           txtTelefone.setText(obj.getTelefone());
+           txtCelular.setText(obj.getCelular());
+           txtCep.setText(obj.getCep());
+           txtEndereco.setText(obj.getEndereco());
+           txtNumero.setText(String.valueOf(obj.getNumero()));
+           txtComplemento.setText(obj.getComplemento());
+           txtBairro.setText(obj.getBairro());
+           txtCidade.setText(obj.getCidade());
+           cbfEstado.setSelectedItem(obj.getEstado());
+           
+        }else {
+            JOptionPane.showMessageDialog(null, "Fornecedor nao encontrado");
+        }
+        
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
@@ -534,13 +468,11 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         util.LimpaTela(jPanel2);
         txtCodigo.setEnabled(false);
         
-        painel_guias.setSelectedIndex(0);
-                     
         
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-      
+        // TODO add your handling code here:
      
   //aqui
     listar();
@@ -550,26 +482,20 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
     }//GEN-LAST:event_formWindowActivated
 
     private void btnpesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisar1ActionPerformed
-
-        String nome = "%"+txtPesquisarNome.getText()+"%";
-       FuncionarioDAO dao = new FuncionarioDAO();
-       List<Funcionario> lista = dao.Filtrar(nome);
+        // TODO add your handling code here:
+       String nome = "%"+txtPesquisarNome.getText()+"%";
+       ClientesDAO dao = new ClientesDAO();
+       List<Clientes> lista = dao.Filtrar(nome);
         
        DefaultTableModel dados = (DefaultTableModel)tabela.getModel();
        dados.setNumRows(0);
-       for(Funcionario c : lista){
+       for(Clientes c : lista){
            dados.addRow(new Object[]{
            c.getId(),
            c.getNome(),
-           c.getRg(),
+           
            c.getCpf(),
            c.getEmail(),
-           
-           c.getSenha(),
-           c.getCargo(),
-           c.getNivel(),
-           
-          
            c.getTelefone(),
            c.getCelular(),
            c.getCep(),
@@ -586,25 +512,19 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
 
     private void txtPesquisarNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarNomeKeyReleased
         // TODO add your handling code here:
-        
-       String nome = "%"+txtPesquisarNome.getText()+"%";
-       FuncionarioDAO dao = new FuncionarioDAO();
-       List<Funcionario> lista = dao.Filtrar(nome);
+        String nome = "%"+txtPesquisarNome.getText()+"%";
+       FornecedorDAO dao = new FornecedorDAO();
+       List<Fornecedor> lista = dao.Filtrar(nome);
         
        DefaultTableModel dados = (DefaultTableModel)tabela.getModel();
        dados.setNumRows(0);
-       for(Funcionario c : lista){
+       for(Fornecedor c : lista){
            dados.addRow(new Object[]{
            c.getId(),
            c.getNome(),
-           c.getRg(),
-           c.getCpf(),
-           c.getEmail(),
-         
-           c.getSenha(),
-           c.getCargo(),
-           c.getNivel(),
            
+           c.getCnpj(),
+           c.getEmail(),
            c.getTelefone(),
            c.getCelular(),
            c.getCep(),
@@ -626,17 +546,15 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         // TODO add your handling code here:
         
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            
-        String nome =  txtNome.getText();
-        Funcionario obj = new Funcionario();
-        FuncionarioDAO dao = new FuncionarioDAO();
+          String nome =  txtNome.getText();
+          Fornecedor obj = new Fornecedor();
+          FornecedorDAO dao = new FornecedorDAO();
         
-        obj = dao.buscarFuncionario(nome);
+        obj = dao.buscarFornecedor(nome);
         if(obj.getNome()!= null){
            txtCodigo.setText(String.valueOf(obj.getId()));
            txtNome.setText(obj.getNome());
-           txtRg.setText(obj.getRg());
-           txtCpf.setText(obj.getCpf());
+           txtCnpj.setText(obj.getCnpj());
            txtEmail.setText(obj.getEmail());
            txtTelefone.setText(obj.getTelefone());
            txtCelular.setText(obj.getCelular());
@@ -649,10 +567,8 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
            cbfEstado.setSelectedItem(obj.getEstado());
            
         }else {
-            JOptionPane.showMessageDialog(null, "Cliente nao encontrado");
+            JOptionPane.showMessageDialog(null, "Fornecedor nao encontrado");
         }
-        
-        
         }
         
         
@@ -661,32 +577,24 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         // TODO add your handling code here:
         
-       int linha= tabela.getSelectedRow();
-          if(linha==-1){
-              return;
-          }
-        txtCodigo.setText(String.valueOf(tabela.getValueAt(linha,0)));
-        txtNome.setText(String.valueOf(tabela.getValueAt(linha,1)));
-        txtRg.setText(String.valueOf(tabela.getValueAt(linha,2)));
-        txtCpf.setText(String.valueOf(tabela.getValueAt(linha,3)));
-        txtEmail.setText(String.valueOf(tabela.getValueAt(linha,4)));
-        txtSenha.setText(String.valueOf(tabela.getValueAt(linha,5)));
-        txtCargo.setText(String.valueOf(tabela.getValueAt(linha,6)));
-        cbfNilvel_acesso.setSelectedItem(String.valueOf(tabela.getValueAt(linha,7)));
-        txtTelefone.setText(String.valueOf(tabela.getValueAt(linha,8)));
-        txtCelular.setText(String.valueOf(tabela.getValueAt(linha,9)));
-        txtCep.setText(String.valueOf(tabela.getValueAt(linha,10)));
-        txtEndereco.setText(String.valueOf(tabela.getValueAt(linha,11)));
-        txtNumero.setText(String.valueOf(tabela.getValueAt(linha,12)));
-        txtComplemento.setText(String.valueOf(tabela.getValueAt(linha,13)));
-        txtBairro.setText(String.valueOf(tabela.getValueAt(linha,14)));
-        txtCidade.setText(String.valueOf(tabela.getValueAt(linha,15)));
-        cbfEstado.setSelectedItem(String.valueOf(tabela.getValueAt(linha,16)));
-        
-        
-        
-        
         painel_guias.setSelectedIndex(0);
+        txtCodigo.setText(tabela.getValueAt(tabela.getSelectedRow(),0).toString());
+        txtNome.setText(tabela.getValueAt(tabela.getSelectedRow(),1).toString());
+        
+        txtCnpj.setText(tabela.getValueAt(tabela.getSelectedRow(),2).toString());
+        txtEmail.setText(tabela.getValueAt(tabela.getSelectedRow(),3).toString());
+        txtTelefone.setText(tabela.getValueAt(tabela.getSelectedRow(),4).toString());
+        txtCelular.setText(tabela.getValueAt(tabela.getSelectedRow(),5).toString());
+        txtCep.setText(tabela.getValueAt(tabela.getSelectedRow(),6).toString());
+        txtEndereco.setText(tabela.getValueAt(tabela.getSelectedRow(),7).toString());
+        txtNumero.setText(tabela.getValueAt(tabela.getSelectedRow(),8).toString());
+        txtComplemento.setText(tabela.getValueAt(tabela.getSelectedRow(),9).toString());
+        txtBairro.setText(tabela.getValueAt(tabela.getSelectedRow(),10).toString());
+        txtCidade.setText(tabela.getValueAt(tabela.getSelectedRow(),11).toString());
+        cbfEstado.setSelectedItem(tabela.getValueAt(tabela.getSelectedRow(),12).toString());
+        
+        
+        
         
         
         
@@ -695,96 +603,71 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         
-           try {
-
-        //
-        if (tabela.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, 
-                "Selecione um funcionário na tabela antes de editar!");
-            return;
-        }
-
-        
+ int op = JOptionPane.showConfirmDialog
+(null,"Deseja realmente editar este funcionário?",
+"Confirmação",JOptionPane.YES_NO_OPTION);
+if(op== JOptionPane.YES_OPTION){
+    
+    
+ try {
+        //  Validação 
         if (txtNome.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nome não pode estar vazio!");
+            JOptionPane.showMessageDialog(null, "O nome é obrigatório!");
+            txtNome.requestFocus();
             return;
         }
 
-        if (txtCpf.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "CPF não pode estar vazio!");
+        if (txtCodigo.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Selecione um fornecedor para editar!");
             return;
         }
 
-        if (txtEmail.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Email não pode estar vazio!");
-            return;
-        }
+        // Instanciando   
+        Fornecedor fornecedor = new Fornecedor();
 
-        // Instaciando 
-        Funcionario obj = new Funcionario();
-
-        obj.setNome(txtNome.getText());
-        obj.setRg(txtRg.getText());
-        obj.setCpf(txtCpf.getText());
-        obj.setEmail(txtEmail.getText());
-        obj.setSenha(txtSenha.getText());
-        obj.setCargo(txtCargo.getText());
-
-        // ComboBox correto para nível
-        obj.setNivel(cbfNilvel_acesso.getSelectedItem().toString());
-
-        obj.setTelefone(txtTelefone.getText());
-        obj.setCelular(txtCelular.getText());
-        obj.setCep(txtCep.getText());
-        obj.setEndereco(txtEndereco.getText());
-
-        if (txtNumero.getText().trim().isEmpty()) {
-            obj.setNumero(0);
-        } else {
-            obj.setNumero(Integer.parseInt(txtNumero.getText()));
-        }
-
-        obj.setComplemento(txtComplemento.getText());
-        obj.setBairro(txtBairro.getText());
-        obj.setCidade(txtCidade.getText());
-        obj.setEstado(cbfEstado.getSelectedItem().toString());
-
-        obj.setId(Integer.valueOf(txtCodigo.getText()));
+        fornecedor.setNome(txtNome.getText());
+        fornecedor.setCnpj(txtCnpj.getText());
+        fornecedor.setEmail(txtEmail.getText());
+        fornecedor.setTelefone(txtTelefone.getText());
+        fornecedor.setCelular(txtCelular.getText());
+        fornecedor.setCep(txtCep.getText());
+        fornecedor.setEndereco(txtEndereco.getText());
+        fornecedor.setComplemento(txtComplemento.getText());
+        fornecedor.setBairro(txtBairro.getText());
+        fornecedor.setCidade(txtCidade.getText());
+        fornecedor.setEstado(cbfEstado.getSelectedItem().toString());
 
         
-        FuncionarioDAO dao = new FuncionarioDAO();
-        dao.Editar(obj);
+        fornecedor.setNumero(Integer.parseInt(txtNumero.getText()));
+        fornecedor.setId(Integer.parseInt(txtCodigo.getText()));
 
-        // Limpar tela
-        Utilitarios util = new Utilitarios();
-        util.LimpaTela(jPanel2);
+        // Instaciando o  DAO
+        FornecedorDAO dao = new FornecedorDAO();
+        dao.Editar(fornecedor);
 
-        JOptionPane.showMessageDialog(null, 
-            "Funcionário atualizado com sucesso!");
+        // Mensagem 
+        JOptionPane.showMessageDialog(null, "Fornecedor atualizado com sucesso!");
+
+        
+        new Utilitarios().LimpaTela(jPanel2);
 
     } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, 
-            "Digite apenas números no campo Número!");
+        JOptionPane.showMessageDialog(null, "Número inválido! Verifique os campos numéricos.");
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, 
-            "Erro ao atualizar: " + e.getMessage());
+        JOptionPane.showMessageDialog(null, "Erro ao atualizar fornecedor: " + e.getMessage());
     }
+   
+    
+}
+       
+           
         
-        
-        
-        
-        
-        
-        
-        
-        
-        //// ATÉ AQUI
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        Funcionario obj = new Funcionario();
+        Fornecedor obj = new Fornecedor();
         obj.setId(Integer.valueOf(txtCodigo.getText()));
-        FuncionarioDAO dao = new FuncionarioDAO();
+        FornecedorDAO dao = new FornecedorDAO();
         dao.Excluir(obj);
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
@@ -795,54 +678,15 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void cbfNilvel_acessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbfNilvel_acessoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbfNilvel_acessoActionPerformed
-
-    private void tabelaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyReleased
-        // TODO add your handling code here:
-        
-         String nome = "%"+txtPesquisarNome.getText()+"%";
-       FuncionarioDAO dao = new FuncionarioDAO();
-       List<Funcionario> lista = dao.Filtrar(nome);
-        
-       DefaultTableModel dados = (DefaultTableModel)tabela.getModel();
-       dados.setNumRows(0);
-       for(Funcionario c : lista){
-           dados.addRow(new Object[]{
-           c.getId(),
-           c.getNome(),
-           c.getRg(),
-           c.getCpf(),
-           c.getEmail(),
-           
-           c.getSenha(),
-           c.getCargo(),
-           c.getNivel(),
-           
-           c.getTelefone(),
-           c.getCelular(),
-           c.getCep(),
-           c.getEndereco(),
-           c.getNumero(),
-           c.getComplemento(),
-           c.getBairro(),
-           c.getCidade(),
-           c.getEstado()
-               
-       });
-       }
-    }//GEN-LAST:event_tabelaKeyReleased
-
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
-             Connection conn = null;
+                 Connection conn = null;
     try {
         //  liga ao banco de dados 
         conn = new ConexaoBanco().pegarConexao();
         // Carregar o relatório
         InputStream relatorio = getClass().getResourceAsStream(
-                "/relatorios/relatorioFuncionario.jasper"
+                "/relatorios/relatorioFornecedores.jasper"
         );
         if (relatorio == null) {
             JOptionPane.showMessageDialog(null, 
@@ -859,11 +703,6 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         JOptionPane.showMessageDialog(null,
                 "Erro ao gerar relatório: " + e.getMessage());
     }
-        
-        
-        
-        
-        
         
         
         
@@ -884,13 +723,13 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -898,7 +737,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               new FormularioFuncionarios().setVisible(true);
+               new FormularioFornecedor().setVisible(true);
             }
         });
     }
@@ -914,13 +753,11 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnpesquisar1;
     private javax.swing.JComboBox<String> cbfEstado;
-    private javax.swing.JComboBox<String> cbfNilvel_acesso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -928,10 +765,6 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
@@ -940,20 +773,17 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
     private javax.swing.JTabbedPane painel_guias;
     private javax.swing.JTable tabela;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtCargo;
     private javax.swing.JFormattedTextField txtCelular;
     private javax.swing.JFormattedTextField txtCep;
     private javax.swing.JTextField txtCidade;
+    private javax.swing.JFormattedTextField txtCnpj;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtComplemento;
-    private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtPesquisarNome;
-    private javax.swing.JTextField txtRg;
-    private javax.swing.JPasswordField txtSenha;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

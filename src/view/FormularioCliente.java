@@ -296,6 +296,7 @@ public class FormularioCliente extends javax.swing.JFrame {
         jPanel3.add(jScrollPane1);
         jScrollPane1.setBounds(0, 50, 740, 240);
 
+        btnpesquisar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/pesquisar1.png"))); // NOI18N
         btnpesquisar1.setText("Pesquisar");
         btnpesquisar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,7 +304,7 @@ public class FormularioCliente extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btnpesquisar1);
-        btnpesquisar1.setBounds(370, 10, 130, 25);
+        btnpesquisar1.setBounds(370, 5, 130, 40);
 
         painel_guias.addTab("consulta de Clientes", jPanel3);
 
@@ -481,7 +482,7 @@ public class FormularioCliente extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
      
-  //aqui
+  
     listar();
       
         
@@ -610,13 +611,13 @@ public class FormularioCliente extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         
-         // 🔒 Validação da seleção   seleciona uma tabela 
+         //     seleciona uma tabela 
     if (tabela.getSelectedRow() == -1) {
         JOptionPane.showMessageDialog(null, "Selecione um cliente na tabela!");
         return;
     }
 
-    // 🔒 Validação de campos obrigatórios
+    //  campos obrigatórios
     if (txtNome.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(null, "Nome não pode estar vazio ");
         return;
@@ -641,7 +642,7 @@ public class FormularioCliente extends javax.swing.JFrame {
         obj.setCep(txtCep.getText());
         obj.setEndereco(txtEndereco.getText());
 
-        // 🔥 Conversões seguras
+        
         obj.setNumero(Integer.parseInt(txtNumero.getText()));
         obj.setComplemento(txtComplemento.getText());
         obj.setBairro(txtBairro.getText());
@@ -687,10 +688,10 @@ public class FormularioCliente extends javax.swing.JFrame {
 
     try {
 
-        // ? Conexão com banco (sua classe)
+        // a conexao
         conn = new ConexaoBanco().pegarConexao();
 
-        // ?Carregar relatório do package
+        // Carregar relatório do package
         InputStream relatorio = getClass().getResourceAsStream(
                 "/relatorios/relatorioClientes.jasper"
         );
@@ -701,14 +702,14 @@ public class FormularioCliente extends javax.swing.JFrame {
             return;
         }
 
-        // 🧾 Gerar relatório
+     
         JasperPrint print = JasperFillManager.fillReport(
                 relatorio,
                 null,
                 conn
         );
 
-        // ?️ Exibir relatório
+       
         JasperViewer.viewReport(print, false);
 
     } catch (Exception e) {
