@@ -261,7 +261,7 @@ public class FuncionarioDAO {
     public Funcionario efetuarLogin(String nome, String senha) {
 
     try {
-        String sql = "select * from tb_funcionarios where nome = ? and senha = ?";
+        String sql = "select * from tb_funcionarios where  lower(nome) = ? and senha = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, nome);
         stmt.setString(2, senha);
