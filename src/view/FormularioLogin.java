@@ -136,15 +136,15 @@ public class FormularioLogin extends javax.swing.JFrame{
     String nome = txtNome.getText().trim().toLowerCase();
     String senha = new String(txtSenha.getPassword()).trim().toLowerCase();
 
-    System.out.println("Digitado: " + nome + " / " + senha);
+    //System.out.println("Digitado: " + nome + " / " + senha);
 
     FuncionarioDAO dao = new FuncionarioDAO();
     Funcionario func = dao.efetuarLogin(nome, senha);
 
     if (func != null) {
 
-        System.out.println("Nome: " + func.getNome());
-        System.out.println("Nivel: " + func.getNivel());
+      //  System.out.println("Nome: " + func.getNome());
+       // System.out.println("Nivel: " + func.getNivel());
 
         AreaTrabalho tela = new AreaTrabalho(func);
         tela.setVisible(true);
