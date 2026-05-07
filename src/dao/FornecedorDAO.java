@@ -165,9 +165,7 @@ public class FornecedorDAO {
             String sql = "select * from tb_fornecedores";  
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            
             while (rs.next()){
-                
                 Fornecedor obj = new Fornecedor();
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
@@ -177,24 +175,13 @@ public class FornecedorDAO {
                obj.setTelefone(rs.getString("telefone"));
                obj.setCelular(rs.getString("celular"));
                obj.setCep(rs.getString("Cep"));
-                
-                
                 obj.setEndereco(rs.getString("endereco"));
-               
                 obj.setNumero(rs.getInt("numero"));
-                
                 obj.setComplemento(rs.getString("complemento"));
                 obj.setBairro(rs.getString("bairro"));
                 obj.setCidade(rs.getString("cidade"));
                 obj.setEstado(rs.getString("estado"));
-                
-                
-                
-               
-                
-                
                 lista.add(obj);
-                
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,"erro ao criar a listar de fornecedor " + e);

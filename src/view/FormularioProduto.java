@@ -4,57 +4,61 @@ package view;
 import controledeestoque1.ConexaoBanco;
 import dao.ClientesDAO;
 import dao.FornecedorDAO;
+import dao.ProdutoDAO;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.util.List; 
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Clientes;
 import model.Fornecedor;
+import model.Produto;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import utilitario.Utilitarios;
 
 
-public class FormularioFornecedor extends javax.swing.JFrame  {
+public class FormularioProduto extends javax.swing.JFrame {
       
       public void listar(){
-       FornecedorDAO dao = new FornecedorDAO();
-       List<Fornecedor> lista = dao.Listar();
-       
-          System.out.println("total" + lista.size());
+       ProdutoDAO dao = new ProdutoDAO();
+       List<Produto> lista = dao.Listar();
         
        DefaultTableModel dados = (DefaultTableModel)tabela.getModel();
        dados.setNumRows(0);
-       for(Fornecedor c : lista){
+       for(Produto p : lista){
            dados.addRow(new Object[]{
-           c.getId(),
-           c.getNome(),
+           p.getId(),
+           p.getDescricao(),
+           p.getPreco(),    
+           p.getQtd_estoque(),
            
-           c.getCnpj(),
-           c.getEmail(),
-           c.getTelefone(),
-           c.getCelular(),
-           c.getCep(),
-           c.getEndereco(),
-           c.getNumero(),
-           c.getComplemento(),
-           c.getBairro(),
-           c.getCidade(),
-           c.getEstado()
+           p.getFornecedor().getNome()
+           
                
        });
        }
-       
    }
-                 
-   
-    
-    public FormularioFornecedor() {
-        //super(parent, modal);
+      
+      
+    public void listarFornecedores(){
+        
+        FornecedorDAO dao = new FornecedorDAO();
+        
+        for(Fornecedor f : dao.Listar()){
+          cbfFornecedor.addItem(f);
+          
+    }
+        
+        
+        
+    }
+    public FormularioProduto() {
+       
         initComponents();
+        listarFornecedores();
       
         
     }
@@ -73,29 +77,14 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
         jLabel17 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
+        txtDescricao = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        txtCelular = new javax.swing.JFormattedTextField();
-        jLabel21 = new javax.swing.JLabel();
-        txtTelefone = new javax.swing.JFormattedTextField();
-        jLabel22 = new javax.swing.JLabel();
-        txtCep = new javax.swing.JFormattedTextField();
+        txtPreco = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
-        txtEndereco = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        txtNumero = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
-        txtBairro = new javax.swing.JTextField();
-        jLabel25 = new javax.swing.JLabel();
-        txtCidade = new javax.swing.JTextField();
-        jLabel26 = new javax.swing.JLabel();
-        txtComplemento = new javax.swing.JTextField();
-        cbfEstado = new javax.swing.JComboBox<>();
-        txtCnpj = new javax.swing.JFormattedTextField();
-        jLabel1 = new javax.swing.JLabel();
+        txtQtd_Estoque = new javax.swing.JTextField();
+        cbfFornecedor = new javax.swing.JComboBox();
+        jLabel29 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         txtPesquisarNome = new javax.swing.JTextField();
@@ -111,7 +100,7 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
         TituloCadastro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Fornecedor");
+        setTitle("Cadastro de Produto");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -129,23 +118,23 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
 
         jLabel17.setText("Código");
         jPanel2.add(jLabel17);
-        jLabel17.setBounds(10, 10, 33, 15);
+        jLabel17.setBounds(30, 10, 40, 15);
 
         txtCodigo.setEditable(false);
         jPanel2.add(txtCodigo);
-        txtCodigo.setBounds(50, -1, 70, 30);
+        txtCodigo.setBounds(90, 0, 90, 30);
 
-        jLabel18.setText("Nome");
+        jLabel18.setText("Descricao");
         jPanel2.add(jLabel18);
-        jLabel18.setBounds(10, 50, 40, 15);
+        jLabel18.setBounds(20, 50, 80, 15);
 
-        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtNomeKeyPressed(evt);
+                txtDescricaoKeyPressed(evt);
             }
         });
-        jPanel2.add(txtNome);
-        txtNome.setBounds(80, 40, 340, 30);
+        jPanel2.add(txtDescricao);
+        txtDescricao.setBounds(120, 40, 176, 30);
 
         btnPesquisar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/pesquisar1.png"))); // NOI18N
@@ -156,103 +145,47 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
             }
         });
         jPanel2.add(btnPesquisar);
-        btnPesquisar.setBounds(290, 0, 160, 30);
+        btnPesquisar.setBounds(330, 0, 210, 70);
 
-        jLabel19.setText("email");
+        jLabel19.setText("Fornecedor");
         jPanel2.add(jLabel19);
-        jLabel19.setBounds(10, 80, 60, 15);
-        jPanel2.add(txtEmail);
-        txtEmail.setBounds(90, 80, 176, 30);
+        jLabel19.setBounds(30, 130, 110, 20);
+        jPanel2.add(txtPreco);
+        txtPreco.setBounds(90, 80, 176, 30);
 
-        jLabel20.setText("Celular");
-        jPanel2.add(jLabel20);
-        jLabel20.setBounds(280, 80, 80, 20);
-
-        try {
-            txtCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel2.add(txtCelular);
-        txtCelular.setBounds(353, 80, 100, 30);
-
-        jLabel21.setText("Telefone");
-        jPanel2.add(jLabel21);
-        jLabel21.setBounds(460, 90, 42, 15);
-
-        try {
-            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel2.add(txtTelefone);
-        txtTelefone.setBounds(510, 80, 134, 30);
-
-        jLabel22.setText("Cep");
-        jPanel2.add(jLabel22);
-        jLabel22.setBounds(10, 120, 50, 15);
-
-        try {
-            txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel2.add(txtCep);
-        txtCep.setBounds(70, 120, 133, 30);
-
-        jLabel23.setText("Endereco ");
+        jLabel23.setText("Quantidade");
         jPanel2.add(jLabel23);
-        jLabel23.setBounds(210, 120, 90, 15);
-        jPanel2.add(txtEndereco);
-        txtEndereco.setBounds(310, 120, 190, 30);
+        jLabel23.setBounds(280, 90, 90, 15);
+        jPanel2.add(txtQtd_Estoque);
+        txtQtd_Estoque.setBounds(390, 80, 180, 30);
 
-        jLabel8.setText("nº");
-        jPanel2.add(jLabel8);
-        jLabel8.setBounds(540, 130, 20, 15);
-        jPanel2.add(txtNumero);
-        txtNumero.setBounds(610, 120, 90, 30);
-
-        jLabel24.setText("Bairro");
-        jPanel2.add(jLabel24);
-        jLabel24.setBounds(10, 170, 120, 20);
-        jPanel2.add(txtBairro);
-        txtBairro.setBounds(160, 160, 110, 30);
-
-        jLabel25.setText("Cidade");
-        jPanel2.add(jLabel25);
-        jLabel25.setBounds(290, 170, 100, 15);
-        jPanel2.add(txtCidade);
-        txtCidade.setBounds(390, 160, 130, 30);
-
-        jLabel26.setText("Complemento ");
-        jPanel2.add(jLabel26);
-        jLabel26.setBounds(10, 240, 100, 15);
-
-        txtComplemento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtComplementoActionPerformed(evt);
+        cbfFornecedor.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                cbfFornecedorAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        jPanel2.add(txtComplemento);
-        txtComplemento.setBounds(110, 230, 50, 30);
+        cbfFornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbfFornecedorMouseClicked(evt);
+            }
+        });
+        cbfFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbfFornecedorActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cbfFornecedor);
+        cbfFornecedor.setBounds(150, 130, 190, 30);
 
-        cbfEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PE", "SP", "RJ", "MA", "AC", "AL", "BA", "MA", "SE", "RN", "CE", "AM", "RO", "PI", "PB", "MG", "MS", "RR", "TO", "PA" }));
-        jPanel2.add(cbfEstado);
-        cbfEstado.setBounds(580, 240, 80, 24);
+        jLabel29.setText("Preço");
+        jPanel2.add(jLabel29);
+        jLabel29.setBounds(20, 90, 60, 15);
 
-        try {
-            txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanel2.add(txtCnpj);
-        txtCnpj.setBounds(240, 230, 120, 30);
-
-        jLabel1.setText("Cnpj");
-        jPanel2.add(jLabel1);
-        jLabel1.setBounds(180, 240, 60, 15);
-
-        painel_guias.addTab("Dados Pessoais", jPanel2);
+        painel_guias.addTab("Dados Produtos", jPanel2);
 
         jPanel3.setLayout(null);
 
@@ -273,7 +206,7 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
 
             },
             new String [] {
-                "id", "Nome", "Cnpj", "Email", "Telefone", "Celular", "Cep", "Endereco", "numero", "complemento", "Bairro", "Cidade", "Estado"
+                "id", "Descricao", "Preco", "qtd_estoque", "Fornecedor"
             }
         ));
         tabela.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -286,7 +219,6 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
         jPanel3.add(jScrollPane1);
         jScrollPane1.setBounds(0, 50, 740, 240);
 
-        btnpesquisar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/buscar.png"))); // NOI18N
         btnpesquisar1.setText("Pesquisar");
         btnpesquisar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -294,9 +226,9 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
             }
         });
         jPanel3.add(btnpesquisar1);
-        btnpesquisar1.setBounds(370, 0, 130, 50);
+        btnpesquisar1.setBounds(370, 0, 160, 40);
 
-        painel_guias.addTab("consulta de Fornecedor", jPanel3);
+        painel_guias.addTab("consulta de Produtos", jPanel3);
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/novo.png"))); // NOI18N
         btnNovo.setText("NOVO");
@@ -344,7 +276,7 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
         TituloCadastro.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         TituloCadastro.setForeground(new java.awt.Color(255, 255, 255));
         TituloCadastro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TituloCadastro.setText("CADASTRO DE FORNECEDOR ");
+        TituloCadastro.setText("CADASTRO DE PRODUTOS");
         TituloCadastro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout PaineltituloLayout = new javax.swing.GroupLayout(Paineltitulo);
@@ -375,17 +307,17 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnImprimir)
+                .addGap(0, 74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(Paineltitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(painel_guias, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painel_guias, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -393,72 +325,57 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
                         .addComponent(btnExcluir)
                         .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 38, Short.MAX_VALUE))
+                .addGap(0, 30, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(758, 578));
+        setSize(new java.awt.Dimension(755, 570));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
         
-        Fornecedor obj = new Fornecedor();
-        obj.setNome(txtNome.getText());
-        
-        obj.setCnpj(txtCnpj.getText());
-        obj.setEmail(txtEmail.getText());
-        obj.setTelefone(txtTelefone.getText());
-        obj.setCelular(txtCelular.getText());
-        obj.setCep(txtCep.getText());
-        obj.setEndereco(txtEndereco.getText());
-        obj.setNumero(Integer.valueOf(txtNumero.getText()));
-        obj.setComplemento(txtComplemento.getText());
-        obj.setBairro(txtBairro.getText());
-        obj.setCidade(txtCidade.getText());
-        obj.setEstado(cbfEstado.getSelectedItem().toString());
-        
-        FornecedorDAO dao = new FornecedorDAO();
+        Produto obj = new Produto();
+        obj.setDescricao(txtDescricao.getText());
+        obj.setPreco(Double.valueOf(txtPreco.getText()));
+        obj.setQtd_estoque(Integer.valueOf(txtQtd_Estoque.getText()));
+        obj.setFornecedor((Fornecedor)cbfFornecedor.getSelectedItem());
+       
+               
+        ProdutoDAO dao = new ProdutoDAO();
         dao.Salvar(obj);
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
         
-      
+        JOptionPane.showMessageDialog(null,"Salvou");
             
         
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void txtComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtComplementoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtComplementoActionPerformed
-
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // TODO add your handling code here:
         
-        String nome =  txtNome.getText();
-        Fornecedor obj = new Fornecedor();
-        FornecedorDAO dao = new FornecedorDAO();
+        String nome =  txtDescricao.getText();
         
-        obj = dao.buscarFornecedor(nome);
-        if(obj.getNome() != null){
+        Produto obj = new Produto();
+        ProdutoDAO dao = new ProdutoDAO();
+        
+        Fornecedor  f = new Fornecedor();
+        FornecedorDAO  daof = new FornecedorDAO();
+        
+        obj = dao.BuscarProdutos(nome);
+        
+        if(obj.getDescricao()!= null){
            txtCodigo.setText(String.valueOf(obj.getId()));
-           txtNome.setText(obj.getNome());
+           txtDescricao.setText(obj.getDescricao());
+           txtPreco.setText(String.valueOf(obj.getPreco()));
+           txtQtd_Estoque.setText(String.valueOf(obj.getQtd_estoque()));
            
-           txtCnpj.setText(obj.getCnpj());
+           f = daof.buscarFornecedor(obj.getFornecedor().getNome());
            
-           txtEmail.setText(obj.getEmail());
-           txtTelefone.setText(obj.getTelefone());
-           txtCelular.setText(obj.getCelular());
-           txtCep.setText(obj.getCep());
-           txtEndereco.setText(obj.getEndereco());
-           txtNumero.setText(String.valueOf(obj.getNumero()));
-           txtComplemento.setText(obj.getComplemento());
-           txtBairro.setText(obj.getBairro());
-           txtCidade.setText(obj.getCidade());
-           cbfEstado.setSelectedItem(obj.getEstado());
+           cbfFornecedor.getModel().setSelectedItem(f);
            
         }else {
-            JOptionPane.showMessageDialog(null, "Fornecedor nao encontrado");
+            JOptionPane.showMessageDialog(null, "Cliente nao encontrado");
         }
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
@@ -484,114 +401,89 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
     private void btnpesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisar1ActionPerformed
         // TODO add your handling code here:
        String nome = "%"+txtPesquisarNome.getText()+"%";
-       ClientesDAO dao = new ClientesDAO();
-       List<Clientes> lista = dao.Filtrar(nome);
+       ProdutoDAO dao = new ProdutoDAO();
+       List<Produto> lista = dao.Filtrar(nome);
         
        DefaultTableModel dados = (DefaultTableModel)tabela.getModel();
        dados.setNumRows(0);
-       for(Clientes c : lista){
+       for(Produto c : lista){
            dados.addRow(new Object[]{
            c.getId(),
-           c.getNome(),
-           
-           c.getCpf(),
-           c.getEmail(),
-           c.getTelefone(),
-           c.getCelular(),
-           c.getCep(),
-           c.getEndereco(),
-           c.getNumero(),
-           c.getComplemento(),
-           c.getBairro(),
-           c.getCidade(),
-           c.getEstado()
-               
+           c.getDescricao(),
+           c.getPreco(),
+           c.getQtd_estoque(),
+           c.getFornecedor().getNome()
        });
        }
     }//GEN-LAST:event_btnpesquisar1ActionPerformed
 
     private void txtPesquisarNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarNomeKeyReleased
         // TODO add your handling code here:
-        String nome = "%"+txtPesquisarNome.getText()+"%";
-       FornecedorDAO dao = new FornecedorDAO();
-       List<Fornecedor> lista = dao.Filtrar(nome);
+      String nome = "%"+txtPesquisarNome.getText()+"%";
+       ProdutoDAO dao = new ProdutoDAO();
+       List<Produto> lista = dao.Filtrar(nome);
         
        DefaultTableModel dados = (DefaultTableModel)tabela.getModel();
        dados.setNumRows(0);
-       for(Fornecedor c : lista){
+       for(Produto c : lista){
            dados.addRow(new Object[]{
            c.getId(),
-           c.getNome(),
-           
-           c.getCnpj(),
-           c.getEmail(),
-           c.getTelefone(),
-           c.getCelular(),
-           c.getCep(),
-           c.getEndereco(),
-           c.getNumero(),
-           c.getComplemento(),
-           c.getBairro(),
-           c.getCidade(),
-           c.getEstado()
-               
+           c.getDescricao(),
+           c.getPreco(),
+           c.getQtd_estoque(),
+           c.getFornecedor().getNome()
        });
-        
-        
        }
         
     }//GEN-LAST:event_txtPesquisarNomeKeyReleased
 
-    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
-        // TODO add your handling code here:
+    private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
         
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-          String nome =  txtNome.getText();
-          Fornecedor obj = new Fornecedor();
-          FornecedorDAO dao = new FornecedorDAO();
         
-        obj = dao.buscarFornecedor(nome);
-        if(obj.getNome()!= null){
+        String nome =  txtDescricao.getText();
+            
+        Produto obj = new Produto();
+        ProdutoDAO dao = new ProdutoDAO();
+        Fornecedor f = new Fornecedor();
+        FornecedorDAO daof = new FornecedorDAO();
+        
+        obj = dao.BuscarProdutos(nome);
+        if(obj.getDescricao()!= null){
            txtCodigo.setText(String.valueOf(obj.getId()));
-           txtNome.setText(obj.getNome());
-           txtCnpj.setText(obj.getCnpj());
-           txtEmail.setText(obj.getEmail());
-           txtTelefone.setText(obj.getTelefone());
-           txtCelular.setText(obj.getCelular());
-           txtCep.setText(obj.getCep());
-           txtEndereco.setText(obj.getEndereco());
-           txtNumero.setText(String.valueOf(obj.getNumero()));
-           txtComplemento.setText(obj.getComplemento());
-           txtBairro.setText(obj.getBairro());
-           txtCidade.setText(obj.getCidade());
-           cbfEstado.setSelectedItem(obj.getEstado());
+           txtDescricao.setText(String.valueOf(obj.getDescricao()));
+           txtPreco.setText(String.valueOf(obj.getId()));
            
+           txtQtd_Estoque.setText(String.valueOf(obj.getQtd_estoque()));
+           
+           
+           f = daof.buscarFornecedor(obj.getFornecedor().getNome());
+           cbfFornecedor.getModel().setSelectedItem(nome);
         }else {
-            JOptionPane.showMessageDialog(null, "Fornecedor nao encontrado");
+            JOptionPane.showMessageDialog(null, "Cliente nao encontrado");
         }
         }
         
         
-    }//GEN-LAST:event_txtNomeKeyPressed
+    }//GEN-LAST:event_txtDescricaoKeyPressed
 
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         // TODO add your handling code here:
         
         painel_guias.setSelectedIndex(0);
         txtCodigo.setText(tabela.getValueAt(tabela.getSelectedRow(),0).toString());
-        txtNome.setText(tabela.getValueAt(tabela.getSelectedRow(),1).toString());
+        txtDescricao.setText(tabela.getValueAt(tabela.getSelectedRow(),1).toString());
         
-        txtCnpj.setText(tabela.getValueAt(tabela.getSelectedRow(),2).toString());
-        txtEmail.setText(tabela.getValueAt(tabela.getSelectedRow(),3).toString());
-        txtTelefone.setText(tabela.getValueAt(tabela.getSelectedRow(),4).toString());
-        txtCelular.setText(tabela.getValueAt(tabela.getSelectedRow(),5).toString());
-        txtCep.setText(tabela.getValueAt(tabela.getSelectedRow(),6).toString());
-        txtEndereco.setText(tabela.getValueAt(tabela.getSelectedRow(),7).toString());
-        txtNumero.setText(tabela.getValueAt(tabela.getSelectedRow(),8).toString());
-        txtComplemento.setText(tabela.getValueAt(tabela.getSelectedRow(),9).toString());
-        txtBairro.setText(tabela.getValueAt(tabela.getSelectedRow(),10).toString());
-        txtCidade.setText(tabela.getValueAt(tabela.getSelectedRow(),11).toString());
-        cbfEstado.setSelectedItem(tabela.getValueAt(tabela.getSelectedRow(),12).toString());
+        txtPreco.setText(tabela.getValueAt(tabela.getSelectedRow(),2).toString());
+        
+        txtQtd_Estoque.setText(tabela.getValueAt(tabela.getSelectedRow(),3).toString());
+        
+        
+        Fornecedor f = new Fornecedor();
+        FornecedorDAO daof = new FornecedorDAO();
+        f = daof.buscarFornecedor(tabela.getValueAt(tabela.getSelectedRow(),4).toString());
+        cbfFornecedor.removeAllItems();
+        cbfFornecedor.getModel().setSelectedItem(f);
         
         
         
@@ -602,72 +494,54 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        
-int op = JOptionPane.showConfirmDialog
-(null,"Deseja realmente editar este funcionário?",
-"Confirmação",JOptionPane.YES_NO_OPTION);
-if(op== JOptionPane.YES_OPTION){
-    
-    
- try {
-        //  Validação 
-        if (txtNome.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "O nome é obrigatório!");
-            txtNome.requestFocus();
-            return;
-        }
+        Produto obj = new Produto();
 
-        if (txtCodigo.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione um fornecedor para editar!");
-            return;
-        }
+obj.setId(Integer.valueOf(txtCodigo.getText()));
 
-        // Instanciando   
-        Fornecedor fornecedor = new Fornecedor();
+obj.setDescricao(txtDescricao.getText());
 
-        fornecedor.setNome(txtNome.getText());
-        fornecedor.setCnpj(txtCnpj.getText());
-        fornecedor.setEmail(txtEmail.getText());
-        fornecedor.setTelefone(txtTelefone.getText());
-        fornecedor.setCelular(txtCelular.getText());
-        fornecedor.setCep(txtCep.getText());
-        fornecedor.setEndereco(txtEndereco.getText());
-        fornecedor.setComplemento(txtComplemento.getText());
-        fornecedor.setBairro(txtBairro.getText());
-        fornecedor.setCidade(txtCidade.getText());
-        fornecedor.setEstado(cbfEstado.getSelectedItem().toString());
+obj.setPreco(
+    Double.valueOf(
+        txtPreco.getText().replace(",", ".")
+    )
+);
 
-        
-        fornecedor.setNumero(Integer.parseInt(txtNumero.getText()));
-        fornecedor.setId(Integer.parseInt(txtCodigo.getText()));
+obj.setQtd_estoque(
+    Integer.valueOf(txtQtd_Estoque.getText())
+);
 
-        // Instaciando o  DAO
-        FornecedorDAO dao = new FornecedorDAO();
-        dao.Editar(fornecedor);
+Fornecedor f = (Fornecedor)
+    cbfFornecedor.getSelectedItem();
 
-        // Mensagem 
-        JOptionPane.showMessageDialog(null, "Fornecedor atualizado com sucesso!");
+if(f == null){
 
-        
-        new Utilitarios().LimpaTela(jPanel2);
+    JOptionPane.showMessageDialog(null,
+        "Selecione um fornecedor");
 
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Número inválido! Verifique os campos numéricos.");
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Erro ao atualizar fornecedor: " + e.getMessage());
-    }
-   
-    
+    return;
 }
+
+obj.setFornecedor(f);
+
+ProdutoDAO daop = new ProdutoDAO();
+
+daop.Editar(obj);
+
+Utilitarios util = new Utilitarios();
+
+util.LimpaTela(jPanel2);
+
+JOptionPane.showMessageDialog(null,"Salvou");
+        
        
-           
+            
         
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        Fornecedor obj = new Fornecedor();
+        Produto obj = new Produto();
         obj.setId(Integer.valueOf(txtCodigo.getText()));
-        FornecedorDAO dao = new FornecedorDAO();
+        ProdutoDAO dao = new ProdutoDAO();
         dao.Excluir(obj);
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
@@ -678,15 +552,41 @@ if(op== JOptionPane.YES_OPTION){
         
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void cbfFornecedorAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbfFornecedorAncestorAdded
+        // TODO add your handling code here:
+        
+          
+          
+          
+    }//GEN-LAST:event_cbfFornecedorAncestorAdded
+
+    private void cbfFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbfFornecedorMouseClicked
+        // TODO add your handling code here:
+        
+        FornecedorDAO dao = new FornecedorDAO();
+          List<Fornecedor> lista = dao.Listar();
+          cbfFornecedor.removeAllItems();
+          for(Fornecedor f : lista){
+              cbfFornecedor.addItem(f);
+          }
+        
+        
+        
+    }//GEN-LAST:event_cbfFornecedorMouseClicked
+
+    private void cbfFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbfFornecedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbfFornecedorActionPerformed
+
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
-                 Connection conn = null;
+                  Connection conn = null;
     try {
         //  liga ao banco de dados 
         conn = new ConexaoBanco().pegarConexao();
         // Carregar o relatório
         InputStream relatorio = getClass().getResourceAsStream(
-                "/relatorios/relatorioFornecedores.jasper"
+                "/relatorios/relatorioProduto.jasper"
         );
         if (relatorio == null) {
             JOptionPane.showMessageDialog(null, 
@@ -703,6 +603,9 @@ if(op== JOptionPane.YES_OPTION){
         JOptionPane.showMessageDialog(null,
                 "Erro ao gerar relatório: " + e.getMessage());
     }
+        
+        
+        
         
         
         
@@ -723,13 +626,13 @@ if(op== JOptionPane.YES_OPTION){
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -737,7 +640,7 @@ if(op== JOptionPane.YES_OPTION){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               new FormularioFornecedor().setVisible(true);
+               new FormularioProduto().setVisible(true);
             }
         });
     }
@@ -752,38 +655,23 @@ if(op== JOptionPane.YES_OPTION){
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnpesquisar1;
-    private javax.swing.JComboBox<String> cbfEstado;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox cbfFornecedor;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane painel_guias;
+    public javax.swing.JTabbedPane painel_guias;
     private javax.swing.JTable tabela;
-    private javax.swing.JTextField txtBairro;
-    private javax.swing.JFormattedTextField txtCelular;
-    private javax.swing.JFormattedTextField txtCep;
-    private javax.swing.JTextField txtCidade;
-    private javax.swing.JFormattedTextField txtCnpj;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtComplemento;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEndereco;
-    private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtPesquisarNome;
-    private javax.swing.JFormattedTextField txtTelefone;
+    private javax.swing.JTextField txtPreco;
+    private javax.swing.JTextField txtQtd_Estoque;
     // End of variables declaration//GEN-END:variables
 }
