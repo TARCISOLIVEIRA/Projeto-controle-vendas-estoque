@@ -29,7 +29,10 @@ public class Fornecedor extends Clientes {
         this.cnpj = cnpj;
     }
 
-    
+    @Override
+    public String toString(){
+         return this.getNome();
+    }
     
     
     
