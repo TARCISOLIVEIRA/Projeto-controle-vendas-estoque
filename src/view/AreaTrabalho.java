@@ -511,8 +511,8 @@ public class AreaTrabalho extends javax.swing.JFrame{
     private void menuAbrirPdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAbrirPdvActionPerformed
         // TODO add your handling code here:
         
-        //FormularioVendas fv = new FormularioVendas();
-       // fv.setVisible(true);
+        FormularioVendas fv = new FormularioVendas();
+       fv.setVisible(true);
     }//GEN-LAST:event_menuAbrirPdvActionPerformed
 
     private void menuPosicaoDoDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPosicaoDoDiaActionPerformed
