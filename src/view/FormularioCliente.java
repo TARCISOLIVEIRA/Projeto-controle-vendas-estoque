@@ -421,7 +421,12 @@ public class FormularioCliente extends javax.swing.JFrame {
         obj.setCelular(txtCelular.getText());
         obj.setCep(txtCep.getText());
         obj.setEndereco(txtEndereco.getText());
-        obj.setNumero(Integer.valueOf(txtNumero.getText()));
+        try{
+        obj.setNumero(Integer.parseInt(txtNumero.getText()));   
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, " O campo numero aceita apenas numero");
+            return;
+        }
         obj.setComplemento(txtComplemento.getText());
         obj.setBairro(txtBairro.getText());
         obj.setCidade(txtCidade.getText());
