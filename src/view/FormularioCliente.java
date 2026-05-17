@@ -148,6 +148,7 @@ public class FormularioCliente extends javax.swing.JFrame {
         jPanel2.add(txtNome);
         txtNome.setBounds(56, 40, 200, 30);
 
+        btnPesquisar.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/pesquisar1.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -601,10 +602,13 @@ public class FormularioCliente extends javax.swing.JFrame {
         txtCelular.setText(tabela.getValueAt(tabela.getSelectedRow(),6).toString());
         txtCep.setText(tabela.getValueAt(tabela.getSelectedRow(),7).toString());
         txtEndereco.setText(tabela.getValueAt(tabela.getSelectedRow(),8).toString());
-        txtComplemento.setText(tabela.getValueAt(tabela.getSelectedRow(),9).toString());
-        txtBairro.setText(tabela.getValueAt(tabela.getSelectedRow(),10).toString());
-        txtCidade.setText(tabela.getValueAt(tabela.getSelectedRow(),11).toString());
-        cbfEstado.setSelectedItem(tabela.getValueAt(tabela.getSelectedRow(),12).toString());
+        txtNumero.setText(tabela.getValueAt(tabela.getSelectedRow(),9).toString());
+                
+                            
+        txtComplemento.setText(tabela.getValueAt(tabela.getSelectedRow(),10).toString());
+        txtBairro.setText(tabela.getValueAt(tabela.getSelectedRow(),11).toString());
+        txtCidade.setText(tabela.getValueAt(tabela.getSelectedRow(),12).toString());
+        cbfEstado.setSelectedItem(tabela.getValueAt(tabela.getSelectedRow(),13).toString());
         
         
         

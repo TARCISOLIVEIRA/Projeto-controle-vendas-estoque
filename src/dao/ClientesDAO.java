@@ -46,17 +46,11 @@ public class ClientesDAO {
             stmt.close();
             
             JOptionPane.showMessageDialog(null,"cliente salvo com sucesso");
-                    
-            
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null,"Erro ao salvar o cliente"+ erro);
             
         }
-        
-        
     }
-    
-    
      public void Editar(Clientes cli){
         
         try {
@@ -130,10 +124,14 @@ public class ClientesDAO {
                 obj.setCep(rs.getString("cep"));
                 obj.setEndereco(rs.getString("endereco"));
                 obj.setNumero(rs.getInt("numero"));
-                obj.setComplemento(rs.getString("complemento"));
+                 obj.setComplemento(rs.getString("complemento"));
+                
                 obj.setBairro(rs.getString("bairro"));
-                obj.setCidade(rs.getString("cidade"));
-                obj.setEstado(rs.getString("estado"));
+                 obj.setCidade(rs.getString("cidade"));
+                  obj.setEstado(rs.getString("estado"));
+               
+               
+               
                 
             } 
             return obj;
@@ -169,6 +167,9 @@ public class ClientesDAO {
                 obj.setBairro(rs.getString("bairro"));
                 obj.setCidade(rs.getString("cidade"));
                 obj.setEstado(rs.getString("estado"));
+                
+                
+                
                 
             } 
             return obj;

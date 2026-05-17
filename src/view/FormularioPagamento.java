@@ -252,18 +252,7 @@ txtTroco.setText(df.format(troco));
 
 
 
-//txtTroco.setText(String.valueOf(troco));
-       
-       
-       
-       
-       
-       
-        
-        
-        
-        
-        // AQUI  
+ // AQUI  
         if (totalPago >= totalVenda) {
 
             Vendas v = new Vendas();
@@ -304,8 +293,7 @@ txtTroco.setText(df.format(troco));
 
     itensDAO.salvar(item);
                 
-                
-                
+                 
             }
 
            
@@ -350,7 +338,7 @@ txtTroco.setText(df.format(troco));
               for (int i = 0; i < meus_produtos.getRowCount(); i++) {
                 int qtd_estoque, qtd_comprada, qtd_atualizada;
                 
-                  System.out.println("looooo" +i);
+                //  System.out.println("looooo" +i);
 
             
                 Produto p = new Produto();
@@ -375,8 +363,8 @@ txtTroco.setText(df.format(troco));
 
                 pd.baixaEstoque(p.getId(), qtd_atualizada);
 
-                ItensVendasDAO ivd = new ItensVendasDAO();
-                ivd.salvar(item);
+               // ItensVendasDAO ivd = new ItensVendasDAO();
+               // ivd.salvar(item);
             }
             
         

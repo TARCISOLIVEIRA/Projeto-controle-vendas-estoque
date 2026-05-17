@@ -43,7 +43,7 @@ public class FormularioProduto extends javax.swing.JFrame {
    }
       
       
-    public void listarFornecedores(){
+  /*  public void listarFornecedores(){
         
         FornecedorDAO dao = new FornecedorDAO();
         
@@ -54,7 +54,7 @@ public class FormularioProduto extends javax.swing.JFrame {
         
         
         
-    }
+    }*/
     public FormularioProduto() {
        
         initComponents();
@@ -179,7 +179,7 @@ public class FormularioProduto extends javax.swing.JFrame {
             }
         });
         jPanel2.add(cbfFornecedor);
-        cbfFornecedor.setBounds(150, 130, 190, 30);
+        cbfFornecedor.setBounds(130, 130, 190, 30);
 
         jLabel29.setText("Preço");
         jPanel2.add(jLabel29);
@@ -334,21 +334,58 @@ public class FormularioProduto extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
-        Produto obj = new Produto();
-        obj.setDescricao(txtDescricao.getText());
-        obj.setPreco(Double.valueOf(txtPreco.getText()));
-        obj.setQtd_estoque(Integer.valueOf(txtQtd_Estoque.getText()));
-        obj.setFornecedor((Fornecedor)cbfFornecedor.getSelectedItem());
-       
-               
-        ProdutoDAO dao = new ProdutoDAO();
-        dao.Salvar(obj);
-        Utilitarios util = new Utilitarios();
-        util.LimpaTela(jPanel2);
-        
-        JOptionPane.showMessageDialog(null,"Salvou");
-            
-        
+         if(txtDescricao.getText().trim().isEmpty()){
+
+        JOptionPane.showMessageDialog(null,
+                "Por favor preencha a descrição!");
+
+        txtDescricao.requestFocus();
+        return;
+    }
+
+    if(txtPreco.getText().trim().isEmpty()){
+
+        JOptionPane.showMessageDialog(null,
+                "Por favor preencha o preço!");
+
+        txtPreco.requestFocus();
+        return;
+    }
+
+    if(txtQtd_Estoque.getText().trim().isEmpty()){
+
+        JOptionPane.showMessageDialog(null,
+                "Por favor preencha a quantidade!");
+
+        txtQtd_Estoque.requestFocus();
+        return;
+    }
+
+    String descricao = txtDescricao.getText().trim().toLowerCase();
+
+    if(!descricao.isEmpty()){
+
+        descricao = descricao.substring(0,1).toUpperCase()
+                + descricao.substring(1);
+    }
+
+    Produto obj = new Produto();
+
+    obj.setDescricao(descricao);
+    obj.setPreco(Double.valueOf(txtPreco.getText()));
+    obj.setQtd_estoque(Integer.valueOf(txtQtd_Estoque.getText()));
+    obj.setFornecedor((Fornecedor) cbfFornecedor.getSelectedItem());
+
+    ProdutoDAO dao = new ProdutoDAO();
+
+    boolean retorno = dao.salvar(obj);
+
+    if(retorno){
+
+        JOptionPane.showMessageDialog(null,
+                "Produto salvo com sucesso!");
+    }
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -375,7 +412,7 @@ public class FormularioProduto extends javax.swing.JFrame {
            cbfFornecedor.getModel().setSelectedItem(f);
            
         }else {
-            JOptionPane.showMessageDialog(null, "Cliente nao encontrado");
+            JOptionPane.showMessageDialog(null, "Produto nao encontrado");
         }
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
@@ -439,7 +476,10 @@ public class FormularioProduto extends javax.swing.JFrame {
 
     private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
         
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+      
+        //txtPreco.requestFocus();
+        
+        /*  if(evt.getKeyCode()== KeyEvent.VK_ENTER){
         
         String nome =  txtDescricao.getText();
             
@@ -452,7 +492,7 @@ public class FormularioProduto extends javax.swing.JFrame {
         if(obj.getDescricao()!= null){
            txtCodigo.setText(String.valueOf(obj.getId()));
            txtDescricao.setText(String.valueOf(obj.getDescricao()));
-           txtPreco.setText(String.valueOf(obj.getId()));
+           txtPreco.setText(String.valueOf(obj.getPreco()));
            
            txtQtd_Estoque.setText(String.valueOf(obj.getQtd_estoque()));
            
@@ -462,7 +502,7 @@ public class FormularioProduto extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(null, "Cliente nao encontrado");
         }
-        }
+        }*/
         
         
     }//GEN-LAST:event_txtDescricaoKeyPressed
@@ -563,12 +603,12 @@ JOptionPane.showMessageDialog(null,"Salvou");
     private void cbfFornecedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbfFornecedorMouseClicked
         // TODO add your handling code here:
         
-        FornecedorDAO dao = new FornecedorDAO();
+      /* FornecedorDAO dao = new FornecedorDAO();
           List<Fornecedor> lista = dao.Listar();
           cbfFornecedor.removeAllItems();
           for(Fornecedor f : lista){
               cbfFornecedor.addItem(f);
-          }
+          }*/
         
         
         
@@ -611,6 +651,24 @@ JOptionPane.showMessageDialog(null,"Salvou");
         
     }//GEN-LAST:event_btnImprimirActionPerformed
 
+    
+    
+    public void listarFornecedores(){
+
+    FornecedorDAO dao = new FornecedorDAO();
+
+    List<Fornecedor> lista = dao.Listar();
+
+    cbfFornecedor.removeAllItems();
+
+    for(Fornecedor f : lista){
+
+        cbfFornecedor.addItem(f);
+    }
+}
+    
+    
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

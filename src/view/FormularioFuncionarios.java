@@ -697,7 +697,7 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         
            try {
 
-        //
+        
         if (tabela.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, 
                 "Selecione um funcionário na tabela antes de editar!");
@@ -720,7 +720,6 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
             return;
         }
 
-        // Instaciando 
         Funcionario obj = new Funcionario();
 
         obj.setNome(txtNome.getText());
@@ -730,7 +729,6 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         obj.setSenha(txtSenha.getText());
         obj.setCargo(txtCargo.getText());
 
-        // ComboBox correto para nível
         obj.setNivel(cbfNilvel_acesso.getSelectedItem().toString());
 
         obj.setTelefone(txtTelefone.getText());
@@ -755,7 +753,6 @@ public class FormularioFuncionarios extends javax.swing.JFrame {   //  JDialog
         FuncionarioDAO dao = new FuncionarioDAO();
         dao.Editar(obj);
 
-        // Limpar tela
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
 
