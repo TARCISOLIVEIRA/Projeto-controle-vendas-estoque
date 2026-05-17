@@ -35,7 +35,7 @@ public class ItensVendasDAO {
             stmt.execute();
             stmt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, " erro ao salvar o Itens");
+            JOptionPane.showMessageDialog(null, " erro ao salvar o Itens" + e.getMessage());
         }
     }
     
@@ -57,12 +57,10 @@ public class ItensVendasDAO {
                p.setPreco(rs.getDouble("prod_preco"));
                item.setProduto(p);
                
+                
                
-               
-               
-               item.setProduto(p);
                item.setQtd(rs.getInt("qtd"));
-               item.setSubtotal(rs.getInt("subtotal"));
+               item.setSubtotal(rs.getDouble("subtotal"));
                lista.add(item);
              }
             

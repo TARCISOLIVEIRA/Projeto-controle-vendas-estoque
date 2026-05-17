@@ -22,33 +22,71 @@ public class ProdutoDAO {
         this.conn = new ConexaoBanco().pegarConexao();
     }
     
-    public void Salvar(Produto cli){
+    
+    
+    
+    
+
+
+public boolean salvar(Produto obj) {
+    
+    try {
+        // Verificar se produto já existe
+        String sqlVerifica = "SELECT * FROM tb_produtos WHERE descricao = ?";
+
+        PreparedStatement stmtVerifica = conn.prepareStatement(sqlVerifica);
+        stmtVerifica.setString(1, obj.getDescricao());
+
+        ResultSet rs = stmtVerifica.executeQuery();
+
+        if (rs.next()) {
+            JOptionPane.showMessageDialog(null,
+                    "Produto já cadastrado!");
+            return false;
+        }
+
+        // INSERT
+        String sql = "INSERT INTO tb_produtos(descricao, preco, qtd_estoque, for_id) VALUES(?,?,?,?)";
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+
+        stmt.setString(1, obj.getDescricao());
+        stmt.setDouble(2, obj.getPreco());
+        stmt.setInt(3, obj.getQtd_estoque());
+        stmt.setInt(4, obj.getFornecedor().getId());
+
+        stmt.execute();
+        
+        stmt.close();
+        return true;
+
+
+    } catch (Exception erro) {
+        JOptionPane.showMessageDialog(null,
+                "Erro ao cadastrar produto: " + erro.getMessage());
+        return false;
+    }
+}
+    
+    
+    
+  /*  public void Salvar(Produto cli){
         
         try {
-            // 1 Criando o sql;
             String sql = "insert into tb_Produtos (descricao,preco,qtd_estoque,for_id)" 
                           + "values(?,?,?,?)";
-            // preparação conexao sql com banco
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1,cli.getDescricao());
             stmt.setDouble(2,cli.getPreco());
             stmt.setInt(3,cli.getQtd_estoque());
             stmt.setInt(4,cli.getFornecedor().getId());
-           
-            
             stmt.execute();
             stmt.close();
-            
             JOptionPane.showMessageDialog(null,"Produto salvo com sucesso");
-                    
-            
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null,"Erro ao salvar o Produto"+ erro);
-            
         }
-        
-        
-    }
+    }*/
     
     
      public void Editar(Produto cli){

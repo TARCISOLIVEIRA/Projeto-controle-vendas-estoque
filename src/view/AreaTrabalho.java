@@ -27,42 +27,139 @@ public class AreaTrabalho extends javax.swing.JFrame{
         initComponents();
         this.func = f;
         lblLogado.setText("bem-vindo    " + f.getNome());
-       
+        
+        produtoMaisVendido();
         aplicarPermissoes();
-         alertaEstoqueTrigger();
+        // alertaEstoqueTrigger();
+        verificarEstoque();
         
-       //  verificarEstoque();
-        
-        // verificarEstoque();
+       
     }
     
    
      private Connection conn;
     
     
-    private void verificarEstoque() {
-    StringBuilder mensagem = new StringBuilder();
-       
+  /*  private void verificarEstoque() {
     
-    
-    try (Connection conn = new ConexaoBanco().pegarConexao();
-         PreparedStatement stmt = conn.prepareStatement(
-             "SELECT descricao FROM tb_produtos WHERE qtd_estoque = 0");
+        
+        StringBuilder zerado = new StringBuilder();
+    StringBuilder baixo = new StringBuilder();
+
+    try (Connection com = new ConexaoBanco().pegarConexao();
+
+         PreparedStatement stmt =
+         com.prepareStatement(
+         "SELECT descricao, qtd_estoque FROM tb_produtos");
+
          ResultSet rs = stmt.executeQuery()) {
 
         while (rs.next()) {
-            mensagem.append(rs.getString("descricao")).append("\n");
+
+            String produto = rs.getString("descricao");
+            int qtd = rs.getInt("qtd_estoque");
+
+            if (qtd == 0) {
+
+                zerado.append(produto)
+                       .append("\n");
+
+            } else if (qtd < 10) {
+
+                baixo.append(produto)
+                     .append(" - Quantidade: ")
+                     .append(qtd)
+                     .append("\n");
+            }
         }
 
-        if (mensagem.length() > 0) {
-            JOptionPane.showMessageDialog(null,
-                "Produtos sem estoque:\n" + mensagem.toString());
+        String mensagem = "";
+
+        if (zerado.length() > 0) {
+
+            mensagem += "❌ PRODUTOS SEM ESTOQUE:\n\n"
+                    + zerado.toString() + "\n";
+        }
+
+        if (baixo.length() > 0) {
+
+            mensagem += "⚠ PRODUTOS COM ESTOQUE BAIXO:\n\n"
+                    + baixo.toString();
+        }
+
+        if (!mensagem.isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, mensagem);
         }
 
     } catch (Exception e) {
-       JOptionPane.showMessageDialog(null, "Erro" + e.getMessage());
+
+        JOptionPane.showMessageDialog(
+            null,
+            "Erro: " + e.getMessage()
+        );
     }
+        
+        
+        
 }
+    */
+   
+    
+    private void verificarEstoque() {
+
+    StringBuilder mensagem = new StringBuilder();
+
+    try (Connection con = new ConexaoBanco().pegarConexao();
+
+         PreparedStatement stm = con.prepareStatement(
+            "SELECT descricao, qtd_estoque " +
+            "FROM tb_produtos " +
+            "WHERE qtd_estoque <= 10");
+
+         ResultSet rs = stm.executeQuery()) {
+
+        while (rs.next()) {
+
+            String descricao = rs.getString("descricao");
+            int qtd = rs.getInt("qtd_estoque");
+
+            if (qtd == 0) {
+
+                mensagem.append("❌ SEM ESTOQUE: ")
+                        .append(descricao)
+                        .append("\n");
+
+            } else {
+
+                mensagem.append("⚠ ESTOQUE BAIXO: ")
+                        .append(descricao)
+                        .append(" - Quantidade: ")
+                        .append(qtd)
+                        .append("\n");
+            }
+        }
+
+        if (mensagem.length() > 0) {
+
+            JOptionPane.showMessageDialog(
+                null,
+                mensagem.toString()
+            );
+        }
+
+    } catch (Exception e) {
+
+        JOptionPane.showMessageDialog(
+            null,
+            "Erro: " + e.getMessage()
+        );
+    }
+    }
+
+    
+    
+    
     
     
     private void alertaEstoqueTrigger() {
@@ -80,15 +177,60 @@ public class AreaTrabalho extends javax.swing.JFrame{
         if (mensagem.length() > 0) {
             JOptionPane.showMessageDialog(null,
                 "⚠ Produtos com estoque zerado:\n" + mensagem.toString());
-             //  com.prepareStatement("DELETE from tb_alerta_estoque").executeUpdate();
+            conn.prepareStatement("Delete from tb_alerta_estoque").executeUpdate();
         }
 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
     }
 }
+    
 
+    
+    
+    
 
+private void produtoMaisVendido() {
+
+    try (Connection con = new ConexaoBanco().pegarConexao()) {
+
+        PreparedStatement stm = con.prepareStatement(
+
+            "SELECT descricao, total_vendido " +
+            "FROM tb_produto_mais_vendido " +
+            "ORDER BY total_vendido DESC LIMIT 1"
+
+        );
+
+        ResultSet rs = stm.executeQuery();
+
+        if (rs.next()) {
+
+            String produto = rs.getString("descricao");
+            int total = rs.getInt("total_vendido");
+
+            JOptionPane.showMessageDialog(
+                null,
+                "Produto mais vendido:\n\n" +
+                produto +
+                "\nQuantidade vendida: " + total
+            );
+
+        }
+
+    } catch (Exception e) {
+
+        JOptionPane.showMessageDialog(
+            null,
+            "Erro: " + e.getMessage()
+        );
+
+    }
+
+}
+
+    
+    
     
     
     
@@ -186,11 +328,13 @@ public class AreaTrabalho extends javax.swing.JFrame{
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 102));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Logado"));
-        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 204));
         jPanel1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
 
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nome do responsável:");
 
@@ -209,8 +353,8 @@ public class AreaTrabalho extends javax.swing.JFrame{
                 .addGap(221, 221, 221)
                 .addComponent(lblLogado, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblusuarioLogado, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addComponent(lblusuarioLogado, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,14 +362,13 @@ public class AreaTrabalho extends javax.swing.JFrame{
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblLogado)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addContainerGap(45, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblusuarioLogado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(21, 21, 21))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLogado)
+                            .addComponent(lblusuarioLogado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         painel_Desktop.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -304,7 +447,7 @@ public class AreaTrabalho extends javax.swing.JFrame{
         });
         menuSubProdutos.add(menusubMenuconsulta);
 
-        menuSubMenuFormularioProduto.setText("Formulário de Produto");
+        menuSubMenuFormularioProduto.setText("Cadastrar  de Produto");
         menuSubMenuFormularioProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuSubMenuFormularioProdutoActionPerformed(evt);
@@ -478,9 +621,9 @@ public class AreaTrabalho extends javax.swing.JFrame{
     private void menuSubMenuFormularioProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSubMenuFormularioProdutoActionPerformed
         // TODO add your handling code here:
         
-       // FormularioProduto fp = new FormularioProduto();
+       FormularioProduto fp = new FormularioProduto();
         
-       // fp.setVisible(true);
+       fp.setVisible(true);
         
         
         
@@ -488,6 +631,11 @@ public class AreaTrabalho extends javax.swing.JFrame{
 
     private void menusubMenuconsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menusubMenuconsultaActionPerformed
         // TODO add your handling code here:
+        
+       FormularioProduto fp = new FormularioProduto();
+        
+       fp.setVisible(true);
+        
         
         //FormularioProduto fp = new FormularioProduto();
        // fp.painel_guias.setSelectedIndex(1);
@@ -499,10 +647,10 @@ public class AreaTrabalho extends javax.swing.JFrame{
 
     private void menu_estoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_estoqueActionPerformed
         // TODO add your handling code here:
-        //FormularioEstoque fe = new FormularioEstoque(this, true);
-       // fe.setModal(rootPaneCheckingEnabled);
+        FormularioEstoque fe = new FormularioEstoque();
+       //fe.setModal(rootPaneCheckingEnabled);
         
-       // fe.setVisible(true);
+       fe.setVisible(true);
         
         
         
@@ -512,20 +660,20 @@ public class AreaTrabalho extends javax.swing.JFrame{
         // TODO add your handling code here:
         
         FormularioVendas fv = new FormularioVendas();
-       fv.setVisible(true);
+          fv.setVisible(true);
     }//GEN-LAST:event_menuAbrirPdvActionPerformed
 
     private void menuPosicaoDoDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPosicaoDoDiaActionPerformed
         // TODO add your handling code here:
-       // FormulariototalDoDia ftdd = new FormulariototalDoDia();
-       // ftdd.setVisible(true);
+       FormulariototalDoDia ftdd = new FormulariototalDoDia();
+       ftdd.setVisible(true);
     }//GEN-LAST:event_menuPosicaoDoDiaActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
         
-       // FormularioHistorico  fh = new FormularioHistorico();
-       // fh.setVisible(true);
+       FormularioHistorico  fh = new FormularioHistorico();
+       fh.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdutosActionPerformed
