@@ -58,6 +58,78 @@ public class VendasDAO {
         
     }
     
+    
+    
+    public ResultSet formaPagamento() {
+
+    try {
+
+        String sql =
+        "SELECT forma_pagamento, "
+      + "COUNT(id) AS quantidade, "
+      + "SUM(total_venda) AS total "
+      + "FROM tb_vendas "
+      + "GROUP BY forma_pagamento";
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        ResultSet rs = pst.executeQuery();
+
+        return rs;
+
+    } catch (Exception erro) {
+
+        JOptionPane.showMessageDialog(null, erro);
+
+    }
+
+    return null;
+}
+
+    
+    
+    
+    
+    
+    
+    public double totalVendasDia() {
+
+    double total = 0;
+
+    try {
+
+        String sql =
+        "SELECT SUM(total_venda) AS total "
+      + "FROM tb_vendas "
+      + "WHERE DATE(data_venda) = CURDATE()";
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        ResultSet rs = pst.executeQuery();
+
+        if(rs.next()) {
+
+            total = rs.getDouble("total");
+
+        }
+
+    } catch (Exception erro) {
+
+        JOptionPane.showMessageDialog(null, erro);
+
+    }
+
+    return total;
+}
+
+    
+    
+    
+    
+  
+    
+    
+    
     public void atualizarNumeroNota(Vendas v) {
     try {
         String sql = "UPDATE tb_vendas SET numero_nota = ? WHERE id = ?";
@@ -73,11 +145,107 @@ public class VendasDAO {
         JOptionPane.showMessageDialog(null, "Erro ao atualizar número da nota: " + e.getMessage());
     }
 }
+
+
+public ResultSet vendasPorCliente(String nome) {
+
+    try {
+
+        String sql =
+        "SELECT c.nome, v.data_venda, v.total_venda "
+      + "FROM tb_vendas v "
+      + "INNER JOIN tb_clientes c "
+      + "ON v.cliente_id = c.id "
+      + "WHERE c.nome LIKE ?";
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        pst.setString(1, nome + "%");
+
+        ResultSet rs = pst.executeQuery();
+
+        return rs;
+
+    } catch (Exception erro) {
+
+        JOptionPane.showMessageDialog(null, erro);
+
+    }
+
+    return null;
+}
+
+
+public ResultSet produtosMaisVendidos() {
+
+    try {
+
+        String sql =
+        "SELECT p.descricao, " +
+        "SUM(iv.qtd) AS quantidade, " +
+        "SUM(iv.subtotal) AS total " +
+        "FROM tb_itensvendas iv " +
+        "INNER JOIN tb_produtos p " +
+        "ON iv.produto_id = p.id " +
+        "GROUP BY p.descricao " +
+        "ORDER BY quantidade DESC";
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        ResultSet rs = pst.executeQuery();
+
+        return rs;
+
+    } catch (Exception erro) {
+
+        JOptionPane.showMessageDialog(null, erro);
+
+    }
+
+    return null;
+}
+
+
+
+
+
+
     
     
     
-    
-    
+ public double totalVendasPeriodo(String inicio, String fim) {
+
+    double total = 0;
+
+    try {
+
+        String sql =
+        "SELECT SUM(total_venda) AS total "
+      + "FROM tb_vendas "
+      + "WHERE data_venda BETWEEN ? AND ?";
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        pst.setString(1, inicio);
+        pst.setString(2, fim);
+
+        ResultSet rs = pst.executeQuery();
+
+        if(rs.next()) {
+
+            total = rs.getDouble("total");
+
+        }
+
+    } catch (Exception erro) {
+
+        JOptionPane.showMessageDialog(null, erro);
+
+    }
+
+    return total;
+}
+
     
     
     

@@ -42,7 +42,18 @@ public class FormularioProduto extends javax.swing.JFrame {
        }
    }
       
-      
+     public void listarFor() {
+
+    FornecedorDAO dao = new FornecedorDAO();
+
+    cbfFornecedor.removeAllItems();
+
+    for(Fornecedor f : dao.Listar()) {
+
+        cbfFornecedor.addItem(f);
+
+    }
+} 
   /*  public void listarFornecedores(){
         
         FornecedorDAO dao = new FornecedorDAO();
@@ -58,6 +69,7 @@ public class FormularioProduto extends javax.swing.JFrame {
     public FormularioProduto() {
        
         initComponents();
+        listar();
         listarFornecedores();
       
         
