@@ -69,6 +69,35 @@ public boolean salvar(Produto obj) {
 }
     
     
+
+public ResultSet estoqueZerado() {
+
+    try {
+
+        String sql =
+        "SELECT descricao, qtd_estoque, preco "
+      + "FROM tb_produtos "
+      + "WHERE qtd_estoque <= 0";
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        ResultSet rs = pst.executeQuery();
+
+        return rs;
+
+    } catch (Exception erro) {
+
+        JOptionPane.showMessageDialog(null, erro);
+
+    }
+
+    return null;
+}
+
+
+
+
+
     
   /*  public void Salvar(Produto cli){
         

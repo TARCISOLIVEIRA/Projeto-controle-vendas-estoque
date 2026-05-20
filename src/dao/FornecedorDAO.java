@@ -169,7 +169,6 @@ public class FornecedorDAO {
                 Fornecedor obj = new Fornecedor();
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
-           
                 obj.setCnpj(rs.getString("cnpj"));
                 obj.setEmail(rs.getString("email"));
                obj.setTelefone(rs.getString("telefone"));
@@ -200,14 +199,8 @@ public class FornecedorDAO {
                 Fornecedor obj = new Fornecedor();
                 obj.setId(rs.getInt("id"));
                 obj.setNome(rs.getString("nome"));
-               
                 obj.setCnpj(rs.getString("cnpj"));
-               
                 obj.setEmail(rs.getString("email"));
-               
-                
-                
-                
                 obj.setTelefone(rs.getString("telefone"));
                 obj.setCelular(rs.getString("celular"));
                 obj.setCep(rs.getString("cep"));

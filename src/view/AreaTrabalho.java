@@ -15,6 +15,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import dao.FuncionarioDAO;
+import dao.VendasDAO;
+import java.util.Date;
 import model.Funcionario;
 
 
@@ -304,6 +306,9 @@ private void produtoMaisVendido() {
         Produtos = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        FormularioFormaPagamento = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
 
@@ -504,7 +509,7 @@ private void produtoMaisVendido() {
         jMenu12.setIcon(new javax.swing.ImageIcon("C:\\Users\\Tarciso\\OneDrive\\Desktop\\Teste - Copia\\ControleDeEstoque1\\src\\imagem\\imgs\\printer.png")); // NOI18N
         jMenu12.setText("Relatórios");
 
-        Produtos.setText("Produtos");
+        Produtos.setText("Por dia");
         Produtos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ProdutosActionPerformed(evt);
@@ -512,7 +517,7 @@ private void produtoMaisVendido() {
         });
         jMenu12.add(Produtos);
 
-        jMenuItem4.setText("Clientes");
+        jMenuItem4.setText("Valor Período");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -520,8 +525,37 @@ private void produtoMaisVendido() {
         });
         jMenu12.add(jMenuItem4);
 
-        jMenuItem13.setText("Funcionarios");
+        jMenuItem13.setText("Por Cliente");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
         jMenu12.add(jMenuItem13);
+
+        jMenuItem1.setText("Produto Mais Vendido");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem1);
+
+        jMenuItem2.setText("Produtos sem Estoque");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem2);
+
+        FormularioFormaPagamento.setText("Forma de Pagamento");
+        FormularioFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FormularioFormaPagamentoActionPerformed(evt);
+            }
+        });
+        jMenu12.add(FormularioFormaPagamento);
 
         jMenuBar1.add(jMenu12);
 
@@ -679,15 +713,12 @@ private void produtoMaisVendido() {
     private void ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdutosActionPerformed
         // TODO add your handling code here:
         
-         try{
-            Connection conn = new ConexaoBanco().pegarConexao();
-            
-            JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/relatorios/relatorioProdutos.Jasper"), null, conn);
-            JasperViewer.viewReport(print,false);
-        } catch (Exception e){
-            JOptionPane.showMessageDialog(null, e); 
-            
-        }
+          VendasDAO dao = new VendasDAO();
+
+    double total = dao.totalVendasDia();
+
+    JOptionPane.showMessageDialog(null,
+            "Total vendido hoje: R$ " + total);
         
         
         
@@ -695,19 +726,89 @@ private void produtoMaisVendido() {
         
     }//GEN-LAST:event_ProdutosActionPerformed
 
+    public double totalVendasPeriodo(Date dataInicio, Date dataFim) {
+
+    double total = 0;
+
+    try {
+
+        String sql =
+        "SELECT SUM(total_venda) AS total "
+      + "FROM tb_vendas "
+      + "WHERE data_venda BETWEEN ? AND ?";
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        pst.setDate(1, new java.sql.Date(dataInicio.getTime()));
+        pst.setDate(2, new java.sql.Date(dataFim.getTime()));
+
+        ResultSet rs = pst.executeQuery();
+
+        if(rs.next()) {
+
+            total = rs.getDouble("total");
+
+        }
+
+    } catch (Exception erro) {
+
+        JOptionPane.showMessageDialog(null, erro);
+
+    }
+
+    return total;
+}
+    
+    
+    
+    
+    
+    
+    
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
         
-        try{
-            Connection conn = new ConexaoBanco().pegarConexao();
-            
-            JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/relatorios/relatorioClientes.Jasper"), null, conn);
-            JasperViewer.viewReport(print,false);
-        } catch (Exception e){
-            JOptionPane.showMessageDialog(null, e); 
-            
-        }
+     FormularioPorPeriodo fppp = new FormularioPorPeriodo();
+          fppp.setVisible(true);
+        
+        
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        // TODO add your handling code here:
+        
+     FormularioRelatorioCliente frc = new FormularioRelatorioCliente();
+          frc.setVisible(true);   
+        
+        
+        
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+       FormularioProdutoMaisVendido fpmv = new FormularioProdutoMaisVendido();
+          fpmv.setVisible(true);    
+        
+        
+        
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        FormularioEstoqueZerado fez = new FormularioEstoqueZerado();
+          fez.setVisible(true); 
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void FormularioFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormularioFormaPagamentoActionPerformed
+        // TODO add your handling code here:
+        FormularioFormaPagamento ffp = new FormularioFormaPagamento();
+          ffp.setVisible(true); 
+        
+        
+        
+    }//GEN-LAST:event_FormularioFormaPagamentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -745,6 +846,7 @@ private void produtoMaisVendido() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem FormularioFormaPagamento;
     private javax.swing.JMenuItem MenuClientes;
     private javax.swing.JMenu Meus_Produtos;
     private javax.swing.JMenuItem Produtos;
@@ -761,9 +863,11 @@ private void produtoMaisVendido() {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;

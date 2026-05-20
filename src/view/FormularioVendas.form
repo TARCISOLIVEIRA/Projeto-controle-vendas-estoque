@@ -96,7 +96,7 @@
                                                           <Component id="txtQuantidade" min="-2" pref="77" max="-2" attributes="0"/>
                                                       </Group>
                                                       <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="btnAdicionar" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
                                                           <Component id="btnLimpar" min="-2" max="-2" attributes="0"/>
                                                       </Group>
@@ -113,7 +113,7 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="7" max="32767" attributes="0"/>
+                                  <EmptySpace pref="26" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jPanel4" max="32767" attributes="0"/>
@@ -179,7 +179,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtEstoque" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnAdicionar" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -474,7 +474,7 @@
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField3">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="btnAdicionar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagem/imgs/add1.png"/>
@@ -482,7 +482,7 @@
             <Property name="text" type="java.lang.String" value="add item"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarActionPerformed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel4">
@@ -499,14 +499,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" min="-2" pref="283" max="-2" attributes="0"/>
+                      <Component id="jScrollPane3" min="-2" pref="258" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane3" alignment="0" pref="239" max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" alignment="0" pref="252" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -588,7 +588,7 @@
                           <Group type="102" attributes="0">
                               <Component id="btnPagamento" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="btnCancelar" max="32767" attributes="0"/>
+                              <Component id="btnCancelar" pref="135" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
