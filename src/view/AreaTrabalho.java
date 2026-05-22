@@ -302,6 +302,7 @@ private void produtoMaisVendido() {
         jMenuItem8 = new javax.swing.JMenuItem();
         menuTrocaUsuario = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu12 = new javax.swing.JMenu();
         Produtos = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -309,6 +310,8 @@ private void produtoMaisVendido() {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         FormularioFormaPagamento = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
 
@@ -387,7 +390,7 @@ private void produtoMaisVendido() {
         painel_DesktopLayout.setVerticalGroup(
             painel_DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_DesktopLayout.createSequentialGroup()
-                .addContainerGap(386, Short.MAX_VALUE)
+                .addContainerGap(388, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2))
         );
@@ -504,6 +507,9 @@ private void produtoMaisVendido() {
         });
         menuTrocaUsuario.add(jMenuItem9);
 
+        jMenuItem6.setText("Sobre");
+        menuTrocaUsuario.add(jMenuItem6);
+
         jMenuBar1.add(menuTrocaUsuario);
 
         jMenu12.setIcon(new javax.swing.ImageIcon("C:\\Users\\Tarciso\\OneDrive\\Desktop\\Teste - Copia\\ControleDeEstoque1\\src\\imagem\\imgs\\printer.png")); // NOI18N
@@ -556,6 +562,22 @@ private void produtoMaisVendido() {
             }
         });
         jMenu12.add(FormularioFormaPagamento);
+
+        jMenuItem3.setText("Vendas por Funcionário");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem3);
+
+        jMenuItem5.setText("Estoque baixo");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem5);
 
         jMenuBar1.add(jMenu12);
 
@@ -810,6 +832,22 @@ private void produtoMaisVendido() {
         
     }//GEN-LAST:event_FormularioFormaPagamentoActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        
+         FormularioVendasFuncionario fvf = new FormularioVendasFuncionario();
+          fvf.setVisible(true); 
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+         FormularioEstoqueBaixo feb = new FormularioEstoqueBaixo();
+          feb.setVisible(true); 
+        
+        
+        
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -868,7 +906,10 @@ private void produtoMaisVendido() {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;

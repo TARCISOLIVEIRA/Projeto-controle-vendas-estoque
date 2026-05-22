@@ -33,30 +33,63 @@ public class VendasDAO {
             String sql = "insert into tb_vendas (cliente_id, data_venda, total_venda, observacoes,numero_nota, funcionarios_id)"
                     + "values (?,?,?,?,?,? )";
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-             
              stmt.setInt(1,obj.getClientes().getId());
              stmt.setDate(2,new java.sql.Date(obj.getData_venda().getTime()));
              stmt.setDouble(3,obj.getTotal_venda());
              stmt.setString(4,obj.getObservacao());
              stmt. setInt(5,obj.getNumeroNota());
              stmt.setInt(6,obj.getFuncionario().getId());
-            // stmt.setInt(6,9);
-             
              stmt.executeUpdate();
              ResultSet rs = stmt.getGeneratedKeys();
              if(rs.next()) {
                  obj.setId(rs.getInt(1));
              }
-             
              stmt.close();
-             
              JOptionPane.showMessageDialog(null,"Venda realizada Sucesso");
-             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"erro em salvar vendas" + e.getMessage());
         }
         
     }
+    
+    
+    
+    public List<Object[]> vendasPorFuncionario() {
+
+    List<Object[]> lista = new ArrayList<>();
+
+    try {
+
+        String sql =
+        "SELECT f.nome, COUNT(v.id), SUM(v.total_venda) " +
+        "FROM tb_vendas v " +
+        "INNER JOIN tb_funcionarios f " +
+        "ON v.funcionarios_id = f.id " +
+        "GROUP BY f.nome";
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while(rs.next()) {
+
+            lista.add(new Object[] {
+                rs.getString(1),
+                rs.getInt(2),
+                rs.getDouble(3)
+            });
+        }
+
+    } catch(Exception erro) {
+        JOptionPane.showMessageDialog(null, erro);
+    }
+
+    return lista;
+}
+
+    
+    
+    
     
     
     
@@ -87,11 +120,7 @@ public class VendasDAO {
 }
 
     
-    
-    
-    
-    
-    
+    // falta envia daqui
     public double totalVendasDia() {
 
     double total = 0;

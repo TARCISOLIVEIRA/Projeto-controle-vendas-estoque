@@ -14,12 +14,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Tarciso
  */
-public class FormularioEstoqueZerado extends javax.swing.JFrame {
+public class FormularioVendasFuncionario extends javax.swing.JFrame {
 
     /**
      * Creates new form FormularioRelatorioCliente
      */
-    public FormularioEstoqueZerado() {
+    public FormularioVendasFuncionario() {
         initComponents();
     }
 
@@ -38,7 +38,7 @@ public class FormularioEstoqueZerado extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblEstoque = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -59,7 +59,7 @@ public class FormularioEstoqueZerado extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Relatório Produto Sem Estoque");
+        jLabel2.setText("Relatório de Vendas por Funcionário");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,7 +75,7 @@ public class FormularioEstoqueZerado extends javax.swing.JFrame {
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
-        tblEstoque.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -83,10 +83,10 @@ public class FormularioEstoqueZerado extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Produto", "Quantidade", "Preço"
+                "Funcionário", "Quantidade", "Total Vendido"
             }
         ));
-        jScrollPane1.setViewportView(tblEstoque);
+        jScrollPane1.setViewportView(tabela);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -135,36 +135,17 @@ public class FormularioEstoqueZerado extends javax.swing.JFrame {
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
      
-         try {
+ DefaultTableModel modelo =
+(DefaultTableModel) tabela.getModel();
 
-        ProdutoDAO dao = new ProdutoDAO();
+modelo.setNumRows(0);
 
-        ResultSet rs = dao.estoqueZerado();
+VendasDAO dao = new VendasDAO();
 
-        DefaultTableModel modelo =
-        (DefaultTableModel) tblEstoque.getModel();
+for(Object[] linha : dao.vendasPorFuncionario()) {
 
-        modelo.setNumRows(0);
-
-        while(rs.next()) {
-
-            modelo.addRow(new Object[]{
-
-                rs.getString("descricao"),
-                rs.getInt("qtd_estoque"),
-                rs.getDouble("preco")
-
-            });
-
-        }
-
-    } catch (Exception erro) {
-
-        JOptionPane.showMessageDialog(null, erro);
-
-    }
-
-        
+    modelo.addRow(linha);
+}
         
         
 
@@ -188,14 +169,18 @@ public class FormularioEstoqueZerado extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioEstoqueZerado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioVendasFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioEstoqueZerado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioVendasFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioEstoqueZerado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioVendasFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioEstoqueZerado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioVendasFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -204,7 +189,7 @@ public class FormularioEstoqueZerado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormularioEstoqueZerado().setVisible(true);
+                new FormularioVendasFuncionario().setVisible(true);
             }
         });
     }
@@ -216,6 +201,6 @@ public class FormularioEstoqueZerado extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblEstoque;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }

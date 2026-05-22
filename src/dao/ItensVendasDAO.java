@@ -59,29 +59,21 @@ System.out.println(obj.getSubtotal());
                     + " inner join tb_produtos p"
                     + " on p.id = i.produto_id "
                     + "where i.venda_id = ? ";
-                   
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1,venda_id);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
                ItemVendas item =  new ItemVendas();
                Produto p = new Produto();
-               
                p.setId(rs.getInt("prod_id"));
                p.setDescricao(rs.getString("prod_desc"));
                p.setPreco(rs.getDouble("prod_preco"));
                item.setProduto(p);
-               
-                
-               
                item.setQtd(rs.getInt("qtd"));
                item.setSubtotal(rs.getDouble("subtotal"));
                lista.add(item);
              }
-            
             return lista;
-            
-            
         } catch (SQLException e) {
             
             throw new RuntimeException("Erro ao criar a lista de item " + e);
