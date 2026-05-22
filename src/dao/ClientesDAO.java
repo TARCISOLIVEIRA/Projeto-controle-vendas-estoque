@@ -55,7 +55,8 @@ public class ClientesDAO {
         
         try {
             // 1 Alterando clinetes o sql;
-            String sql = "update tb_clientes set nome=?, rg=?, cpf=?,email=?,telefone=?,celular=?, cep=?, endereco=?, numero=?,complemento=?,bairro=?,cidade=?, estado=? where id=?";
+            String sql = "update tb_clientes set nome=?, rg=?, cpf=?,email=?,telefone=?,celular=?, cep=?, endereco=?,"
+                    + " numero=?,complemento=?,bairro=?,cidade=?, estado=? where id=?";
             // preparação conexao sql com banco
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1,cli.getNome());
@@ -236,9 +237,7 @@ public class ClientesDAO {
                 obj.setBairro(rs.getString("bairro"));
                 obj.setCidade(rs.getString("cidade"));
                 obj.setEstado(rs.getString("estado"));
-                
                 lista.add(obj);
-                
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,"erro ao filtrar");

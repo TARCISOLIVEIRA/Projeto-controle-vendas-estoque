@@ -31,13 +31,9 @@ public class FornecedorDAO {
             // preparação conexao sql com banco
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1,cli.getNome());
-            
             stmt.setString(2,cli.getCnpj());
             stmt.setString(3,cli.getEmail());
-            
-            
-            
-            stmt.setString(4,cli.getTelefone());
+            stmt.setString(4,cli.getCelular());
             stmt.setString(5,cli.getCelular());
             stmt.setString(6,cli.getCep());
             stmt.setString(7,cli.getEndereco());
@@ -46,60 +42,41 @@ public class FornecedorDAO {
             stmt.setString(10,cli.getBairro());
             stmt.setString(11,cli.getCidade());
             stmt.setString(12,cli.getEstado());
-            
             stmt.executeUpdate();
             stmt.close();
-            
             JOptionPane.showMessageDialog(null,"Fornecedores salvo com sucesso");
-                    
-            
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null,"Erro ao salvar o Fornecedores"+ erro);
-            
         }
-        
-        
     }
-    
-    
      public void Editar(Fornecedor cli){
         
         try {
             // 1 Criando o sql;
-            String sql = "update tb_fornecedores set nome=?, cnpj=?,email=?, telefone=?,celular=?, cep=?, endereco=?, numero=?,complemento=?,bairro=?,cidade=?, estado=? where id=?";
+            String sql = "update tb_fornecedores set nome=?, cnpj=?,email=?, telefone=?,celular=?, cep=?, "
+                    + "endereco=?, numero=?,complemento=?,bairro=?,cidade=?, estado=? where id=?";
             // preparação conexao sql com banco
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1,cli.getNome());
-            
             stmt.setString(2,cli.getCnpj());
-            
             stmt.setString(3,cli.getEmail());
-            
-            
-            
             stmt.setString(4,cli.getTelefone());
             stmt.setString(5,cli.getCelular());
             stmt.setString(6,cli.getCep());
             stmt.setString(7,cli.getEndereco());
-            
             if(cli.getNumero()==0){
                 stmt.setNull(8, java.sql.Types.INTEGER);
             } else {
                 stmt.setInt(8,cli.getNumero());
             }
-            
             stmt.setString(9,cli.getComplemento());
             stmt.setString(10,cli.getBairro());
             stmt.setString(11,cli.getCidade());
             stmt.setString(12,cli.getEstado());
             stmt.setInt(13,cli.getId());
-            
             stmt.execute();
             stmt.close();
-            
             JOptionPane.showMessageDialog(null,"Fornecedor Editado com sucesso");
-                    
-            
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null,"Erro ao salvar o Fornecedor"+ erro);
             
@@ -127,7 +104,6 @@ public class FornecedorDAO {
      }
     
     public Fornecedor buscarFornecedor(String nome){
-        
         try {
             String sql = "select * from tb_fornecedores where nome like ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -148,7 +124,6 @@ public class FornecedorDAO {
                 obj.setBairro(rs.getString("bairro"));
                 obj.setCidade(rs.getString("cidade"));
                 obj.setEstado(rs.getString("estado"));
-                
             } 
             return obj;
         } catch (SQLException erro) {
@@ -210,9 +185,7 @@ public class FornecedorDAO {
                 obj.setBairro(rs.getString("bairro"));
                 obj.setCidade(rs.getString("cidade"));
                 obj.setEstado(rs.getString("estado"));
-                
                 lista.add(obj);
-                
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,"erro ao filtrar");

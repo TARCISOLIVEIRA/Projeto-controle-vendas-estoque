@@ -16,51 +16,56 @@ import model.Produto;
 public class ProdutoDAO {
     
     private Connection conn;
-    
-    
     public ProdutoDAO(){
         this.conn = new ConexaoBanco().pegarConexao();
     }
-    
-    
+   public List<Object[]> estoqueBaixo() {
+
+    List<Object[]> lista = new ArrayList<>();
+    try {
+        String sql =
+        "SELECT descricao, qtd_estoque " +
+        "FROM tb_produtos " +
+        "WHERE qtd_estoque <= 5";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()) {
+            lista.add(new Object[] {
+                rs.getString("descricao"),
+                rs.getInt("qtd_estoque")
+            });
+        }
+    } catch(Exception erro) {
+        JOptionPane.showMessageDialog(null, erro);
+    }
+    return lista;
+}
+ 
     
     
     
 
 
 public boolean salvar(Produto obj) {
-    
     try {
-        // Verificar se produto já existe
         String sqlVerifica = "SELECT * FROM tb_produtos WHERE descricao = ?";
-
         PreparedStatement stmtVerifica = conn.prepareStatement(sqlVerifica);
         stmtVerifica.setString(1, obj.getDescricao());
-
         ResultSet rs = stmtVerifica.executeQuery();
-
         if (rs.next()) {
             JOptionPane.showMessageDialog(null,
                     "Produto já cadastrado!");
             return false;
         }
-
-        // INSERT
         String sql = "INSERT INTO tb_produtos(descricao, preco, qtd_estoque, for_id) VALUES(?,?,?,?)";
-
         PreparedStatement stmt = conn.prepareStatement(sql);
-
         stmt.setString(1, obj.getDescricao());
         stmt.setDouble(2, obj.getPreco());
         stmt.setInt(3, obj.getQtd_estoque());
         stmt.setInt(4, obj.getFornecedor().getId());
-
         stmt.execute();
-        
         stmt.close();
         return true;
-
-
     } catch (Exception erro) {
         JOptionPane.showMessageDialog(null,
                 "Erro ao cadastrar produto: " + erro.getMessage());
@@ -130,14 +135,9 @@ public ResultSet estoqueZerado() {
             stmt.setInt(3,cli.getQtd_estoque());
             stmt.setInt(4,cli.getFornecedor().getId());
             stmt.setInt(5,cli.getId());
-            
-            
             stmt.executeUpdate();
             stmt.close();
-            
             JOptionPane.showMessageDialog(null,"Produto Editado com sucesso");
-                    
-            
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null,"Erro ao salvar o Produto"+ erro);
             
@@ -165,7 +165,6 @@ public ResultSet estoqueZerado() {
      }
     
     public Produto BuscarProdutos(String nome){
-        
         try {
             String sql = "select p.id, p.descricao, p.preco, p.qtd_estoque, f.nome from tb_produtos as p inner join "
                     + "tb_fornecedores as f on  (p.for_id = f.id)where p.descricao =?";
@@ -174,18 +173,13 @@ public ResultSet estoqueZerado() {
             ResultSet rs = stmt.executeQuery();
             Produto obj = new Produto();
             Fornecedor f = new Fornecedor();
-            
             if(rs.next()){
                 obj.setId(rs.getInt("p.id"));
                 obj.setDescricao(rs.getString("p.descricao"));
                 obj.setPreco(rs.getDouble("p.preco"));
                 obj.setQtd_estoque(rs.getInt("p.qtd_estoque"));
-                
                 f.setNome(rs.getString("f.nome"));
-                
                 obj.setFornecedor(f);
-                
-                
             } 
             return obj;
         } catch (Exception erro) {
@@ -236,30 +230,23 @@ public ResultSet estoqueZerado() {
     public List<Produto> Listar(){
         List<Produto> lista = new ArrayList();
         try {
-            
            
             String sql ="select p.id, p.descricao, p.preco, p.qtd_estoque, f.id as fornecedor_id, "
                     + "f.nome as fornecedor_nome from tb_produtos p "
                     + "inner join tb_fornecedores f on p.for_id = f.id";
-                    
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
-               
                 Fornecedor f = new Fornecedor();
                 f.setId(rs.getInt("fornecedor_id"));
                 f.setNome(rs.getString("fornecedor_nome"));
-                
                 Produto p = new Produto();
-                
                 p.setId(rs.getInt("id"));
                 p.setDescricao(rs.getString("descricao"));
                 p.setPreco(rs.getDouble("preco"));
                 p.setQtd_estoque(rs.getInt("qtd_estoque"));
-               
                 p.setFornecedor(f);
                 lista.add(p);
-                
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,"erro ao criar a listar de Produto e Fornecedor "+ e);
