@@ -125,15 +125,12 @@ public class ClientesDAO {
                 obj.setCep(rs.getString("cep"));
                 obj.setEndereco(rs.getString("endereco"));
                 obj.setNumero(rs.getInt("numero"));
-                 obj.setComplemento(rs.getString("complemento"));
-                
+                obj.setComplemento(rs.getString("complemento"));
                 obj.setBairro(rs.getString("bairro"));
-                 obj.setCidade(rs.getString("cidade"));
-                  obj.setEstado(rs.getString("estado"));
+                obj.setCidade(rs.getString("cidade"));
+                obj.setEstado(rs.getString("estado"));
                
                
-               
-                
             } 
             return obj;
         } catch (Exception erro) {
@@ -143,6 +140,41 @@ public class ClientesDAO {
         
         // cap 14
     }
+    
+    
+   public Clientes BuscarClienteNome(String nome){
+
+    try {
+
+        String sql = "select * from tb_clientes where nome like ?";
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+
+        stmt.setString(1, "%" + nome + "%");
+
+        ResultSet rs = stmt.executeQuery();
+
+        Clientes obj = new Clientes();
+
+        if(rs.next()){
+
+            obj.setNome(rs.getString("nome"));
+            obj.setCpf(rs.getString("cpf"));
+        }
+
+        return obj;
+
+    } catch (Exception erro) {
+
+        JOptionPane.showMessageDialog(null,
+        "Erro ao buscar cliente");
+
+    }
+
+    return null;
+}
+
+    
     
     
      public Clientes BuscarClienteCPF(String cpf){

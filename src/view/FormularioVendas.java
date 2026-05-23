@@ -547,7 +547,6 @@ public class FormularioVendas extends javax.swing.JFrame {
         if(obj.getCpf()!= null){
           
            txtNome.setText(obj.getNome());
-          
            
         }else {
             JOptionPane.showMessageDialog(null, "Cpf invalido");
@@ -558,22 +557,22 @@ public class FormularioVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCpfKeyPressed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-          
-        
-        
-        
-        String cpf =   txtCpf.getText();
+         
+        String nome =   txtNome.getText();
         ClientesDAO dao = new ClientesDAO();
         
-        obj = dao.BuscarClienteCPF(cpf);
+        obj = dao.BuscarClienteNome(nome);
+        
         if(obj.getCpf()!= null){
           
            txtNome.setText(obj.getNome());
-          
+           txtCpf.setText(obj.getCpf());
+           
            
         }else {
-            JOptionPane.showMessageDialog(null, "Cpf invalido");
+            JOptionPane.showMessageDialog(null, "Nome não encontrado");
             txtNome.setText("");
+            txtCpf.setText("");
         }
         
         
