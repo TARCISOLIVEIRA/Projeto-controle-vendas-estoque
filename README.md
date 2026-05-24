@@ -14,6 +14,9 @@ O objetivo do sistema é auxiliar no gerenciamento de produtos, fornecedores e v
 - Trello
 - Curso de SQL com MYSQL 
 Disponivel em:  https://youtu.be/eD9_ps_viMw?si=rIhg51J-B3b5Hjlo
+DESIGN DE BANCO DE DADOS E MODELAGEM DE DADOS
+Disponível: https://youtu.be/DFoRSgn9Y50?si=pEF9fGLUOYJ61Dcv
+
 
 
 ---
