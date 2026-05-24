@@ -654,7 +654,7 @@ public class FormularioVendas extends javax.swing.JFrame {
            txtPreco.setText(String.valueOf(obj.getId()));
            
            txtEstoque.setText(String.valueOf(obj.getQtd_estoque()));
-            txtCodigo.setEnabled(false);
+           txtCodigo.setEnabled(false);
            
            
         }else {

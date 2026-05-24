@@ -1,6 +1,7 @@
 package view;
 
 import controledeestoque1.ConexaoBanco;
+import dao.ClientesDAO;
 import dao.ItensVendasDAO;
 import dao.ProdutoDAO;
 import dao.VendasDAO;
@@ -15,7 +16,6 @@ import model.Funcionario;
 import model.Produto;
 import model.Vendas;
 import java.sql.Connection;
-import javax.swing.JTable;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -206,7 +206,7 @@ if(!txtCheque.getText().trim().isEmpty()){
 if(!txtTotal.getText().trim().isEmpty()){
     totalVenda = Double.valueOf(txtTotal.getText());
 }else{
-    //JOptionPane.showMessageDialog(null, "Total da venda vazio!");
+    JOptionPane.showMessageDialog(null, "Total da venda vazio!");
     return;
 }
 
@@ -221,38 +221,33 @@ txtTroco.setText(df.format(troco));
 
 
  // AQUI  
+ 
+ 
         if (totalPago >= totalVenda) {
 
             Vendas v = new Vendas();
-            v.setClientes(clientes);
+            ClientesDAO c = new ClientesDAO();
             
+            v.setClientes(clientes);
             Date agora = new Date();
             v.setData_venda(agora);
-            
             v.setTotal_venda(totalVenda);
-            
             v.setObservacao(txtObservacao.getText());
-
+            
             Funcionario f = new Funcionario();
             f.setId(6);
             v.setFuncionario(f);
+            
             try{
+                VendasDAO vd = new VendasDAO();
+                vd.Salvar(v);
+                int idVenda = vd.retornarUltimoIdVenda();          
                 
-            VendasDAO vd = new VendasDAO();
-            vd.Salvar(v);
-            int idVenda = vd.retornarUltimoIdVenda();
-            
-            //  aqui
-            
-         
-            
-            
-            
-            // termina
-            ItensVendasDAO itensDAO = new ItensVendasDAO();
-            for(int i = 0;i < meus_produtos.getRowCount(); i++ ){
-            ItemVendas item = new ItemVendas();
-
+               ItensVendasDAO itensDAO = new ItensVendasDAO();
+                 
+                 
+                for(int i = 0;i < meus_produtos.getRowCount(); i++ ){
+                 ItemVendas item = new ItemVendas();
     int idProduto = Integer.parseInt(meus_produtos.getValueAt(i, 0).toString());
     int qtd = Integer.parseInt(meus_produtos.getValueAt(i, 2).toString());
     double subtotal = Double.parseDouble(meus_produtos.getValueAt(i, 4).toString());
@@ -265,32 +260,28 @@ txtTroco.setText(df.format(troco));
 
     item.setQtd(qtd);
     item.setSubtotal(subtotal);
-
     itensDAO.salvar(item);
-                
-                 
             }
-
-           
             v.setNumeroNota(v.getId() +5);
             vd.atualizarNumeroNota(v);
             
             HashMap<String, Object> parametros = new HashMap<>();
+            
+     System.out.println("Cliente venda: " + v.getClientes().getNome());
+System.out.println("ID cliente: " + v.getClientes().getId());
+System.out.println("Funcionario: " + v.getFuncionario().getNome());
+            
+            
             System.out.println("id vendas" + v.getId());
-            
-            
             parametros.put("ID_VENDA", v.getId());
             Connection conn = new ConexaoBanco().pegarConexao();
             try {
-                
                  InputStream is = getClass().getResourceAsStream("/relatorios/nota_fiscal.jasper");
 
                 if (is == null) {
                   JOptionPane.showMessageDialog(null, "relatorio não enonctrado");
                   return;
                }
-                
-               
                 JasperPrint print = JasperFillManager.fillReport(
                         is,
                         parametros,
@@ -308,7 +299,13 @@ txtTroco.setText(df.format(troco));
             }
            JOptionPane.showMessageDialog(null, "Venda Realizada com sucesso ! ID: " + v.getId());
               
-             // System.out.println("entrou........ ");
+             
+
+
+
+
+
+// System.out.println("entrou........ ");
               
               for (int i = 0; i < meus_produtos.getRowCount(); i++) {
                 int qtd_estoque, qtd_comprada, qtd_atualizada;

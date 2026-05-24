@@ -1,7 +1,15 @@
 
 package view;
 
+import controledeestoque1.ConexaoBanco;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+
+import net.sf.jasperreports.view.JasperViewer;
+import java.sql.Connection;
+import java.util.HashMap;
+
 
 
 public class FormularioDetalheVenda extends javax.swing.JFrame {
@@ -30,6 +38,7 @@ public class FormularioDetalheVenda extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         carrinho = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Detalhe da venda");
@@ -90,6 +99,12 @@ public class FormularioDetalheVenda extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(370, 150, 200, 110);
 
+        jScrollPane3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane3MouseClicked(evt);
+            }
+        });
+
         carrinho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -115,7 +130,17 @@ public class FormularioDetalheVenda extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 10, 610, 80);
 
-        setBounds(0, 0, 622, 473);
+        jButton1.setText("2 via");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(250, 200, 57, 25);
+
+        setSize(new java.awt.Dimension(622, 473));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void carrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_carrinhoMouseClicked
@@ -138,6 +163,55 @@ public class FormularioDetalheVenda extends javax.swing.JFrame {
     private void txtIdVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdVendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdVendaActionPerformed
+
+    private void jScrollPane3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane3MouseClicked
+        // TODO add your handling code here:
+    
+        
+        
+        
+        
+    }//GEN-LAST:event_jScrollPane3MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+      
+        try {
+
+    ConexaoBanco cb = new ConexaoBanco();
+
+    java.sql.Connection con = cb.pegarConexao();
+
+    HashMap filtro = new HashMap();
+
+    filtro.put("ID_VENDA",
+        Integer.parseInt(txtIdVenda.getText())
+    );
+
+    JasperPrint rel = JasperFillManager.fillReport(
+        "src/relatorios/nota_fiscal.jasper",
+        filtro,
+        con
+    );
+
+    JasperViewer.viewReport(rel, false);
+
+} catch (Exception e) {
+
+    JOptionPane.showMessageDialog(null, e);
+
+}
+
+
+
+
+
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,6 +250,7 @@ public class FormularioDetalheVenda extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTable carrinho;
+    private javax.swing.JButton jButton1;
     public javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

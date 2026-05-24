@@ -9,7 +9,7 @@ import model.Vendas;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import model.Funcionario;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,9 +24,7 @@ public class VendasDAO {
     public VendasDAO(){
         this.conn = new ConexaoBanco().pegarConexao();
     }
-    
-    
-    
+     
     public void Salvar(Vendas obj){
         
         try {
@@ -55,48 +53,35 @@ public class VendasDAO {
     
     
     public List<Object[]> vendasPorFuncionario() {
-
     List<Object[]> lista = new ArrayList<>();
-
     try {
-
         String sql =
         "SELECT f.nome, COUNT(v.id), SUM(v.total_venda) " +
         "FROM tb_vendas v " +
         "INNER JOIN tb_funcionarios f " +
         "ON v.funcionarios_id = f.id " +
         "GROUP BY f.nome";
-
         PreparedStatement stmt = conn.prepareStatement(sql);
-
         ResultSet rs = stmt.executeQuery();
-
         while(rs.next()) {
-
             lista.add(new Object[] {
                 rs.getString(1),
                 rs.getInt(2),
                 rs.getDouble(3)
             });
         }
-
     } catch(Exception erro) {
         JOptionPane.showMessageDialog(null, erro);
     }
-
     return lista;
 }
 
     
     
     
-    
-    
-    
     public ResultSet formaPagamento() {
 
     try {
-
         String sql =
         "SELECT forma_pagamento, "
       + "COUNT(id) AS quantidade, "
@@ -177,9 +162,7 @@ public class VendasDAO {
 
 
 public ResultSet vendasPorCliente(String nome) {
-
     try {
-
         String sql =
         "SELECT c.nome, v.data_venda, v.total_venda "
       + "FROM tb_vendas v "
@@ -236,11 +219,6 @@ public ResultSet produtosMaisVendidos() {
 
 
 
-
-
-
-    
-    
     
  public double totalVendasPeriodo(String inicio, String fim) {
 
@@ -308,33 +286,43 @@ public ResultSet produtosMaisVendidos() {
     
     
     public List<Vendas>historicoVendas(Date data_inicio, Date data_fim){
-        
         try {
             List<Vendas>lista = new ArrayList<>();
-            String sql="select v.id,"
-                    + " c.nome, "
-                    + "v.data_venda, "
-                    + "v.total_venda,"
-                    + " v.observacoes"
-                    + " from tb_vendas as v inner join tb_clientes as c on (v.cliente_id = c.id) "
-                    + "where v.data_venda between ? and ?";
+            
+          String sql = "select v.id, "
+        + "c.nome as cliente, "
+        + "f.nome as funcionario, "
+        + "v.data_venda, "
+        + "v.total_venda, "
+        + "v.observacoes "
+        + "from tb_vendas as v "
+        + "inner join tb_clientes as c on (v.cliente_id = c.id) "
+        + "inner join tb_funcionarios as f on (v.funcionarios_id = f.id) "
+        + "where v.data_venda between ? and ?";
+            
+            
+            
+            
+            
+            
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setDate(1,new java.sql.Date(data_inicio.getTime()));
             stmt.setDate(2, new java.sql.Date(data_fim.getTime()));
-            
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 Vendas v = new Vendas();
                 Clientes c = new Clientes();
-                
+                Funcionario f = new Funcionario();
+                c.setNome(rs.getString("cliente"));
+                f.setNome(rs.getString("funcionario"));
+                v.setClientes(c);
+               v.setFuncionario(f);
                 v.setId(rs.getInt("id"));
                 Date d = rs.getDate("data_venda");
                 v.setData_venda(d);
                 v.setTotal_venda(rs.getDouble("total_venda"));
-                
-                c.setNome(rs.getString("nome"));
+                c.setNome(rs.getString("cliente"));
                 v.setClientes(c);
-               
                 v.setObservacao(rs.getString("observacoes") == null ? "" : rs.getString("observacoes"));
                 lista.add(v);
             }

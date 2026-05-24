@@ -179,7 +179,7 @@ public class FormularioHistorico extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Cliente", "data da venda", "total da venda", "Observações"
+                "Codigo", "Cliente", "Funcionario", "data da venda", "total da venda", "Observações"
             }
         ));
         Tabela.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -205,26 +205,21 @@ public class FormularioHistorico extends javax.swing.JFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         try {
-        
        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
        sdf.setLenient(false);
-       
        java.util.Date inicioUtil = sdf.parse(txtInicio.getText())  ;
        java.util.Date fimUtil = sdf.parse(txtFim.getText())  ;
-       
        java.sql.Date  data_inicio = new java.sql.Date(inicioUtil.getTime());
        java.sql.Date  data_fim = new java.sql.Date(fimUtil.getTime()); 
-       
         VendasDAO vd = new VendasDAO();
-        
         List<Vendas>lista= vd.historicoVendas(data_inicio, data_fim);
-        
         DefaultTableModel historico = (DefaultTableModel)Tabela.getModel();
         historico.setNumRows(0);
         for(Vendas v : lista){
             historico.addRow(new Object[]{
                 v.getId(),
                 v.getClientes().getNome(),
+                v.getFuncionario().getNome(),
                 v.getData_venda(),
                 v.getTotal_venda(),
                 v.getObservacao()
@@ -322,11 +317,16 @@ public class FormularioHistorico extends javax.swing.JFrame {
 
     JasperPrint print =
     JasperFillManager.fillReport(
+            
+            
+            
+            
     "src/relatorios/relatorioPagamentoDoDia.jasper",
     parametros,
     conexao);
 
     JasperViewer.viewReport(print, false);
+    
 
 } catch (Exception e) {
 

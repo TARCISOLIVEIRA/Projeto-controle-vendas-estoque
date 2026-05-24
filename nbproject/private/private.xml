@@ -5,6 +5,8 @@
         <group>
             <file>file:/C:/Projeto/ControleEstoqueVenda/src/dao/ClientesDAO.java</file>
             <file>file:/C:/Projeto/ControleEstoqueVenda/src/view/FormularioVendas.java</file>
+            <file>file:/C:/Projeto/ControleEstoqueVenda/src/view/FormularioDetalheVenda.java</file>
+            <file>file:/C:/Projeto/ControleEstoqueVenda/src/view/FormularioPagamento.java</file>
         </group>
     </open-files>
 </project-private>
