@@ -1,4 +1,6 @@
-#  Sistema de Controle de Vendas e Estoque       link para o trello: https://trello.com/invite/b/69decede19b346cfc4236f0b/ATTId29aa4ad17e85b4360052b4453fbc7f6A5795514/sistema-de-vendas-e-controle-de-estoque
+#  Sistema de Controle de Vendas e Estoque     
+
+link para o trello: https://trello.com/invite/b/69decede19b346cfc4236f0b/ATTId29aa4ad17e85b4360052b4453fbc7f6A5795514/sistema-de-vendas-e-controle-de-estoque
 
 ##  Descrição
 O Sistema de Controle de Vendas e Estoque é uma aplicação desenvolvida em Java utilizando Swing para interface gráfica e MySQL como banco de dados.  
