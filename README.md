@@ -8,6 +8,8 @@ O objetivo do sistema é auxiliar no gerenciamento de produtos, fornecedores e v
 
 ## Ferramentas Utilizadas
 - Java Swing
+- Java
+- NetBeans
 - Mysql
 - JasperReports
 - Git/GitHub
