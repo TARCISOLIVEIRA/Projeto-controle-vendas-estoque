@@ -107,7 +107,6 @@ public class ClientesDAO {
      }
     
     public Clientes BuscarCliente(String nome){
-        
         try {
             String sql = "select * from tb_clientes where nome =?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -129,8 +128,6 @@ public class ClientesDAO {
                 obj.setBairro(rs.getString("bairro"));
                 obj.setCidade(rs.getString("cidade"));
                 obj.setEstado(rs.getString("estado"));
-               
-               
             } 
             return obj;
         } catch (Exception erro) {
@@ -143,6 +140,7 @@ public class ClientesDAO {
     
     
    public Clientes BuscarClienteNome(String nome){
+       
 
     try {
 
@@ -150,14 +148,19 @@ public class ClientesDAO {
 
         PreparedStatement stmt = conn.prepareStatement(sql);
 
-        stmt.setString(1, "%" + nome + "%");
+        stmt.setString(1, "%" +nome+ "%" );
+        System.out.println("digita o nome "+ nome);
 
         ResultSet rs = stmt.executeQuery();
+        System.out.println("foi salvo " + rs);
 
         Clientes obj = new Clientes();
 
         if(rs.next()){
-
+            
+            
+            obj.setId(rs.getInt("id"));
+          
             obj.setNome(rs.getString("nome"));
             obj.setCpf(rs.getString("cpf"));
         }

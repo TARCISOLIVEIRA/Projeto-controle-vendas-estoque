@@ -28,6 +28,12 @@ public class VendasDAO {
     public void Salvar(Vendas obj){
         
         try {
+            
+            
+            
+            
+            
+            
             String sql = "insert into tb_vendas (cliente_id, data_venda, total_venda, observacoes,numero_nota, funcionarios_id)"
                     + "values (?,?,?,?,?,? )";
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -36,8 +42,13 @@ public class VendasDAO {
              stmt.setDouble(3,obj.getTotal_venda());
              stmt.setString(4,obj.getObservacao());
              stmt. setInt(5,obj.getNumeroNota());
+             
+             //System.out.println("funcionariodao"+ obj.getFuncionario());
+             //System.out.println("id funcionario"+ obj.getFuncionario());
+             
              stmt.setInt(6,obj.getFuncionario().getId());
              stmt.executeUpdate();
+             
              ResultSet rs = stmt.getGeneratedKeys();
              if(rs.next()) {
                  obj.setId(rs.getInt(1));
@@ -288,7 +299,6 @@ public ResultSet produtosMaisVendidos() {
     public List<Vendas>historicoVendas(Date data_inicio, Date data_fim){
         try {
             List<Vendas>lista = new ArrayList<>();
-            
           String sql = "select v.id, "
         + "c.nome as cliente, "
         + "f.nome as funcionario, "
@@ -299,12 +309,6 @@ public ResultSet produtosMaisVendidos() {
         + "inner join tb_clientes as c on (v.cliente_id = c.id) "
         + "inner join tb_funcionarios as f on (v.funcionarios_id = f.id) "
         + "where v.data_venda between ? and ?";
-            
-            
-            
-            
-            
-            
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setDate(1,new java.sql.Date(data_inicio.getTime()));
             stmt.setDate(2, new java.sql.Date(data_fim.getTime()));
@@ -321,8 +325,8 @@ public ResultSet produtosMaisVendidos() {
                 Date d = rs.getDate("data_venda");
                 v.setData_venda(d);
                 v.setTotal_venda(rs.getDouble("total_venda"));
-                c.setNome(rs.getString("cliente"));
-                v.setClientes(c);
+                //c.setNome(rs.getString("cliente"));
+                //v.setClientes(c);
                 v.setObservacao(rs.getString("observacoes") == null ? "" : rs.getString("observacoes"));
                 lista.add(v);
             }
