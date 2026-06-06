@@ -5,6 +5,8 @@ import dao.ClientesDAO;
 import dao.ItensVendasDAO;
 import dao.ProdutoDAO;
 import dao.VendasDAO;
+import dao.FuncionarioDAO;
+
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -22,13 +24,16 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class FormularioPagamento extends javax.swing.JFrame {
-  
+    public String nomeCliente;
+    public String nomeVendedor;
     ItemVendas obj = new ItemVendas();
     Clientes clientes = new Clientes();
     DefaultTableModel meus_produtos;
 
     public FormularioPagamento() {
         initComponents();
+        
+        
 
 double dinheiro = 0;
 double cartao = 0;
@@ -184,6 +189,16 @@ txtTroco.setText(String.valueOf(troco));
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
 
+   ClientesDAO cdao = new ClientesDAO();   
+   
+   Clientes cliente = cdao.BuscarCliente(nomeCliente);
+        System.out.println(cliente.getId());
+        System.out.println(cliente.getNome());
+        
+        
+        
+        
+        
 double dinheiro = 0;
 double cartao = 0;
 double cheque = 0;
@@ -218,30 +233,36 @@ troco = totalPago - totalVenda;
 DecimalFormat df = new DecimalFormat("0.00");
 txtTroco.setText(df.format(troco));
 
-
-
- // AQUI  
- 
- 
         if (totalPago >= totalVenda) {
-
+            
+             
             Vendas v = new Vendas();
             ClientesDAO c = new ClientesDAO();
-            
             v.setClientes(clientes);
             Date agora = new Date();
             v.setData_venda(agora);
             v.setTotal_venda(totalVenda);
             v.setObservacao(txtObservacao.getText());
-            
             Funcionario f = new Funcionario();
-            f.setId(6);
+            System.out.println("vendedor hoje" + nomeVendedor);
+            f.setId(14);
+            f.setNome(nomeVendedor);
             v.setFuncionario(f);
             
             try{
                 VendasDAO vd = new VendasDAO();
+                
+                System.out.println("id vendedor ..." + f.getId());
+                System.out.println("Nome do vendedor .." + f.getNome());
+                
+                
                 vd.Salvar(v);
-                int idVenda = vd.retornarUltimoIdVenda();          
+                int idVenda = vd.retornarUltimoIdVenda(); 
+                
+                System.out.println("Id retornando =" + idVenda);
+                v.setId(idVenda);
+                System.out.println("Id da venda no objeto " + v.getId());
+                
                 
                ItensVendasDAO itensDAO = new ItensVendasDAO();
                  
@@ -273,7 +294,10 @@ System.out.println("Funcionario: " + v.getFuncionario().getNome());
             
             
             System.out.println("id vendas" + v.getId());
+            
             parametros.put("ID_VENDA", v.getId());
+             parametros.put("VENDEDOR", v.getFuncionario().getNome());
+            
             Connection conn = new ConexaoBanco().pegarConexao();
             try {
                  InputStream is = getClass().getResourceAsStream("/relatorios/nota_fiscal.jasper");
@@ -300,24 +324,21 @@ System.out.println("Funcionario: " + v.getFuncionario().getNome());
            JOptionPane.showMessageDialog(null, "Venda Realizada com sucesso ! ID: " + v.getId());
               
              
-
-
+ 
 
 
 
 // System.out.println("entrou........ ");
-              
               for (int i = 0; i < meus_produtos.getRowCount(); i++) {
                 int qtd_estoque, qtd_comprada, qtd_atualizada;
-                
-                //  System.out.println("looooo" +i);
-
-            
+              
                 Produto p = new Produto();
                 ProdutoDAO pd = new ProdutoDAO();
                 ItemVendas item = new ItemVendas();
                 item.setVendas(v);
+                
                
+                
                 
                 p.setId((int)Double.parseDouble(meus_produtos.getValueAt(i, 0).toString()));
                 System.out.println("ID" + meus_produtos.getValueAt(i,0));
@@ -335,8 +356,8 @@ System.out.println("Funcionario: " + v.getFuncionario().getNome());
 
                 pd.baixaEstoque(p.getId(), qtd_atualizada);
 
-               // ItensVendasDAO ivd = new ItensVendasDAO();
-               // ivd.salvar(item);
+               
+                
             }
             
         
@@ -346,6 +367,11 @@ System.out.println("Funcionario: " + v.getFuncionario().getNome());
 
     }
 
+    
+    
+    
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

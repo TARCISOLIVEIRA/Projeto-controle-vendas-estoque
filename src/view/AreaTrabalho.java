@@ -624,8 +624,7 @@ private void produtoMaisVendido() {
         
        FormularioCliente fc = new FormularioCliente();   // parentese (trhis,true)
        
-       
-       
+        
        //fc.setModal(rootPaneCheckingEnabled);
        fc.setVisible(true);
        
@@ -724,7 +723,7 @@ private void produtoMaisVendido() {
     private void menuAbrirPdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAbrirPdvActionPerformed
         // TODO add your handling code here:
         
-        FormularioVendas fv = new FormularioVendas();
+        FormularioVendas fv = new FormularioVendas(func);
           fv.setVisible(true);
     }//GEN-LAST:event_menuAbrirPdvActionPerformed
 

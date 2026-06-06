@@ -300,11 +300,6 @@ public ResultSet produtosMaisVendidos() {
         + "inner join tb_funcionarios as f on (v.funcionarios_id = f.id) "
         + "where v.data_venda between ? and ?";
             
-            
-            
-            
-            
-            
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setDate(1,new java.sql.Date(data_inicio.getTime()));
             stmt.setDate(2, new java.sql.Date(data_fim.getTime()));

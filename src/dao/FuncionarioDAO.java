@@ -59,6 +59,39 @@ public class FuncionarioDAO {
         
     }
     
+    public List<Funcionario> listarFuncionarios() {
+
+    List<Funcionario> lista = new ArrayList<>();
+
+    try {
+        String sql = "select * from tb_funcionarios";
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+
+        while(rs.next()){
+
+            Funcionario f = new Funcionario();
+
+            f.setId(rs.getInt("id"));
+            f.setNome(rs.getString("nome"));
+
+            lista.add(f);
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
+    }
+
+    return lista;
+}
+
+   
+    
+    
+    
+    
+    
     
      public void Editar(Funcionario cli){
         

@@ -129,8 +129,6 @@ public class ClientesDAO {
                 obj.setBairro(rs.getString("bairro"));
                 obj.setCidade(rs.getString("cidade"));
                 obj.setEstado(rs.getString("estado"));
-               
-               
             } 
             return obj;
         } catch (Exception erro) {
@@ -143,34 +141,21 @@ public class ClientesDAO {
     
     
    public Clientes BuscarClienteNome(String nome){
-
     try {
-
         String sql = "select * from tb_clientes where nome like ?";
-
         PreparedStatement stmt = conn.prepareStatement(sql);
-
         stmt.setString(1, "%" + nome + "%");
-
         ResultSet rs = stmt.executeQuery();
-
         Clientes obj = new Clientes();
-
         if(rs.next()){
-
             obj.setNome(rs.getString("nome"));
             obj.setCpf(rs.getString("cpf"));
         }
-
         return obj;
-
     } catch (Exception erro) {
-
         JOptionPane.showMessageDialog(null,
         "Erro ao buscar cliente");
-
     }
-
     return null;
 }
 
