@@ -23,6 +23,8 @@ import utilitario.Utilitarios;
  * @author Tarciso
  */
 public class FormularioVendas extends javax.swing.JFrame {
+    Clientes clientes = new Clientes();
+    Clientes obj = new Clientes();
     
      public void listar(){
        ProdutoDAO dao = new ProdutoDAO();
@@ -49,7 +51,6 @@ public class FormularioVendas extends javax.swing.JFrame {
     
     
     
-    Clientes obj = new Clientes();
     
     
     double preco, subtotal, total;
@@ -537,7 +538,7 @@ public class FormularioVendas extends javax.swing.JFrame {
     private void txtCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyPressed
         // TODO add your handling code here:
         
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+      if(evt.getKeyCode()== KeyEvent.VK_ENTER){
         
         String cpf =   txtCpf.getText();
         //Clientes obj = new Clientes();
@@ -558,23 +559,29 @@ public class FormularioVendas extends javax.swing.JFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
          
-        String nome =   txtNome.getText();
-        ClientesDAO dao = new ClientesDAO();
-        
-        obj = dao.BuscarClienteNome(nome);
-        
-        if(obj.getCpf()!= null){
-          
-           txtNome.setText(obj.getNome());
-           txtCpf.setText(obj.getCpf());
-           
-           
-        }else {
-            JOptionPane.showMessageDialog(null, "Nome não encontrado");
-            txtNome.setText("");
-            txtCpf.setText("");
-        }
-        
+String nome = txtNome.getText();
+
+ClientesDAO dao = new ClientesDAO();
+
+clientes = dao.BuscarClienteNome(nome);
+
+if(clientes.getCpf() != null){
+
+    txtNome.setText(clientes.getNome());
+    txtCpf.setText(clientes.getCpf());
+
+    System.out.println(clientes.getId());
+    System.out.println(clientes.getNome());
+
+}else{
+
+    JOptionPane.showMessageDialog(null,
+    "Cliente não encontrado");
+
+    txtNome.setText("");
+    txtCpf.setText("");
+}
+
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
@@ -725,17 +732,25 @@ public class FormularioVendas extends javax.swing.JFrame {
     private void btnPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagamentoActionPerformed
         // TODO add your handling code here:
         
-        String nome = txtNome.getName();
+        String nome = txtNome.getText();
         String cpf = txtCpf.getText();
         obj = new Clientes();
         ClientesDAO daoc = new ClientesDAO();
         obj = daoc.BuscarCliente(nome);
+        System.out.println("id apos busca "+ obj.getId());
+        System.out.println("nome apos busca "+ obj.getNome());
         obj = daoc.BuscarClienteCPF(cpf);
         if (obj.getNome() != null && obj.getCpf() != null) {
             FormularioPagamento telaPag = new FormularioPagamento();
-            telaPag.clientes = obj;
+            
+            Clientes novo = new Clientes();
+            novo.setNome(txtNome.getText());
+            
+            telaPag.clientes = novo;
             telaPag.meus_produtos = meus_produtos;
             telaPag.txtTotal.setText(String.valueOf(total));
+            
+            
             telaPag.setVisible(true);
             
         } else{

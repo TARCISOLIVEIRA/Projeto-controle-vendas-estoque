@@ -22,7 +22,9 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class FormularioPagamento extends javax.swing.JFrame {
-  
+    
+    
+    String nomeCliente;
     ItemVendas obj = new ItemVendas();
     Clientes clientes = new Clientes();
     DefaultTableModel meus_produtos;
@@ -58,6 +60,11 @@ double troco = totalPago - totalVenda;
 
 txtTroco.setText(String.valueOf(troco));   
 
+    }
+    
+    
+    public void setNomeCliente(String nome){
+        this.nomeCliente = nome; 
     }
 
     @SuppressWarnings("unchecked")
@@ -218,35 +225,55 @@ troco = totalPago - totalVenda;
 DecimalFormat df = new DecimalFormat("0.00");
 txtTroco.setText(df.format(troco));
 
-
-
  // AQUI  
  
- 
+   
+            
         if (totalPago >= totalVenda) {
-
             Vendas v = new Vendas();
-            ClientesDAO c = new ClientesDAO();
+            
+            System.out.println("nome do objeto oiiiiiiiii" + clientes.getNome());
+            System.out.println("nome do oiiiiii  "+ clientes.getId());
             
             v.setClientes(clientes);
-            Date agora = new Date();
-            v.setData_venda(agora);
-            v.setTotal_venda(totalVenda);
-            v.setObservacao(txtObservacao.getText());
+          
+            
             
             Funcionario f = new Funcionario();
             f.setId(6);
             v.setFuncionario(f);
             
+            System.out.println(v.getFuncionario().getId());
+            
+            Date agora = new Date();
+            v.setData_venda(agora);
+            v.setTotal_venda(totalVenda);
+            v.setObservacao(txtObservacao.getText());
+            
+            //
+             
             try{
+                System.out.println("id final cliente "+ clientes.getId());
+                System.out.println("Nome final  cliente "+ clientes.getNome());
                 VendasDAO vd = new VendasDAO();
                 vd.Salvar(v);
+                
+                
+                System.out.println("ID cliente: " + v.getClientes().getId());
+System.out.println("Nome cliente: " + v.getClientes().getNome());
+
+System.out.println("ID funcionario: " + v.getFuncionario().getId());
+System.out.println("Nome funcionario: " + v.getFuncionario().getNome());
+                
+                
+                
+                
                 int idVenda = vd.retornarUltimoIdVenda();          
                 
                ItensVendasDAO itensDAO = new ItensVendasDAO();
                  
                  
-                for(int i = 0;i < meus_produtos.getRowCount(); i++ ){
+          for(int i = 0;i < meus_produtos.getRowCount(); i++ ){
                  ItemVendas item = new ItemVendas();
     int idProduto = Integer.parseInt(meus_produtos.getValueAt(i, 0).toString());
     int qtd = Integer.parseInt(meus_produtos.getValueAt(i, 2).toString());
@@ -268,8 +295,8 @@ txtTroco.setText(df.format(troco));
             HashMap<String, Object> parametros = new HashMap<>();
             
      System.out.println("Cliente venda: " + v.getClientes().getNome());
-System.out.println("ID cliente: " + v.getClientes().getId());
-System.out.println("Funcionario: " + v.getFuncionario().getNome());
+     System.out.println("ID cliente: " + v.getClientes().getId());
+     System.out.println("Funcionario: " + v.getFuncionario().getNome());
             
             
             System.out.println("id vendas" + v.getId());
@@ -335,8 +362,8 @@ System.out.println("Funcionario: " + v.getFuncionario().getNome());
 
                 pd.baixaEstoque(p.getId(), qtd_atualizada);
 
-               // ItensVendasDAO ivd = new ItensVendasDAO();
-               // ivd.salvar(item);
+                ItensVendasDAO ivd = new ItensVendasDAO();
+               ivd.salvar(item);
             }
             
         
