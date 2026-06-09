@@ -350,29 +350,22 @@ public class FormularioProduto extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(null,
                 "Por favor preencha a descrição!");
-
         txtDescricao.requestFocus();
         return;
     }
-
     if(txtPreco.getText().trim().isEmpty()){
 
         JOptionPane.showMessageDialog(null,
                 "Por favor preencha o preço!");
-
         txtPreco.requestFocus();
         return;
     }
-
     if(txtQtd_Estoque.getText().trim().isEmpty()){
-
         JOptionPane.showMessageDialog(null,
                 "Por favor preencha a quantidade!");
-
         txtQtd_Estoque.requestFocus();
         return;
     }
-
     String descricao = txtDescricao.getText().trim().toLowerCase();
 
     if(!descricao.isEmpty()){

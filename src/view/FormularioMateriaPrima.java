@@ -68,16 +68,16 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
         txtDescricao = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
-        txtUnidadeMedida = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         txtEstoque = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         txtEstoqueMinimo = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
         txtValorUnitario = new javax.swing.JTextField();
+        cbxUnidadeMedida = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        txtPesquisarNome = new javax.swing.JTextField();
+        txtPesquisarDescricao = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         btnpesquisar1 = new javax.swing.JButton();
@@ -140,8 +140,6 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
         jLabel19.setText("Unidade de Medida ");
         jPanel2.add(jLabel19);
         jLabel19.setBounds(10, 90, 120, 15);
-        jPanel2.add(txtUnidadeMedida);
-        txtUnidadeMedida.setBounds(140, 80, 210, 30);
 
         jLabel22.setText("Estoque");
         jPanel2.add(jLabel22);
@@ -165,7 +163,11 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
             }
         });
         jPanel2.add(txtValorUnitario);
-        txtValorUnitario.setBounds(130, 210, 50, 30);
+        txtValorUnitario.setBounds(130, 210, 80, 30);
+
+        cbxUnidadeMedida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "KG", "G", "L", "ML", "UN", "CX", "M" }));
+        jPanel2.add(cbxUnidadeMedida);
+        cbxUnidadeMedida.setBounds(130, 80, 80, 30);
 
         painel_guias.addTab("Dados Pessoais", jPanel2);
 
@@ -175,13 +177,13 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
         jPanel3.add(jLabel10);
         jLabel10.setBounds(10, 10, 60, 20);
 
-        txtPesquisarNome.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPesquisarDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPesquisarNomeKeyReleased(evt);
+                txtPesquisarDescricaoKeyReleased(evt);
             }
         });
-        jPanel3.add(txtPesquisarNome);
-        txtPesquisarNome.setBounds(100, 10, 190, 30);
+        jPanel3.add(txtPesquisarDescricao);
+        txtPesquisarDescricao.setBounds(100, 10, 190, 30);
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -316,22 +318,64 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        MateriaPrima obj = new MateriaPrima();
-        obj.setDescricao(txtDescricao.getText());
-        obj.setUnidadeMedida(txtUnidadeMedida.getText());
-        obj.setEstoque(Double.parseDouble(txtEstoque.getText()));
-        obj.setEstoqueMinimo(Double.parseDouble(txtEstoqueMinimo.getText()));
-        obj.setValorUnitario(Double.parseDouble(txtValorUnitario.getText()));
-      
-      
         
+        JOptionPane.showMessageDialog(null,"botao salva clidanco!");
+        
+        
+        if (txtDescricao.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null,
+                "Informe a descrição da matéria-prima!");
+        return;
+    }
+    try {
+        MateriaPrima obj = new MateriaPrima();
+       // padronizar a descricao 
+        obj.setDescricao(txtDescricao.getText().trim().replaceAll("\\s+", " ").toUpperCase());
+        // ComboBox
+        obj.setUnidadeMedida(
+                cbxUnidadeMedida.getSelectedItem().toString()
+        );
+        obj.setEstoque(
+                Double.parseDouble(txtEstoque.getText().replace(",", "."))
+        );
+
+        obj.setEstoqueMinimo(
+                Double.parseDouble(txtEstoqueMinimo.getText().replace(",", "."))
+        );
+        obj.setValorUnitario(
+                Double.parseDouble(txtValorUnitario.getText().replace(",", "."))
+        );
+        // se ja foi cadastrada
         MateriaPrimaDAO dao = new MateriaPrimaDAO();
+        MateriaPrima existente = dao.BuscarMateriaPrima(txtDescricao.getText().trim());
+        if (existente != null && existente.getDescricao() != null){
+            JOptionPane.showMessageDialog(null, "Esta materia prima já foi cadastrada");
+            return;
+        }
+        
+         JOptionPane.showMessageDialog(null,"vou chamar o dao !");
         dao.Salvar(obj);
+
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
+
+        JOptionPane.showMessageDialog(null,
+                "Matéria-prima salva com sucesso!");
+
+    } catch (NumberFormatException e) {
+
+        JOptionPane.showMessageDialog(null,
+                "Digite valores válidos.\nExemplo: 4,50 ou 4.50");
+
+    } catch (Exception e) {
+
+        JOptionPane.showMessageDialog(null,
+                "Erro ao salvar: " + e.getMessage());
+    }
+
         
-        JOptionPane.showMessageDialog(null,"Materia Prima Salva com sucesso");
-            
+        
+        
         
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -350,7 +394,7 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
         if(obj.getDescricao()!= null){
            txtCodigo.setText(String.valueOf(obj.getId()));
            txtDescricao.setText(obj.getDescricao());
-           txtUnidadeMedida.setText(obj.getUnidadeMedida());
+           cbxUnidadeMedida.setSelectedItem(obj.getUnidadeMedida());
            txtEstoque.setText(String.valueOf(obj.getEstoque()));
            txtEstoqueMinimo.setText(String.valueOf(obj.getEstoqueMinimo()));
            txtValorUnitario.setText(String.valueOf(obj.getValorUnitario()));
@@ -382,7 +426,7 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
 
     private void btnpesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisar1ActionPerformed
         // TODO add your handling code here:
-       String descricao = "%"+txtPesquisarNome.getText()+"%";
+       String descricao = "%"+txtPesquisarDescricao.getText()+"%";
        MateriaPrimaDAO dao = new MateriaPrimaDAO();
        List<MateriaPrima> lista = dao.Filtrar(descricao);
         
@@ -402,9 +446,9 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_btnpesquisar1ActionPerformed
 
-    private void txtPesquisarNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarNomeKeyReleased
+    private void txtPesquisarDescricaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarDescricaoKeyReleased
         // TODO add your handling code here:
-         String nome = "%"+txtPesquisarNome.getText()+"%";
+         String nome = "%"+txtPesquisarDescricao.getText()+"%";
        ClientesDAO dao = new ClientesDAO();
        List<Clientes> lista = dao.Filtrar(nome);
         
@@ -432,30 +476,47 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
         
        }
         
-    }//GEN-LAST:event_txtPesquisarNomeKeyReleased
+    }//GEN-LAST:event_txtPesquisarDescricaoKeyReleased
 
     private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
         // TODO add your handling code here:
         
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            String nome =  txtDescricao.getText();
-        Clientes obj = new Clientes();
-        ClientesDAO dao = new ClientesDAO();
+            String descricao =  txtDescricao.getText();
+        MateriaPrima obj = new MateriaPrima();
+        MateriaPrimaDAO dao = new MateriaPrimaDAO();
         
-        obj = dao.BuscarCliente(nome);
-        if(obj.getNome()!= null){
+        obj = dao.BuscarMateriaPrima(descricao);
+        if(obj.getDescricao()!= null){
            txtCodigo.setText(String.valueOf(obj.getId()));
-           txtDescricao.setText(obj.getNome());
+           txtDescricao.setText(obj.getDescricao());
            
-           txtUnidadeMedida.setText(obj.getEmail());
-           txtEstoque.setText(obj.getEndereco());
+           //txtUnidadeMedida.setText(obj.getEmail());
+           txtEstoque.setText(String.valueOf(obj.getEstoque()));
            
           
-           txtEstoqueMinimo.setText(obj.getBairro());
-            txtValorUnitario.setText(obj.getComplemento());
+           txtEstoqueMinimo.setText(String.valueOf(obj.getEstoqueMinimo()));
+            txtValorUnitario.setText(String.valueOf(obj.getValorUnitario()));
            
         }else {
-            JOptionPane.showMessageDialog(null, "Cliente nao encontrado");
+            //JOptionPane.showMessageDialog(null,"Materia Prima nao encontrado");
+            if(obj.getDescricao() != null){
+
+    txtCodigo.setText(String.valueOf(obj.getId()));
+    txtDescricao.setText(obj.getDescricao());
+
+    txtEstoque.setText(String.valueOf(obj.getEstoque()));
+    txtEstoqueMinimo.setText(String.valueOf(obj.getEstoqueMinimo()));
+    txtValorUnitario.setText(String.valueOf(obj.getValorUnitario()));
+
+}else {
+
+    txtCodigo.setText("");
+    txtEstoque.setText("");
+    txtEstoqueMinimo.setText("");
+    txtValorUnitario.setText("");
+
+}
         }
         }
         
@@ -468,10 +529,11 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
         painel_guias.setSelectedIndex(0);
         txtCodigo.setText(tabela.getValueAt(tabela.getSelectedRow(),0).toString());
         txtDescricao.setText(tabela.getValueAt(tabela.getSelectedRow(),1).toString());
-        txtUnidadeMedida.setText(tabela.getValueAt(tabela.getSelectedRow(),4).toString());
-        txtEstoque.setText(tabela.getValueAt(tabela.getSelectedRow(),8).toString());
-         txtEstoqueMinimo.setText(tabela.getValueAt(tabela.getSelectedRow(),11).toString());
-        txtValorUnitario.setText(tabela.getValueAt(tabela.getSelectedRow(),10).toString());
+        txtEstoque.setText(tabela.getValueAt(tabela.getSelectedRow(),2).toString());
+        cbxUnidadeMedida.setSelectedItem(tabela.getValueAt(tabela.getSelectedRow(),3).toString());
+        
+         txtEstoqueMinimo.setText(tabela.getValueAt(tabela.getSelectedRow(),4).toString());
+        txtValorUnitario.setText(tabela.getValueAt(tabela.getSelectedRow(),5).toString());
        
         
         
@@ -490,7 +552,7 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
         obj.setId(Integer.parseInt(txtCodigo.getText()));
         txtCodigo.setEditable(false);
         obj.setDescricao(txtDescricao.getText());
-        obj.setUnidadeMedida(txtUnidadeMedida.getText());
+        obj.setUnidadeMedida(cbxUnidadeMedida.getSelectedItem().toString());
         obj.setEstoque(Double.parseDouble(txtEstoque.getText()));
         obj.setEstoqueMinimo(Double.parseDouble(txtEstoqueMinimo.getText()));
         obj.setValorUnitario(Double.parseDouble(txtValorUnitario.getText()));
@@ -613,6 +675,7 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnpesquisar1;
+    private javax.swing.JComboBox<String> cbxUnidadeMedida;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -630,8 +693,7 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtEstoque;
     private javax.swing.JTextField txtEstoqueMinimo;
-    private javax.swing.JTextField txtPesquisarNome;
-    private javax.swing.JTextField txtUnidadeMedida;
+    private javax.swing.JTextField txtPesquisarDescricao;
     private javax.swing.JTextField txtValorUnitario;
     // End of variables declaration//GEN-END:variables
 }
