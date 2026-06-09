@@ -25,7 +25,7 @@ public class MateriaPrimaDAO {
         
         try {
             // 1 Criando o sql;
-            String sql = "insert into tb_materias_primas (descicao,unidade_medida,estoque,estoque_minimo, valor_unitario)" 
+            String sql = "insert into tb_materias_primas (descricao,unidade_medida,estoque,estoque_minimo, valor_unitario)" 
                           + "values(?,?,?,?,?)";
             // preparação conexao sql com banco
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -35,6 +35,8 @@ public class MateriaPrimaDAO {
             stmt.setDouble(4,prima.getEstoqueMinimo());
             stmt.setDouble(5,prima.getValorUnitario());
             stmt.execute();
+             JOptionPane.showMessageDialog(null,"salvou no banco ");
+            
             stmt.close();
             
         } catch (SQLException erro) {
@@ -42,11 +44,14 @@ public class MateriaPrimaDAO {
         }
     }
     
+    
+    
      public void Editar(MateriaPrima prima){
         
         try {
             // 1 Alterando clinetes o sql;
-            String sql = "update tb_materias_primas set descricao=?, unidade_medida=?, estoque=?,estoque_minimo=?,valor_unitario=?,"
+            String sql = "update tb_materias_primas set descricao=?, unidade_medida=?, "
+                    + "estoque=?,estoque_minimo=?, valor_unitario=?"
                     + " where id=?";
             // preparação conexao sql com banco
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -55,7 +60,7 @@ public class MateriaPrimaDAO {
             stmt.setDouble(3,prima.getEstoque());
             stmt.setDouble(4,prima.getEstoqueMinimo());
             stmt.setDouble(5,prima.getValorUnitario());
-            
+            stmt.setInt(6,prima.getId());
             stmt.execute();
             stmt.close();
             
@@ -94,8 +99,8 @@ public class MateriaPrimaDAO {
             if(rs.next()){
                 obj.setId(rs.getInt("id"));
                 obj.setDescricao(rs.getString("descricao"));
-                obj.setUnidadeMedida(rs.getString("estoque"));
-                obj.setEstoque(rs.getDouble("unidade_medida"));
+                obj.setUnidadeMedida(rs.getString("unidade_medida"));
+                obj.setEstoque(rs.getDouble("estoque"));
                 obj.setEstoqueMinimo(rs.getDouble("estoque_minimo"));
                 obj.setValorUnitario(rs.getDouble("valor_unitario"));
             } 
@@ -197,8 +202,8 @@ public class MateriaPrimaDAO {
                 MateriaPrima obj = new MateriaPrima();
                 obj.setId(rs.getInt("id"));
                 obj.setDescricao(rs.getString("descricao"));
-                obj.setUnidadeMedida(rs.getString("estoque"));
-                obj.setEstoque(rs.getDouble("unidade_medida"));
+                obj.setUnidadeMedida(rs.getString("unidade_medida"));
+                obj.setEstoque(rs.getDouble("estoque"));
                 obj.setEstoqueMinimo(rs.getDouble("estoque_minimo"));
                 obj.setValorUnitario(rs.getDouble("valor_unitario"));
                 lista.add(obj);
@@ -213,16 +218,16 @@ public class MateriaPrimaDAO {
     public List<MateriaPrima>Filtrar(String descricao){
         List<MateriaPrima> lista = new ArrayList();
         try {
-            String sql = "select * from tb_materias_primas where nome like ?";
+            String sql = "select * from tb_materias_primas where descricao like ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, descricao);
+            stmt.setString(1, descricao + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 MateriaPrima obj = new MateriaPrima();
                 obj.setId(rs.getInt("id"));
                 obj.setDescricao(rs.getString("descricao"));
-                obj.setUnidadeMedida(rs.getString("estoque"));
-                obj.setEstoque(rs.getDouble("unidade_medida"));
+                obj.setUnidadeMedida(rs.getString("unidade_medida"));
+                obj.setEstoque(rs.getDouble("estoque"));
                 obj.setEstoqueMinimo(rs.getDouble("estoque_minimo"));
                 obj.setValorUnitario(rs.getDouble("valor_unitario"));
                 lista.add(obj);
