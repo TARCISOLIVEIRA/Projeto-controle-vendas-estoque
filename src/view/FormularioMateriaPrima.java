@@ -13,14 +13,21 @@ import model.MateriaPrima;
 import utilitario.Utilitarios;
 import java.sql.Connection;
 import java.io.InputStream;
+import javax.swing.JFrame;
 
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
 
-// aqui Jdialog
+
+
+
 public class FormularioMateriaPrima extends javax.swing.JFrame {
+    
+    
+    
+    
       
       public void listar(){
        MateriaPrimaDAO dao = new MateriaPrimaDAO();
