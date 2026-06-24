@@ -12,6 +12,18 @@ public class Vendas {
     private String observacao;
     private int numeroNota;
     private Funcionario funcionario;
+    private String forma_pagamento;
+
+    public String getForma_pagamento() {
+        return forma_pagamento;
+    }
+
+    public void setForma_pagamento(String forma_pagamento) {
+        this.forma_pagamento = forma_pagamento;
+    }
+    
+    
+    
 
     public int getNumeroNota() {
         return numeroNota;
@@ -28,9 +40,6 @@ public class Vendas {
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
-    
-    
-
     public int getId() {
         return id;
     }

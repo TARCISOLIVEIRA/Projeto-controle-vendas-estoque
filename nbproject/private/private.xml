@@ -12,8 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Projeto/ControleEstoqueVenda/src/dao/MovimentacaoEstoqueDAO.java</file>
-            <file>file:/C:/Projeto/ControleEstoqueVenda/src/view/FormularioMovimentacaoEstoque.java</file>
+            <file>file:/C:/Projeto/ControleEstoqueVenda/src/dao/ProdutoDAO.java</file>
+            <file>file:/C:/Projeto/ControleEstoqueVenda/src/dao/ItensVendasDAO.java</file>
+            <file>file:/C:/Projeto/ControleEstoqueVenda/src/view/formularioVendaSupermecado.java</file>
+            <file>file:/C:/Projeto/ControleEstoqueVenda/src/dao/VendasDAO.java</file>
         </group>
     </open-files>
 </project-private>

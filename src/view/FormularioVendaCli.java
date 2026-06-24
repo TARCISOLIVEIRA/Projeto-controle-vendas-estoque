@@ -15,6 +15,10 @@ public class FormularioVendaCli extends javax.swing.JFrame {
      */
     public FormularioVendaCli() {
         initComponents();
+        //setExtendedState(MAXIMIZED_BOTH);
+        setSize(1200,750);
+        setLocationRelativeTo(null);
+            
     }
 
     /**
@@ -27,70 +31,479 @@ public class FormularioVendaCli extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        cbCliente = new javax.swing.JComboBox<>();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txtFuncionario = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        cbPagamento = new javax.swing.JComboBox<>();
+        jPanel14 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jPanel35 = new javax.swing.JPanel();
+        jTextField6 = new javax.swing.JTextField();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel17 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel18 = new javax.swing.JPanel();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel20 = new javax.swing.JPanel();
+        jPanel22 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jPanel21 = new javax.swing.JPanel();
+        jPanel23 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel24 = new javax.swing.JPanel();
+        jTextField4 = new javax.swing.JTextField();
+        jPanel25 = new javax.swing.JPanel();
+        jPanel27 = new javax.swing.JPanel();
+        jPanel28 = new javax.swing.JPanel();
+        jPanel29 = new javax.swing.JPanel();
+        jPanel30 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel26 = new javax.swing.JPanel();
+        jPanel31 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel32 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jPanel33 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jPanel34 = new javax.swing.JPanel();
+        jButton8 = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
+        jPanel1.setLayout(null);
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 51));
+        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(0, 0, 1130, 100);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(0, 51, 204));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cadastro de Vendas");
+        jLabel1.setText("CAIXA ABERTO");
+        jPanel3.add(jLabel1, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-        );
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(0, 100, 970, 80);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 837, 126);
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(jPanel4);
+        jPanel4.setBounds(980, 100, 150, 80);
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel2.setText("Cliente:");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 150, 100, 30);
+        jPanel5.setBackground(new java.awt.Color(0, 51, 153));
+        jPanel5.setLayout(new java.awt.BorderLayout());
 
-        cbCliente.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        cbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cbCliente);
-        cbCliente.setBounds(80, 150, 100, 25);
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("FABRICA DO ");
+        jPanel5.add(jLabel12, java.awt.BorderLayout.CENTER);
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel3.setText("Funcionário:");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 210, 70, 20);
+        jLabel13.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("BOLO");
+        jPanel5.add(jLabel13, java.awt.BorderLayout.PAGE_START);
 
-        txtFuncionario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        getContentPane().add(txtFuncionario);
-        txtFuncionario.setBounds(100, 210, 130, 30);
+        jPanel1.add(jPanel5);
+        jPanel5.setBounds(0, 190, 240, 310);
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel4.setText("Forma de Pagamento: ");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 270, 150, 30);
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setLayout(new java.awt.BorderLayout());
 
-        cbPagamento.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        cbPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cbPagamento);
-        cbPagamento.setBounds(180, 270, 110, 24);
+        jPanel7.setBackground(new java.awt.Color(0, 0, 102));
+        jPanel7.setLayout(new java.awt.BorderLayout());
 
-        pack();
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel3.setText("CÓDIGO DE BARRAS ");
+        jPanel7.add(jLabel3, java.awt.BorderLayout.CENTER);
+
+        jPanel6.add(jPanel7, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel6);
+        jPanel6.setBounds(250, 190, 300, 100);
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setLayout(new java.awt.BorderLayout());
+
+        jPanel9.setBackground(new java.awt.Color(0, 0, 102));
+        jPanel9.setLayout(new java.awt.BorderLayout());
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel2.setText("VALOR UNITÁRIO");
+        jPanel9.add(jLabel2, java.awt.BorderLayout.CENTER);
+
+        jPanel8.add(jPanel9, java.awt.BorderLayout.CENTER);
+
+        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jTextField2.setForeground(new java.awt.Color(0, 0, 102));
+        jTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField2.setText("R$ 0,00");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jTextField2, java.awt.BorderLayout.PAGE_START);
+
+        jPanel1.add(jPanel8);
+        jPanel8.setBounds(250, 290, 300, 110);
+
+        jPanel10.setLayout(new java.awt.BorderLayout());
+
+        jPanel12.setBackground(new java.awt.Color(0, 0, 102));
+        jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel10.add(jPanel12, java.awt.BorderLayout.CENTER);
+
+        jPanel13.setBackground(new java.awt.Color(0, 0, 102));
+        jPanel13.setLayout(new java.awt.BorderLayout());
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setText("QUANTIDADE");
+        jPanel13.add(jLabel4, java.awt.BorderLayout.CENTER);
+
+        jPanel10.add(jPanel13, java.awt.BorderLayout.PAGE_START);
+
+        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel14.setLayout(new java.awt.BorderLayout());
+
+        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(0, 0, 102));
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField1.setText("1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jPanel14.add(jTextField1, java.awt.BorderLayout.CENTER);
+
+        jPanel10.add(jPanel14, java.awt.BorderLayout.PAGE_END);
+
+        jPanel35.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel35.setLayout(null);
+
+        jTextField6.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jTextField6.setForeground(new java.awt.Color(0, 0, 153));
+        jTextField6.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField6.setText("01");
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
+        jPanel35.add(jTextField6);
+        jTextField6.setBounds(0, 9, 300, 30);
+
+        jPanel10.add(jPanel35, java.awt.BorderLayout.LINE_END);
+
+        jPanel1.add(jPanel10);
+        jPanel10.setBounds(250, 400, 300, 100);
+
+        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel15.setLayout(null);
+
+        jPanel16.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel16.setLayout(new java.awt.BorderLayout());
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("LISTA DE PRODUTOS");
+        jPanel16.add(jLabel5, java.awt.BorderLayout.CENTER);
+
+        jPanel15.add(jPanel16);
+        jPanel16.setBounds(0, 0, 580, 30);
+
+        jPanel17.setLayout(new java.awt.BorderLayout());
+
+        jTable1.setBackground(new java.awt.Color(255, 255, 255));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ITEM ", "CÓDIGO", "Descrição", "Qtd", "Total"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("ITEM ");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("CÓDIGO");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("Descrição");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("Qtd");
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("Total");
+        }
+
+        jPanel17.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel15.add(jPanel17);
+        jPanel17.setBounds(0, 30, 580, 320);
+
+        jPanel1.add(jPanel15);
+        jPanel15.setBounds(550, 190, 580, 350);
+
+        jPanel18.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel18.setLayout(new java.awt.BorderLayout());
+
+        jPanel19.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel19.setLayout(new java.awt.BorderLayout());
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel6.setText("SUBTOTAL");
+        jPanel19.add(jLabel6, java.awt.BorderLayout.CENTER);
+
+        jPanel18.add(jPanel19, java.awt.BorderLayout.CENTER);
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 51, 153));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("114,45");
+        jPanel18.add(jLabel7, java.awt.BorderLayout.PAGE_START);
+
+        jPanel1.add(jPanel18);
+        jPanel18.setBounds(550, 540, 580, 80);
+
+        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel20.setLayout(new java.awt.BorderLayout());
+
+        jPanel22.setBackground(new java.awt.Color(0, 0, 102));
+        jPanel22.setLayout(new java.awt.BorderLayout());
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel8.setText("TOTAL RECEBIDO");
+        jPanel22.add(jLabel8, java.awt.BorderLayout.CENTER);
+
+        jPanel20.add(jPanel22, java.awt.BorderLayout.CENTER);
+
+        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jTextField3.setForeground(new java.awt.Color(0, 0, 102));
+        jTextField3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField3.setText("110,45");
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+        jPanel20.add(jTextField3, java.awt.BorderLayout.PAGE_START);
+
+        jPanel1.add(jPanel20);
+        jPanel20.setBounds(550, 620, 280, 80);
+
+        jPanel21.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(jPanel21);
+        jPanel21.setBounds(840, 620, 290, 0);
+
+        jPanel23.setBackground(new java.awt.Color(0, 0, 102));
+        jPanel23.setLayout(new java.awt.BorderLayout());
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel9.setText("TROCO");
+        jPanel23.add(jLabel9, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel23);
+        jPanel23.setBounds(840, 620, 300, 40);
+
+        jPanel24.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel24.setLayout(new java.awt.BorderLayout());
+
+        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jTextField4.setForeground(new java.awt.Color(0, 51, 102));
+        jTextField4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField4.setText("0,00");
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
+        jPanel24.add(jTextField4, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel24);
+        jPanel24.setBounds(840, 660, 290, 40);
+
+        jPanel25.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel25.setLayout(new java.awt.BorderLayout());
+
+        jPanel27.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel27.setLayout(new java.awt.BorderLayout());
+
+        jPanel28.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel28.setLayout(new java.awt.BorderLayout());
+        jPanel27.add(jPanel28, java.awt.BorderLayout.CENTER);
+
+        jPanel29.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel29.setLayout(new java.awt.BorderLayout());
+
+        jPanel30.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel30.setLayout(null);
+        jPanel29.add(jPanel30, java.awt.BorderLayout.CENTER);
+
+        jPanel27.add(jPanel29, java.awt.BorderLayout.PAGE_START);
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel10.setText("CÓDIGO");
+        jPanel27.add(jLabel10, java.awt.BorderLayout.PAGE_END);
+
+        jPanel25.add(jPanel27, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel25);
+        jPanel25.setBounds(0, 510, 240, 60);
+
+        jPanel26.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel26.setLayout(new java.awt.BorderLayout());
+
+        jPanel31.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel31.setLayout(new java.awt.BorderLayout());
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel11.setText("TOTAL ITENS");
+        jPanel31.add(jLabel11, java.awt.BorderLayout.CENTER);
+
+        jPanel26.add(jPanel31, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel26);
+        jPanel26.setBounds(250, 510, 290, 60);
+
+        jPanel32.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel32.setLayout(new java.awt.BorderLayout());
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 51, 102));
+        jButton1.setText("F3 - EXCLUIR");
+        jPanel32.add(jButton1, java.awt.BorderLayout.CENTER);
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 51, 102));
+        jButton2.setText("F4 - INSERIR QTD");
+        jPanel32.add(jButton2, java.awt.BorderLayout.PAGE_START);
+
+        jButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jButton3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 51, 102));
+        jButton3.setText("F5 - NOVA");
+        jPanel32.add(jButton3, java.awt.BorderLayout.PAGE_END);
+
+        jPanel1.add(jPanel32);
+        jPanel32.setBounds(0, 580, 170, 110);
+
+        jPanel33.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel33.setLayout(new java.awt.BorderLayout());
+
+        jButton4.setBackground(new java.awt.Color(255, 255, 255));
+        jButton4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 0, 102));
+        jButton4.setText("F7 - PESQUISAR VENDA");
+        jPanel33.add(jButton4, java.awt.BorderLayout.CENTER);
+
+        jButton5.setBackground(new java.awt.Color(255, 255, 255));
+        jButton5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(0, 0, 102));
+        jButton5.setText("F 8 - PESQUISAR PRODUTO");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel33.add(jButton5, java.awt.BorderLayout.PAGE_START);
+
+        jButton6.setBackground(new java.awt.Color(255, 255, 255));
+        jButton6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(0, 0, 102));
+        jButton6.setText("F9 - ALTERAR VENDA");
+        jPanel33.add(jButton6, java.awt.BorderLayout.PAGE_END);
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(0, 51, 102));
+        jButton7.setText("F10 - FINALIZAR");
+        jPanel33.add(jButton7, java.awt.BorderLayout.LINE_END);
+
+        jPanel1.add(jPanel33);
+        jPanel33.setBounds(180, 580, 180, 110);
+
+        jPanel34.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel34.setForeground(new java.awt.Color(0, 51, 102));
+        jPanel34.setLayout(new java.awt.BorderLayout());
+
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(0, 0, 153));
+        jButton8.setText("F11 - EXCLUIR VENDA ");
+        jPanel34.add(jButton8, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel34);
+        jPanel34.setBounds(370, 580, 170, 110);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        jPanel11.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(jPanel11, java.awt.BorderLayout.PAGE_START);
+
+        setSize(new java.awt.Dimension(1150, 734));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,13 +541,68 @@ public class FormularioVendaCli extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbCliente;
-    private javax.swing.JComboBox<String> cbPagamento;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtFuncionario;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
+    private javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel29;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel30;
+    private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel33;
+    private javax.swing.JPanel jPanel34;
+    private javax.swing.JPanel jPanel35;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }

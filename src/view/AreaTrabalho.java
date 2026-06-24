@@ -300,6 +300,7 @@ private void produtoMaisVendido() {
         menuAbrirPdv = new javax.swing.JMenuItem();
         menuPosicaoDoDia = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
         menuTrocaUsuario = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -492,6 +493,14 @@ private void produtoMaisVendido() {
             }
         });
         menuHistoricoVenda.add(jMenuItem8);
+
+        jMenuItem15.setText("PDV BOLO ");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        menuHistoricoVenda.add(jMenuItem15);
 
         jMenuBar1.add(menuHistoricoVenda);
 
@@ -903,6 +912,13 @@ private void produtoMaisVendido() {
         est.setVisible(true);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        // TODO add your handling code here:
+      formularioVendaSupermecado bolo = new formularioVendaSupermecado();
+       bolo.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -963,6 +979,7 @@ private void produtoMaisVendido() {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

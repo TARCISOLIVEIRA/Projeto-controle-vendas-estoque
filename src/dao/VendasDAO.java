@@ -31,27 +31,20 @@ public class VendasDAO {
             
             
             
-            
-            
-            
-            String sql = "insert into tb_vendas (cliente_id, data_venda, total_venda, observacoes,numero_nota, funcionarios_id)"
-                    + "values (?,?,?,?,?,? )";
+            String sql = "insert into tb_vendas (cliente_id, data_venda, total_venda, observacoes,numero_nota, funcionarios_id, forma_pagamento)"
+                    + "values (?,?,?,?,?,?,? )";
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
              stmt.setInt(1,obj.getClientes().getId());
              stmt.setDate(2,new java.sql.Date(obj.getData_venda().getTime()));
              stmt.setDouble(3,obj.getTotal_venda());
              stmt.setString(4,obj.getObservacao());
              stmt. setInt(5,obj.getNumeroNota());
-             
-             //System.out.println("funcionariodao"+ obj.getFuncionario());
-             //System.out.println("id funcionario"+ obj.getFuncionario());
-             
              stmt.setInt(6,obj.getFuncionario().getId());
+             stmt. setString(7,obj.getForma_pagamento());
              stmt.executeUpdate();
-             
              ResultSet rs = stmt.getGeneratedKeys();
              if(rs.next()) {
-                 obj.setId(rs.getInt(1));
+               obj.setId(rs.getInt(1));
              }
              stmt.close();
              JOptionPane.showMessageDialog(null,"Venda realizada Sucesso");
@@ -147,11 +140,6 @@ public class VendasDAO {
     return total;
 }
 
-    
-    
-    
-    
-  
     
     
     
