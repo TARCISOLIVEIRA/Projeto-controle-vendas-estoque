@@ -34,8 +34,8 @@ public class ItensVendasDAO {
             stmt.setInt(3,obj.getQtd());
             stmt.setDouble(4,obj.getSubtotal());
             System.out.println(obj.getProduto().getId());
-System.out.println(obj.getQtd());
-System.out.println(obj.getSubtotal());
+           System.out.println(obj.getQtd());
+            System.out.println(obj.getSubtotal());
             
             
             stmt.execute();

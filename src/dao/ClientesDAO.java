@@ -20,6 +20,52 @@ public class ClientesDAO {
         this.conn = new ConexaoBanco().pegarConexao();
     }
     
+    
+    public Clientes buscarPorId(int id) {
+
+    try {
+
+        String sql = "SELECT * FROM tb_clientes WHERE id = ?";
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, id);
+
+        ResultSet rs = stmt.executeQuery();
+
+        Clientes obj = new Clientes();
+
+        if (rs.next()) {
+
+            obj.setId(rs.getInt("id"));
+            obj.setNome(rs.getString("nome"));
+            obj.setRg(rs.getString("rg"));
+            obj.setCpf(rs.getString("cpf"));
+            obj.setEmail(rs.getString("email"));
+            obj.setTelefone(rs.getString("telefone"));
+            obj.setCelular(rs.getString("celular"));
+            obj.setCep(rs.getString("cep"));
+            obj.setEndereco(rs.getString("endereco"));
+            obj.setNumero(rs.getInt("numero"));
+            obj.setComplemento(rs.getString("complemento"));
+            obj.setBairro(rs.getString("bairro"));
+            obj.setCidade(rs.getString("cidade"));
+            obj.setEstado(rs.getString("estado"));
+
+            return obj;
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "Erro ao buscar cliente: " + e.getMessage());
+    }
+
+    return null;
+}
+
+    
+    
+    
+    
     public void Salvar(Clientes cli){
         
         try {
@@ -279,6 +325,38 @@ public class ClientesDAO {
         }
         return lista;
     }
+    
+    
+    public List<Clientes> listarPorNome(String nome) {
+    List<Clientes> lista = new ArrayList<>();
+
+    try {
+        String sql = "SELECT * FROM tb_clientes WHERE nome LIKE ?";
+
+        PreparedStatement stmt =
+                conn.prepareStatement(sql);
+
+        stmt.setString(1, nome + "%");
+
+        ResultSet rs = stmt.executeQuery();
+
+        while(rs.next()) {
+
+            Clientes c = new Clientes();
+
+            c.setId(rs.getInt("id"));
+            c.setNome(rs.getString("nome"));
+
+            lista.add(c);
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
+    }
+
+    return lista;
+}
+
         
     
 }
