@@ -32,7 +32,7 @@ public class AreaTrabalho extends javax.swing.JFrame{
         
         produtoMaisVendido();
         aplicarPermissoes();
-        // alertaEstoqueTrigger();
+       
         verificarEstoque();
         
        
@@ -913,9 +913,8 @@ private void produtoMaisVendido() {
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-        // TODO add your handling code here:
-      formularioVendaSupermecado bolo = new formularioVendaSupermecado();
-       bolo.setVisible(true);
+      formularioVendaSupermecado tela = new formularioVendaSupermecado(func);
+       tela.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 

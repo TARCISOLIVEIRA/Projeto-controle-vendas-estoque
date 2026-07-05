@@ -20,6 +20,9 @@ import net.sf.jasperreports.view.JasperViewer;
 import utilitario.Utilitarios;
 
 
+
+
+
 public class FormularioProduto extends javax.swing.JFrame {
       
       public void listar(){
@@ -66,6 +69,10 @@ public class FormularioProduto extends javax.swing.JFrame {
         
         
     }*/
+     
+    private boolean produtoSalvo = false;
+    
+    
     public FormularioProduto() {
        
         initComponents();
@@ -133,6 +140,11 @@ public class FormularioProduto extends javax.swing.JFrame {
         jLabel17.setBounds(30, 10, 40, 15);
 
         txtCodigo.setEditable(false);
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtCodigo);
         txtCodigo.setBounds(90, 0, 90, 30);
 
@@ -140,6 +152,16 @@ public class FormularioProduto extends javax.swing.JFrame {
         jPanel2.add(jLabel18);
         jLabel18.setBounds(20, 50, 80, 15);
 
+        txtDescricao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDescricaoFocusLost(evt);
+            }
+        });
+        txtDescricao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescricaoActionPerformed(evt);
+            }
+        });
         txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtDescricaoKeyPressed(evt);
@@ -162,12 +184,29 @@ public class FormularioProduto extends javax.swing.JFrame {
         jLabel19.setText("Fornecedor");
         jPanel2.add(jLabel19);
         jLabel19.setBounds(30, 130, 110, 20);
+
+        txtPreco.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPrecoFocusLost(evt);
+            }
+        });
+        txtPreco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecoActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtPreco);
         txtPreco.setBounds(90, 80, 176, 30);
 
         jLabel23.setText("Quantidade");
         jPanel2.add(jLabel23);
         jLabel23.setBounds(280, 90, 90, 15);
+
+        txtQtd_Estoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQtd_EstoqueActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtQtd_Estoque);
         txtQtd_Estoque.setBounds(390, 80, 180, 30);
 
@@ -345,50 +384,45 @@ public class FormularioProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
          if(txtDescricao.getText().trim().isEmpty()){
-
-        JOptionPane.showMessageDialog(null,
-                "Por favor preencha a descrição!");
+        JOptionPane.showMessageDialog(null, "Por favor preencha a descrição!");
         txtDescricao.requestFocus();
         return;
     }
     if(txtPreco.getText().trim().isEmpty()){
-
-        JOptionPane.showMessageDialog(null,
-                "Por favor preencha o preço!");
+        JOptionPane.showMessageDialog(null,"Por favor preencha o preço!");
         txtPreco.requestFocus();
         return;
     }
     if(txtQtd_Estoque.getText().trim().isEmpty()){
-        JOptionPane.showMessageDialog(null,
-                "Por favor preencha a quantidade!");
+        JOptionPane.showMessageDialog(null,"Por favor preencha a quantidade!");
         txtQtd_Estoque.requestFocus();
         return;
     }
     String descricao = txtDescricao.getText().trim().toLowerCase();
-
     if(!descricao.isEmpty()){
-
         descricao = descricao.substring(0,1).toUpperCase()
                 + descricao.substring(1);
     }
-
     Produto obj = new Produto();
-
     obj.setDescricao(descricao);
-    obj.setPreco(Double.valueOf(txtPreco.getText()));
-    obj.setQtd_estoque(Integer.valueOf(txtQtd_Estoque.getText()));
+    obj.setPreco(Double.valueOf(txtPreco.getText().replace(",",".")));
+    obj.setQtd_estoque(Integer.valueOf(txtQtd_Estoque.getText().replace(descricao, descricao)));
     obj.setFornecedor((Fornecedor) cbfFornecedor.getSelectedItem());
-
     ProdutoDAO dao = new ProdutoDAO();
-
+    if(dao.existeDescricao(descricao)){
+        JOptionPane.showMessageDialog(null, "Já existe um produto com essa descrição");
+        txtDescricao.requestFocus();
+        return;
+    }
     boolean retorno = dao.salvar(obj);
-
     if(retorno){
-
-        JOptionPane.showMessageDialog(null,
-                "Produto salvo com sucesso!");
+        produtoSalvo = true;
+        JOptionPane.showMessageDialog(null,"Produto salvo com sucesso!");
+        
+        btnSalvar.setEnabled(false);
+        btnEditar.setEnabled(true);
+        btnExcluir.setEnabled(true);
     }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -423,9 +457,17 @@ public class FormularioProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+
+        produtoSalvo = false;
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
         txtCodigo.setEnabled(false);
+        
+        btnSalvar.setEnabled(true);
+        btnEditar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        
+        txtDescricao.requestFocusInWindow();
         
         
     }//GEN-LAST:event_btnNovoActionPerformed
@@ -538,45 +580,31 @@ public class FormularioProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        Produto obj = new Produto();
-
-obj.setId(Integer.valueOf(txtCodigo.getText()));
-
-obj.setDescricao(txtDescricao.getText());
-
-obj.setPreco(
-    Double.valueOf(
-        txtPreco.getText().replace(",", ".")
-    )
-);
-
-obj.setQtd_estoque(
-    Integer.valueOf(txtQtd_Estoque.getText())
-);
-
-Fornecedor f = (Fornecedor)
+     if(!produtoSalvo){
+         JOptionPane.showMessageDialog(null, "Salve o produto antes de editar");
+         return;
+     }    
+        
+        
+        
+        
+        
+    Produto obj = new Produto();
+    obj.setId(Integer.valueOf(txtCodigo.getText()));
+    obj.setDescricao(txtDescricao.getText());
+    obj.setPreco(Double.valueOf(txtPreco.getText().replace(",", ".")));
+    obj.setQtd_estoque(
+    Integer.valueOf(txtQtd_Estoque.getText()));
+    Fornecedor f = (Fornecedor)
     cbfFornecedor.getSelectedItem();
-
-if(f == null){
-
-    JOptionPane.showMessageDialog(null,
-        "Selecione um fornecedor");
-
-    return;
-}
-
-obj.setFornecedor(f);
-
-ProdutoDAO daop = new ProdutoDAO();
-
-daop.Editar(obj);
-
-Utilitarios util = new Utilitarios();
-
-util.LimpaTela(jPanel2);
-
-JOptionPane.showMessageDialog(null,"Salvou");
+    if(f == null){JOptionPane.showMessageDialog(null,"Selecione um fornecedor");
+    return;}
+    obj.setFornecedor(f);
+    ProdutoDAO daop = new ProdutoDAO();
+    daop.Editar(obj);
+    Utilitarios util = new Utilitarios();
+    util.LimpaTela(jPanel2);
+    JOptionPane.showMessageDialog(null,"Salvou com sucesso.....!");
         
        
             
@@ -584,6 +612,12 @@ JOptionPane.showMessageDialog(null,"Salvou");
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if(!produtoSalvo){
+            JOptionPane.showMessageDialog(null, "Salve o produto antes de excluir");
+            return; 
+        }
+        
+        
         Produto obj = new Produto();
         obj.setId(Integer.valueOf(txtCodigo.getText()));
         ProdutoDAO dao = new ProdutoDAO();
@@ -655,6 +689,104 @@ JOptionPane.showMessageDialog(null,"Salvou");
         
         
     }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void txtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoActionPerformed
+        // TODO add your handling code here:
+        
+   String descricao = txtDescricao.getText().trim().toLowerCase();
+
+    // Deixa apenas a primeira letra maiúscula
+    if (!descricao.isEmpty()) {
+        descricao = descricao.substring(0, 1).toUpperCase() + descricao.substring(1);
+    }
+
+    // Atualiza o campo na tela
+    txtDescricao.setText(descricao);
+
+    ProdutoDAO dao = new ProdutoDAO();
+
+    // Verifica se o produto já existe
+    if (dao.existeDescricao(descricao)) {
+        JOptionPane.showMessageDialog(null, "Este produto já está cadastrado!");
+        txtDescricao.requestFocus();
+        txtDescricao.selectAll();
+        return;
+    }
+
+    // Se não existir, vai para o campo Preço
+    txtPreco.requestFocusInWindow();
+    }//GEN-LAST:event_txtDescricaoActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void txtDescricaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescricaoFocusLost
+        // TODO add your handling code here:
+        
+ String descricao = txtDescricao.getText().trim().toLowerCase();
+
+    // Deixa apenas a primeira letra maiúscula
+    if (!descricao.isEmpty()) {
+        descricao = descricao.substring(0, 1).toUpperCase() + descricao.substring(1);
+    }
+
+    // Atualiza o campo na tela
+    txtDescricao.setText(descricao);
+
+    ProdutoDAO dao = new ProdutoDAO();
+
+    // Verifica se o produto já existe
+    if (dao.existeDescricao(descricao)) {
+        JOptionPane.showMessageDialog(null, "Este produto já está cadastrado!");
+        txtDescricao.requestFocus();
+        txtDescricao.selectAll();
+        return;
+    }
+
+    // Se não existir, vai para o campo Preço
+    txtPreco.requestFocusInWindow();
+    }//GEN-LAST:event_txtDescricaoFocusLost
+
+    private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
+         try{
+        double valor  = Double.parseDouble(txtPreco.getText().replace(",","."));
+            java.text.DecimalFormat df = new java.text.DecimalFormat("#,##0.00");
+            txtPreco.setText(df.format(valor));
+        }catch(NumberFormatException e){
+            txtPreco.setText("");
+            
+        
+        
+        }
+        
+        txtQtd_Estoque.requestFocusInWindow();        
+        
+        
+    }//GEN-LAST:event_txtPrecoActionPerformed
+
+    private void txtPrecoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecoFocusLost
+        try{
+            
+            
+            double valor  = Double.parseDouble(txtPreco.getText().replace(",","."));
+            java.text.DecimalFormat df = new java.text.DecimalFormat("#,##0.00");
+            txtPreco.setText(df.format(valor));
+        }catch(NumberFormatException e){
+            txtPreco.setText("");
+            
+        }
+        
+    
+        
+    }//GEN-LAST:event_txtPrecoFocusLost
+
+    private void txtQtd_EstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQtd_EstoqueActionPerformed
+        // TODO add your handling code here:
+        cbfFornecedor.requestFocusInWindow()
+;        
+        
+    }//GEN-LAST:event_txtQtd_EstoqueActionPerformed
 
     
     

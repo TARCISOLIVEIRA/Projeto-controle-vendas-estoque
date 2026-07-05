@@ -41,6 +41,9 @@ public class VendasDAO {
              stmt. setInt(5,obj.getNumeroNota());
              stmt.setInt(6,obj.getFuncionario().getId());
              stmt. setString(7,obj.getForma_pagamento());
+             
+             System.out.println("ID de fucnionario " + obj.getFuncionario().getId());
+             
              stmt.executeUpdate();
              ResultSet rs = stmt.getGeneratedKeys();
              if(rs.next()) {

@@ -21,10 +21,6 @@ public class Vendas {
     public void setForma_pagamento(String forma_pagamento) {
         this.forma_pagamento = forma_pagamento;
     }
-    
-    
-    
-
     public int getNumeroNota() {
         return numeroNota;
     }

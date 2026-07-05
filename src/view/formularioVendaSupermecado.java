@@ -27,9 +27,27 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class formularioVendaSupermecado extends javax.swing.JFrame {
 
-   
     public formularioVendaSupermecado() {
         initComponents();
+    
+    }
+    
+    private Funcionario func;
+    public formularioVendaSupermecado(Funcionario func) {
+        initComponents();
+        this.func = func;
+        
+        System.out.println("Funcionatrio recebido na tela de venda");
+        System.out.println("id"+ this.func.getId());
+        System.out.println("nome"+ this.func.getNivel());
+        System.out.println("Nivel"+ this.func.getNivel());
+        
+        
+        
+        
+        desabilitarCampos();
+        btnAbriCaixa.setEnabled(true);
+        btnFecharCaixa1.setEnabled(false);
          tabelaItens.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
         @Override
         public Component getTableCellRendererComponent(
@@ -53,6 +71,13 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
     });
 
 
+         
+         
+         
+         
+         
+         
+         
         
         lblSatus.setText("Caixa Fechado");
         setExtendedState(MAXIMIZED_BOTH);
@@ -124,8 +149,53 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
         }
     }
     
+    private void limparCampos() {
+    txtCodigo.setText("");
+    //txtDescricao.setText("");
+    txtValorUnitario.setText("");
+    txtQuantidade.setText("");
+    txtTotalItem.setText("");
+    txtSubTotal.setText("");
+    txtDesconto.setText("0,00");
+    txtValorTotal.setText("");
+    txtRecebido.setText("");
+    txtTroco.setText("");
+    cmbClientes.setSelectedIndex(-1);
+    cmbFormaPagamento.setSelectedIndex(0);
+    DefaultTableModel modelo = (DefaultTableModel) tabelaItens.getModel();
+    modelo.setRowCount(0); // Limpa todas as linhas da JTable
+    tabelaItens.clearSelection();
+    cmbClientes.setSelectedItem("Consumidor Final");
+    txtCodigo.requestFocus();
     
-    
+}
+
+   private void habilitarCampos() {
+    txtCodigo.setEnabled(true);
+    txtQuantidade.setEnabled(true);
+    cmbClientes.setEnabled(true);
+    cmbFormaPagamento.setEnabled(true);
+    btnAdicionarItem.setEnabled(true);
+    btnRemoverItem.setEnabled(true);
+    btncancelarItem.setEnabled(true);
+    btnFinalizarcompra.setEnabled(true);
+    txtCodigo.requestFocus();
+}
+   private void desabilitarCampos() {
+
+    txtCodigo.setEnabled(false);
+    txtQuantidade.setEnabled(false);
+    cmbClientes.setEnabled(false);
+    cmbFormaPagamento.setEnabled(false);
+    btnAdicionarItem.setEnabled(false);
+    btnRemoverItem.setEnabled(false);
+    btncancelarItem.setEnabled(false);
+    btnFinalizarcompra.setEnabled(false);
+}
+   
+   
+   
+   
     
     
    
@@ -191,6 +261,9 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
         txtValorTotal = new javax.swing.JTextField();
         btnDesconto = new javax.swing.JButton();
         btnEstoque = new javax.swing.JButton();
+        btnLimparCaixa = new javax.swing.JButton();
+        btnAbriCaixa = new javax.swing.JButton();
+        btnFecharCaixa1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -610,6 +683,11 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
         jLabel9.setText("Cliente:");
 
         cmbClientes.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cmbClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbClientesActionPerformed(evt);
+            }
+        });
 
         btnPesquisarCliente.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnPesquisarCliente.setText("Pesquisar");
@@ -758,6 +836,36 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
             }
         });
 
+        btnLimparCaixa.setBackground(new java.awt.Color(0, 0, 18));
+        btnLimparCaixa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnLimparCaixa.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimparCaixa.setText("F8- LIMPAR TELA");
+        btnLimparCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCaixaActionPerformed(evt);
+            }
+        });
+
+        btnAbriCaixa.setBackground(new java.awt.Color(0, 0, 102));
+        btnAbriCaixa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnAbriCaixa.setForeground(new java.awt.Color(255, 255, 255));
+        btnAbriCaixa.setText("F6 - ABRIR CAIXA ");
+        btnAbriCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbriCaixaActionPerformed(evt);
+            }
+        });
+
+        btnFecharCaixa1.setBackground(new java.awt.Color(0, 0, 18));
+        btnFecharCaixa1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnFecharCaixa1.setForeground(new java.awt.Color(255, 255, 255));
+        btnFecharCaixa1.setText("F7- FECHAR CAIXA ");
+        btnFecharCaixa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharCaixa1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -787,9 +895,18 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 140, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(btnAbriCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnLimparCaixa, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(btnFecharCaixa1))
+                                .addContainerGap(150, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -816,7 +933,7 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
                             .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDesconto)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -825,9 +942,16 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(btnAbriCaixa)
+                                .addGap(8, 8, 8)
+                                .addComponent(btnFecharCaixa1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnLimparCaixa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(46, 46, 46)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -870,11 +994,11 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
                         .addComponent(btnAdicionarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemoverItem, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btncancelarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnFinalizarcompra, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(12, 12, 12)
+                        .addComponent(btnFinalizarcompra, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -917,6 +1041,36 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
         txtTroco.setText(String.format("%.2f", troco).replace(",","."));
     }//GEN-LAST:event_txtRecebidoActionPerformed
 
+    
+    private void fecharCaixa(){
+        txtCodigo.setEnabled(false);
+        txtQuantidade.setEnabled(false);
+        txtValorUnitario.setEnabled(false);
+        txtTotalItem.setEnabled(false);
+        txtRecebido.setEnabled(false);
+        txtDesconto.setEnabled(false);
+        btnAdicionarItem.setEnabled(false);
+        btnRemoverItem.setEnabled(false);
+        btnFinalizarcompra.setEnabled(false);
+        btnAbriCaixa.setEnabled(true);
+        btnFecharCaixa1.setEnabled(false);
+        lblSatus.setText("CAIXA FECHADO");
+    }
+     private void abrirCaixa(){
+        txtCodigo.setEnabled(true);
+        txtQuantidade.setEnabled(true);
+        txtValorUnitario.setEnabled(true);
+        txtTotalItem.setEnabled(true);
+        txtRecebido.setEnabled(true);
+        txtDesconto.setEnabled(true);
+        btnAdicionarItem.setEnabled(true);
+        btnRemoverItem.setEnabled(true);
+        btnFinalizarcompra.setEnabled(true);
+        btnAbriCaixa.setEnabled(false);
+        btnFecharCaixa1.setEnabled(true);
+        lblSatus.setText("CAIXA ABERTO");
+    }
+    
     private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
         // TODO add your handling code here:
         String nome = txtCliente.getText();
@@ -939,9 +1093,32 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
     private void btnFinalizarcompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarcompraActionPerformed
         lblSatus.setForeground(java.awt.Color.red);
         lblSatus.setText("Caixa Fechado");
+        
+        if(txtSubTotal.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "O subtotsl está vazio");
+            txtSubTotal.requestFocus();
+            return;
+        }
+        
+        
+        if(txtValorTotal.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null,"O valor toral está vazio");
+            txtValorTotal.requestFocus();
+        }
+        
+        if(txtRecebido.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Inofrme o valor recebido");
+        }
+        
         if (tabelaItens.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null,"Adicione pelo menos um item na venda!");
             return;
+        }
+        
+        if(txtTroco.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null,"O campo troco está vazio");
+            txtTroco.requestFocus();
+            return; 
         }
         double troco = Double.parseDouble(
         txtTroco.getText().replace(",", "."));
@@ -961,18 +1138,24 @@ if (troco < 0) {
             venda.setForma_pagamento(cmbFormaPagamento.getSelectedItem().toString());
             venda.setObservacao("Venda Finalizada");
             venda.setNumeroNota(0);
-            Funcionario func = new Funcionario();
-            func.setId(6); // trocar pelo funcionário logado
-            venda.setFuncionario(func);
+            venda.setFuncionario(this.func);
             VendasDAO vendaDAO = new VendasDAO();
             Clientes cli = new Clientes();
-            cli.setId(6);
-
+            cli.setId(24);
             venda.setClientes(cli);
+            System.out.println("cliente " + venda.getClientes().getId());
+            if(venda.getFuncionario() == null) {
+                System.out.println("funcionario e é null ");
+            } else {
+                System.out.println("funcionario " + venda.getFuncionario().getId());
+            }
+            
+            
+            
+            
             vendaDAO.Salvar(venda);
             ItensVendasDAO itemDAO = new ItensVendasDAO();
             JOptionPane.showMessageDialog(null,"ID DA VENDA "+ venda.getId());
-
             JOptionPane.showMessageDialog(null, "Linhas da tabela:"+ tabelaItens.getRowCount());
             for (int i = 0; i < tabelaItens.getRowCount(); i++) {
                 ItemVendas item = new ItemVendas();
@@ -1014,6 +1197,8 @@ if (troco < 0) {
             lblStatus.setForeground(java.awt.Color.WHITE);
             lblStatus.setText("Caixa Fechado");
             txtCodigo.requestFocus();
+            
+            cmbClientes.setSelectedItem("Consumidor Final");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Erro ao finalizar venda: "+ e.getMessage());
         }
@@ -1143,23 +1328,77 @@ if (troco < 0) {
     }//GEN-LAST:event_btnAdicionarItemActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        // TODO add your handling code here:
+       
         try {
-            int codigo = Integer.parseInt(txtCodigo.getText());
-            ProdutoDAO dao = new ProdutoDAO();
-            Produto p = dao.BuscarProdutosCodigo(codigo);
-            
-            if(p.getQtd_estoque() <= 0){
-                JOptionPane.showMessageDialog(null,"Produto sem estoque.......\n:" + p.getDescricao() + "\n\nEstoque indisponivel");
-                txtCodigo.setText("");
-                txtCodigo.requestFocus();
-                return;
-            }
-            txtValorUnitario.setText(String.format("%.2f",p.getPreco()).replace(",","."));
-            txtQuantidade.requestFocus();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Produto não encontrado!");
+
+        int codigo = Integer.parseInt(txtCodigo.getText());
+
+        ProdutoDAO dao = new ProdutoDAO();
+        Produto p = dao.BuscarProdutosCodigo(codigo);
+
+        if (p == null) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Produto não encontrado!"
+            );
+            txtCodigo.setText("");
+            txtCodigo.requestFocus();
+            return;
         }
+
+        if (p.getQtd_estoque() <= 0) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Produto sem estoque!\n\n"
+                    + "Produto: " + p.getDescricao()
+                    + "\nEstoque indisponível!"
+            );
+            txtCodigo.setText("");
+            txtCodigo.requestFocus();
+            return;
+        }
+
+        // Preenche os campos
+        txtValorUnitario.setText(
+                String.format("%.2f", p.getPreco()).replace(",", ".")
+        );
+
+        // Exibe uma mensagem rápida
+        JOptionPane.showMessageDialog(
+                null,
+                "Produto encontrado!\n\n"
+                + "Descrição: " + p.getDescricao()
+                + "\nPreço: R$ " + String.format("%.2f", p.getPreco())
+                + "\nEstoque: " + p.getQtd_estoque(),
+                "Informação",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+        // Vai para o campo quantidade
+        txtQuantidade.requestFocus();
+
+    } catch (NumberFormatException e) {
+
+        JOptionPane.showMessageDialog(
+                null,
+                "Digite um código válido!"
+        );
+        txtCodigo.requestFocus();
+
+    } catch (Exception e) {
+
+        JOptionPane.showMessageDialog(
+                null,
+                "Erro: " + e.getMessage()
+        );
+    }
+        
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescontoActionPerformed
@@ -1256,6 +1495,42 @@ if (troco < 0) {
         
     }//GEN-LAST:event_btnEstoqueActionPerformed
 
+    private void btnLimparCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCaixaActionPerformed
+        // TODO add your handling code here:
+      limparCampos();
+        
+        
+        
+        
+    }//GEN-LAST:event_btnLimparCaixaActionPerformed
+
+    private void btnAbriCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbriCaixaActionPerformed
+        
+        
+        abrirCaixa();
+        java.awt.EventQueue.invokeLater(() -> {
+    txtCodigo.requestFocusInWindow();
+});
+        
+    }//GEN-LAST:event_btnAbriCaixaActionPerformed
+
+    private void btnFecharCaixa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharCaixa1ActionPerformed
+        // TODO add your handling code here:
+        limparCampos();
+        fecharCaixa();
+        
+        btnAbriCaixa.requestFocus();
+        
+        
+    }//GEN-LAST:event_btnFecharCaixa1ActionPerformed
+
+    private void cmbClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClientesActionPerformed
+       
+        
+        
+        
+    }//GEN-LAST:event_cmbClientesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1292,10 +1567,13 @@ if (troco < 0) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAbriCaixa;
     private javax.swing.JButton btnAdicionarItem;
     private javax.swing.JButton btnDesconto;
     private javax.swing.JButton btnEstoque;
+    private javax.swing.JButton btnFecharCaixa1;
     private javax.swing.JButton btnFinalizarcompra;
+    private javax.swing.JButton btnLimparCaixa;
     private javax.swing.JButton btnPesquisarCliente;
     private javax.swing.JButton btnRemoverItem;
     private javax.swing.JButton btncancelarItem;

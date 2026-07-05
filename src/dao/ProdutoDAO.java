@@ -43,7 +43,22 @@ public class ProdutoDAO {
  
     
     
-    
+ public boolean existeDescricao(String descricao) {
+    try {
+        String sql = "SELECT id FROM tb_produtos WHERE UPPER(descricao) = UPPER(?)";
+
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, descricao);
+
+        ResultSet rs = ps.executeQuery();
+
+        return rs.next();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+}   
 
 
 public boolean salvar(Produto obj) {
