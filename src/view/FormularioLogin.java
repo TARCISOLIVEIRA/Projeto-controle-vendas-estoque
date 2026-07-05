@@ -76,6 +76,18 @@ public class FormularioLogin extends javax.swing.JFrame{
             }
         });
 
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
+
+        txtSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSenhaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,16 +141,18 @@ public class FormularioLogin extends javax.swing.JFrame{
   
     String nome = txtNome.getText().trim().toLowerCase();
     String senha = new String(txtSenha.getPassword()).trim().toLowerCase();
-
-    //System.out.println("Digitado: " + nome + " / " + senha);
-
     FuncionarioDAO dao = new FuncionarioDAO();
     Funcionario func = dao.efetuarLogin(nome, senha);
+    
+    System.out.println("Funcionário: " + func);
+if (func != null) {
+    System.out.println("Nome: " + func.getNome());
+    System.out.println("Nível: " + func.getNivel());
+}
+    
+    
 
     if (func != null) {
-
-      //  System.out.println("Nome: " + func.getNome());
-       // System.out.println("Nivel: " + func.getNivel());
 
         AreaTrabalho tela = new AreaTrabalho(func);
         tela.setVisible(true);
@@ -161,7 +175,23 @@ public class FormularioLogin extends javax.swing.JFrame{
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        
+        
+        
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
+        // TODO add your handling code here:
+        btnEntrar.doClick();
+        
+    }//GEN-LAST:event_txtSenhaActionPerformed
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+        txtSenha.requestFocus();
+        
+        
+    }//GEN-LAST:event_txtNomeActionPerformed
 
     /**
      * @param args the command line arguments

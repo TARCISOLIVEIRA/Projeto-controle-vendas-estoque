@@ -125,6 +125,11 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
         jPanel2.add(jLabel18);
         jLabel18.setBounds(10, 50, 90, 15);
 
+        txtDescricao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescricaoActionPerformed(evt);
+            }
+        });
         txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtDescricaoKeyPressed(evt);
@@ -489,7 +494,7 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            String descricao =  txtDescricao.getText();
+        String descricao =  txtDescricao.getText();
         MateriaPrima obj = new MateriaPrima();
         MateriaPrimaDAO dao = new MateriaPrimaDAO();
         
@@ -500,11 +505,8 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
            
            //txtUnidadeMedida.setText(obj.getEmail());
            txtEstoque.setText(String.valueOf(obj.getEstoque()));
-           
-          
            txtEstoqueMinimo.setText(String.valueOf(obj.getEstoqueMinimo()));
             txtValorUnitario.setText(String.valueOf(obj.getValorUnitario()));
-           
         }else {
             //JOptionPane.showMessageDialog(null,"Materia Prima nao encontrado");
             if(obj.getDescricao() != null){
@@ -515,7 +517,6 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
     txtEstoque.setText(String.valueOf(obj.getEstoque()));
     txtEstoqueMinimo.setText(String.valueOf(obj.getEstoqueMinimo()));
     txtValorUnitario.setText(String.valueOf(obj.getValorUnitario()));
-
 }else {
 
     txtCodigo.setText("");
@@ -636,6 +637,10 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void txtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescricaoActionPerformed
 
     
     public static void main(String args[]) {

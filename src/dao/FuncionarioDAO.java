@@ -232,8 +232,15 @@ public class FuncionarioDAO {
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             Funcionario f = new Funcionario();
+            f.setId(rs.getInt("id"));
             f.setNome(rs.getString("nome"));
             f.setNivel(rs.getString("nivel_acesso"));
+            
+            System.out.println("Login ok");
+            System.out.println("id" +f.getId());
+            System.out.println("nome"+ f.getNome());
+            System.out.println("Nivel" + f.getNivel());
+            
             return f;
         }
         return null;
