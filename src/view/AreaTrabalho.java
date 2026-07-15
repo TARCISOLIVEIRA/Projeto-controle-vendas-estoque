@@ -18,6 +18,9 @@ import dao.FuncionarioDAO;
 import dao.VendasDAO;
 import java.util.Date;
 import model.Funcionario;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 
 
 public class AreaTrabalho extends javax.swing.JFrame{
@@ -37,11 +40,12 @@ public class AreaTrabalho extends javax.swing.JFrame{
         
        
     }
-    
    
      private Connection conn;
     
     
+     
+     // inicio verificar 
   /*  private void verificarEstoque() {
     
         
@@ -106,7 +110,7 @@ public class AreaTrabalho extends javax.swing.JFrame{
         
 }
     */
-   
+   // fim verificar 
     
     private void verificarEstoque() {
 
@@ -159,11 +163,6 @@ public class AreaTrabalho extends javax.swing.JFrame{
     }
     }
 
-    
-    
-    
-    
-    
     private void alertaEstoqueTrigger() {
     StringBuilder mensagem = new StringBuilder();
 
@@ -171,27 +170,19 @@ public class AreaTrabalho extends javax.swing.JFrame{
          PreparedStatement stmt = com.prepareStatement(
              "SELECT descricao FROM tb_alerta_estoque");
          ResultSet rs = stmt.executeQuery()) {
-
         while (rs.next()) {
             mensagem.append(rs.getString("descricao")).append("\n");
         }
-
         if (mensagem.length() > 0) {
             JOptionPane.showMessageDialog(null,
                 "⚠ Produtos com estoque zerado:\n" + mensagem.toString());
             conn.prepareStatement("Delete from tb_alerta_estoque").executeUpdate();
         }
-
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
     }
 }
     
-
-    
-    
-    
-
 private void produtoMaisVendido() {
 
     try (Connection con = new ConexaoBanco().pegarConexao()) {
@@ -287,10 +278,16 @@ private void produtoMaisVendido() {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuClientes = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menu_funcionario = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         menu_fornecedores = new javax.swing.JMenuItem();
+        jMenuItem20 = new javax.swing.JMenuItem();
+        jMenuItem21 = new javax.swing.JMenuItem();
         Meus_Produtos = new javax.swing.JMenu();
         menuSubProdutos = new javax.swing.JMenu();
         menu_estoque = new javax.swing.JMenuItem();
@@ -398,7 +395,7 @@ private void produtoMaisVendido() {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/clientes.png"))); // NOI18N
         jMenu1.setText("Clientes");
 
-        MenuClientes.setText("Formulario Clientes");
+        MenuClientes.setText("Cadastro de Clientes");
         MenuClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuClientesActionPerformed(evt);
@@ -406,12 +403,28 @@ private void produtoMaisVendido() {
         });
         jMenu1.add(MenuClientes);
 
+        jMenuItem16.setText("Relatório A - Z");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem16);
+
+        jMenuItem17.setText("Relatório por Endereço");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem17);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/funcionarios.png"))); // NOI18N
-        jMenu2.setText("Funcionarios");
+        jMenu2.setText("Funcionários");
 
-        menu_funcionario.setText("Formularios Funcionarios");
+        menu_funcionario.setText("Cadastro de Funcionarios");
         menu_funcionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_funcionarioActionPerformed(evt);
@@ -419,18 +432,50 @@ private void produtoMaisVendido() {
         });
         jMenu2.add(menu_funcionario);
 
+        jMenuItem18.setText("Funcionários A - Z");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem18);
+
+        jMenuItem19.setText("Relatórios por Endereço");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem19);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/fornecedores_1.png"))); // NOI18N
         jMenu3.setText("Fornecedores");
 
-        menu_fornecedores.setText("Formulario Fornecedores");
+        menu_fornecedores.setText("Formulário Fornecedores");
         menu_fornecedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_fornecedoresActionPerformed(evt);
             }
         });
         jMenu3.add(menu_fornecedores);
+
+        jMenuItem20.setText("Formulário A - Z");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem20);
+
+        jMenuItem21.setText("Relatórios Endereço");
+        jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem21ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem21);
 
         jMenuBar1.add(jMenu3);
 
@@ -447,7 +492,7 @@ private void produtoMaisVendido() {
         });
         menuSubProdutos.add(menu_estoque);
 
-        menusubMenuconsulta.setText("consulta de produto");
+        menusubMenuconsulta.setText("Consulta de produto");
         menusubMenuconsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menusubMenuconsultaActionPerformed(evt);
@@ -600,7 +645,7 @@ private void produtoMaisVendido() {
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/produtos_1.png"))); // NOI18N
         jMenu5.setText("Matéria-Prima");
 
-        jMenuItem11.setText("Formulário Matéria Prima");
+        jMenuItem11.setText("Cadastro de Materia-prima");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem11ActionPerformed(evt);
@@ -779,9 +824,12 @@ private void produtoMaisVendido() {
     VendasDAO dao = new VendasDAO();
 
     double total = dao.totalVendasDia();
+    NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+    
+    
 
     JOptionPane.showMessageDialog(null,
-            "Total vendido hoje: R$ " + total);
+            "Total vendido hoje:  " + nf.format(total));
         
         
         
@@ -830,6 +878,10 @@ private void produtoMaisVendido() {
     
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
+        
+        
+        
+        
         
      FormularioPorPeriodo fppp = new FormularioPorPeriodo();
           fppp.setVisible(true);
@@ -893,7 +945,7 @@ private void produtoMaisVendido() {
         // TODO add your handling code here:
         
         FormularioHistorico fh = new FormularioHistorico();
-          fh.setVisible(true); 
+        fh.setVisible(true); 
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
@@ -913,10 +965,207 @@ private void produtoMaisVendido() {
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-      formularioVendaSupermecado tela = new formularioVendaSupermecado(func);
+      
+        
+        formularioVendaSupermecado tela = new formularioVendaSupermecado(func);
        tela.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+        
+          Connection conn = null;
+    try {
+        // a conexao
+        conn = new ConexaoBanco().pegarConexao();
+        // Carregar relatório do package
+        InputStream relatorio = getClass().getResourceAsStream(
+                "/relatorios/relatorioClientesAZ.jasper"
+        );
+        if (relatorio == null) {
+            JOptionPane.showMessageDialog(null, 
+                "Relatório não encontrado!");
+            return;
+        }
+        JasperPrint print = JasperFillManager.fillReport(
+                relatorio,
+                null,
+                conn
+        );
+        JasperViewer.viewReport(print, false);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "Erro ao gerar relatório: " + e.getMessage());
+    }
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
+
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+          Connection conn = null;
+    try {
+        // a conexao
+        conn = new ConexaoBanco().pegarConexao();
+        // Carregar relatório do package
+        InputStream relatorio = getClass().getResourceAsStream(
+                "/relatorios/relatorioClientesEndereco.jasper"
+        );
+        if (relatorio == null) {
+            JOptionPane.showMessageDialog(null, 
+                "Relatório não encontrado!");
+            return;
+        }
+        JasperPrint print = JasperFillManager.fillReport(
+                relatorio,
+                null,
+                conn
+        );
+        JasperViewer.viewReport(print, false);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "Erro ao gerar relatório: " + e.getMessage());
+    }
+
+
+
+
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+
+        Connection conn = null;
+    try {
+        // a conexao
+        conn = new ConexaoBanco().pegarConexao();
+        // Carregar relatório do package
+        InputStream relatorio = getClass().getResourceAsStream(
+                "/relatorios/relatorioFuncionarioAZ.jasper"
+        );
+        if (relatorio == null) {
+            JOptionPane.showMessageDialog(null, 
+                "Relatório não encontrado!");
+            return;
+        }
+        JasperPrint print = JasperFillManager.fillReport(
+                relatorio,
+                null,
+                conn
+        );
+        JasperViewer.viewReport(print, false);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "Erro ao gerar relatório: " + e.getMessage());
+    }
+        
+        
+        
+        
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
+
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+        // TODO add your handling code here:
+                 Connection conn = null;
+    try {
+        // a conexao
+        conn = new ConexaoBanco().pegarConexao();
+        // Carregar relatório do package
+        InputStream relatorio = getClass().getResourceAsStream(
+                "/relatorios/relatorioFuncionariosEndereco.jasper"
+        );
+        if (relatorio == null) {
+            JOptionPane.showMessageDialog(null, 
+                "Relatório não encontrado!");
+            return;
+        }
+        JasperPrint print = JasperFillManager.fillReport(
+                relatorio,
+                null,
+                conn
+        );
+        JasperViewer.viewReport(print, false);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "Erro ao gerar relatório: " + e.getMessage());
+    }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
+
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+           Connection conn = null;
+    try {
+        // a conexao
+        conn = new ConexaoBanco().pegarConexao();
+        // Carregar relatório do package
+        InputStream relatorio = getClass().getResourceAsStream(
+                "/relatorios/relatorioFornecedoresAZ.jasper"
+        );
+        if (relatorio == null) {
+            JOptionPane.showMessageDialog(null, 
+                "Relatório não encontrado!");
+            return;
+        }
+        JasperPrint print = JasperFillManager.fillReport(
+                relatorio,
+                null,
+                conn
+        );
+        JasperViewer.viewReport(print, false);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "Erro ao gerar relatório: " + e.getMessage());
+    }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
+
+    private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
+        // TODO add your handling code here:
+        
+                  Connection conn = null;
+    try {
+        // a conexao
+        conn = new ConexaoBanco().pegarConexao();
+        // Carregar relatório do package
+        InputStream relatorio = getClass().getResourceAsStream(
+                "/relatorios/relatorioFornecedoresEndereco.jasper"
+        );
+        if (relatorio == null) {
+            JOptionPane.showMessageDialog(null, 
+                "Relatório não encontrado!");
+            return;
+        }
+        JasperPrint print = JasperFillManager.fillReport(
+                relatorio,
+                null,
+                conn
+        );
+        JasperViewer.viewReport(print, false);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "Erro ao gerar relatório: " + e.getMessage());
+    }
+        
+        
+        
+        
+    }//GEN-LAST:event_jMenuItem21ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -979,7 +1228,13 @@ private void produtoMaisVendido() {
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

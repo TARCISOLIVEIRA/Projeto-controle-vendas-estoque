@@ -95,7 +95,7 @@ public ResultSet estoqueZerado() {
     try {
 
         String sql =
-        "SELECT descricao, qtd_estoque, preco "
+        "SELECT descricao, qtd_estoque, FORMAT(preco,2,'PT_br') as preco "
       + "FROM tb_produtos "
       + "WHERE qtd_estoque <= 0";
 

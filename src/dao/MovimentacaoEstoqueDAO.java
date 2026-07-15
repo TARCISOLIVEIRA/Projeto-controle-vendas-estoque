@@ -11,6 +11,7 @@ import model.Clientes;
 import model.MateriaPrima;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.MovimentacaoEstoque;
 public class MovimentacaoEstoqueDAO {
@@ -147,6 +148,40 @@ public class MovimentacaoEstoqueDAO {
     return null;
 }
 
+  
+   public ResultSet materiasPrimasMovimentadasPeriodo(Date dataInicial, Date dataFinal) {
+
+    try {
+
+        String sql =
+        "SELECT "
+         + "mp.id, " +
+        "mp.descricao, " +
+        "SUM(me.qtd) AS quantidade, " +
+        "SUM(me.qtd * mp.valor_unitario) AS total " +
+        "FROM tb_movimentacoes_estoque me " +
+        "INNER JOIN tb_materias_primas mp " +
+        "ON me.materia_prima_id = mp.id " +
+        "WHERE me.data_movimentacao BETWEEN ? AND ? " +
+        "GROUP BY mp.id, mp.descricao " +
+        "ORDER BY quantidade DESC";
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        pst.setDate(1, new java.sql.Date(dataInicial.getTime()));
+        pst.setDate(2, new java.sql.Date(dataFinal.getTime()));
+
+        return pst.executeQuery();
+
+    } catch (Exception erro) {
+        JOptionPane.showMessageDialog(null, erro);
+    }
+
+    return null;
+}
+
+   
+    
     
     
     

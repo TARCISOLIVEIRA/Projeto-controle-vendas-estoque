@@ -149,9 +149,7 @@ if (func != null) {
     System.out.println("Nome: " + func.getNome());
     System.out.println("Nível: " + func.getNivel());
 }
-    
-    
-
+   
     if (func != null) {
 
         AreaTrabalho tela = new AreaTrabalho(func);

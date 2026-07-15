@@ -6,7 +6,10 @@ package view;
 
 import dao.MateriaPrimaDAO;
 import dao.MovimentacaoEstoqueDAO;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +17,7 @@ import model.MateriaPrima;
 import model.MovimentacaoEstoque;
 import model.Produto;
 import utilitario.Utilitarios;
+import java.sql.Connection;
 
 /**
  *
@@ -297,6 +301,11 @@ public class FormularioMovimentacaoEstoque extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+   
+    
+    
+    
+    
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // TODO add your handling code here:
         

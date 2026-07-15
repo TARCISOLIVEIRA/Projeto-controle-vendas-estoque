@@ -133,7 +133,7 @@ public class FormularioVendasFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
      
  DefaultTableModel modelo =
 (DefaultTableModel) tabela.getModel();

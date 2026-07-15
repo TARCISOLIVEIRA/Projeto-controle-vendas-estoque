@@ -7,6 +7,7 @@ package view;
 import dao.VendasDAO;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -134,44 +135,25 @@ public class FormularioRelatorioCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        // TODO add your handling code here:
-      
-
     try {
-
         VendasDAO dao = new VendasDAO();
-
         ResultSet rs = dao.vendasPorCliente(txtCliente.getText());
-
-        DefaultTableModel modelo =
-        (DefaultTableModel) tblRelatorioCliente.getModel();
-
+        DefaultTableModel modelo =(DefaultTableModel) tblRelatorioCliente.getModel();
         modelo.setNumRows(0);
-
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        
         while(rs.next()) {
-
             modelo.addRow(new Object[]{
-
                 rs.getString("nome"),
                 rs.getString("data_venda"),
-                rs.getDouble("total_venda")
-
+                df.format(rs.getDouble("total_venda"))
             });
-
         }
         txtCliente.setText("");
         txtCliente.requestFocus();
     } catch (Exception erro) {
-
         JOptionPane.showMessageDialog(null, erro);
-
     }
-
-
-        
-        
-        
-        
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**

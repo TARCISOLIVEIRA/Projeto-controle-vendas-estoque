@@ -14,14 +14,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.Clientes;
-
+ 
 
 public class VendasDAO {
     
      private Connection conn;
     
     
-    public VendasDAO(){
+       public VendasDAO(){
         this.conn = new ConexaoBanco().pegarConexao();
     }
      
@@ -63,7 +63,7 @@ public class VendasDAO {
     List<Object[]> lista = new ArrayList<>();
     try {
         String sql =
-        "SELECT f.nome, COUNT(v.id), SUM(v.total_venda) " +
+        "SELECT f.nome, COUNT(v.id), format(SUM(v.total_venda),2,'pt_BR') " +
         "FROM tb_vendas v " +
         "INNER JOIN tb_funcionarios f " +
         "ON v.funcionarios_id = f.id " +
@@ -74,7 +74,7 @@ public class VendasDAO {
             lista.add(new Object[] {
                 rs.getString(1),
                 rs.getInt(2),
-                rs.getDouble(3)
+                rs.getString(3)
             });
         }
     } catch(Exception erro) {
@@ -92,7 +92,7 @@ public class VendasDAO {
         String sql =
         "SELECT forma_pagamento, "
       + "COUNT(id) AS quantidade, "
-      + "SUM(total_venda) AS total "
+      + "format(SUM(total_venda),2,'pt_BR') AS total "
       + "FROM tb_vendas "
       + "GROUP BY forma_pagamento";
 
@@ -114,32 +114,20 @@ public class VendasDAO {
     
     // falta envia daqui
     public double totalVendasDia() {
-
     double total = 0;
-
     try {
-
         String sql =
         "SELECT SUM(total_venda) AS total "
       + "FROM tb_vendas "
       + "WHERE DATE(data_venda) = CURDATE()";
-
         PreparedStatement pst = conn.prepareStatement(sql);
-
         ResultSet rs = pst.executeQuery();
-
         if(rs.next()) {
-
             total = rs.getDouble("total");
-
         }
-
     } catch (Exception erro) {
-
         JOptionPane.showMessageDialog(null, erro);
-
     }
-
     return total;
 }
 
@@ -149,41 +137,34 @@ public class VendasDAO {
     public void atualizarNumeroNota(Vendas v) {
     try {
         String sql = "UPDATE tb_vendas SET numero_nota = ? WHERE id = ?";
-
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, v.getNumeroNota());
         stmt.setInt(2, v.getId());
-
         stmt.executeUpdate();
         stmt.close();
-
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Erro ao atualizar número da nota: " + e.getMessage());
     }
 }
-
-
 public ResultSet vendasPorCliente(String nome) {
     try {
         String sql =
-        "SELECT c.nome, v.data_venda, v.total_venda "
-      + "FROM tb_vendas v "
-      + "INNER JOIN tb_clientes c "
-      + "ON v.cliente_id = c.id "
-      + "WHERE c.nome LIKE ?";
-
+                
+       "SELECT c.nome, "
+                + "DATE_FORMAT(v.data_venda,'%d/%m/%Y') AS data_venda, "
+                + "v.total_venda "
+                + "FROM tb_vendas v INNER JOIN tb_clientes c "
+                + "ON v.cliente_id = c.id "
+                + "WHERE c.nome LIKE ? ORDER BY v.data_venda DESC";
+        
+        
+        
         PreparedStatement pst = conn.prepareStatement(sql);
-
         pst.setString(1, nome + "%");
-
         ResultSet rs = pst.executeQuery();
-
         return rs;
-
     } catch (Exception erro) {
-
         JOptionPane.showMessageDialog(null, erro);
-
     }
 
     return null;
@@ -191,23 +172,18 @@ public ResultSet vendasPorCliente(String nome) {
 
 
 public ResultSet produtosMaisVendidos() {
-
     try {
-
         String sql =
         "SELECT p.descricao, " +
         "SUM(iv.qtd) AS quantidade, " +
-        "SUM(iv.subtotal) AS total " +
+        "FORMAT(SUM(iv.subtotal),2,'pt_BR') AS total " +
         "FROM tb_itensvendas iv " +
         "INNER JOIN tb_produtos p " +
         "ON iv.produto_id = p.id " +
         "GROUP BY p.descricao " +
         "ORDER BY quantidade DESC";
-
         PreparedStatement pst = conn.prepareStatement(sql);
-
         ResultSet rs = pst.executeQuery();
-
         return rs;
 
     } catch (Exception erro) {
@@ -223,35 +199,22 @@ public ResultSet produtosMaisVendidos() {
 
     
  public double totalVendasPeriodo(String inicio, String fim) {
-
     double total = 0;
-
     try {
-
         String sql =
         "SELECT SUM(total_venda) AS total "
       + "FROM tb_vendas "
       + "WHERE data_venda BETWEEN ? AND ?";
-
         PreparedStatement pst = conn.prepareStatement(sql);
-
         pst.setString(1, inicio);
         pst.setString(2, fim);
-
         ResultSet rs = pst.executeQuery();
-
         if(rs.next()) {
-
             total = rs.getDouble("total");
-
         }
-
     } catch (Exception erro) {
-
         JOptionPane.showMessageDialog(null, erro);
-
     }
-
     return total;
 }
 
@@ -316,14 +279,10 @@ public ResultSet produtosMaisVendidos() {
                 Date d = rs.getDate("data_venda");
                 v.setData_venda(d);
                 v.setTotal_venda(rs.getDouble("total_venda"));
-                //c.setNome(rs.getString("cliente"));
-                //v.setClientes(c);
                 v.setObservacao(rs.getString("observacoes") == null ? "" : rs.getString("observacoes"));
                 lista.add(v);
             }
-           
             return lista;
-            
         } catch (SQLException e) {
             throw new RuntimeException(" erro ao criar historico de vendas " + e.getMessage());
         }
@@ -353,6 +312,40 @@ public ResultSet produtosMaisVendidos() {
                         }
         return total_do_dia;
                         }
+    
+    
+    public ResultSet produtosMaisVendidosPeriodo(Date dataInicial, Date dataFinal) {
+
+    try {
+
+        String sql =
+        "SELECT p.id, " +
+        "p.descricao, " +
+        "SUM(iv.qtd) AS quantidade, " +
+        "SUM(iv.subtotal) AS total " +
+        "FROM tb_itensvendas iv " +
+        "INNER JOIN tb_produtos p ON iv.produto_id = p.id " +
+        "INNER JOIN tb_vendas v ON iv.venda_id = v.id " +
+        "WHERE v.data_venda BETWEEN ? AND ? " +
+        "GROUP BY p.id,p.descricao " +
+        "ORDER BY quantidade DESC";
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+
+        pst.setDate(1, new java.sql.Date(dataInicial.getTime()));
+        pst.setDate(2, new java.sql.Date(dataFinal.getTime()));
+
+        return pst.executeQuery();
+
+    } catch (Exception e) {
+
+        JOptionPane.showMessageDialog(null, e);
+
+    }
+
+    return null;
+}
+
                 
                 
 }

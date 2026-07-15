@@ -152,7 +152,7 @@ public class FormularioEstoqueZerado extends javax.swing.JFrame {
 
                 rs.getString("descricao"),
                 rs.getInt("qtd_estoque"),
-                rs.getDouble("preco")
+                rs.getString("preco")
 
             });
 

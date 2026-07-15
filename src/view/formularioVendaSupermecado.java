@@ -32,19 +32,34 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
     
     }
     
+    
     private Funcionario func;
     public formularioVendaSupermecado(Funcionario func) {
         initComponents();
-        this.func = func;
         
+      
+        
+        btnReabirCaixa.setEnabled(false);
+        
+       this.func = func;
+
+if (func.getNivel().equalsIgnoreCase("ADM")) {
+
+    btnReabirCaixa.setVisible(true);
+
+} else if (func.getNivel().equalsIgnoreCase("Gerente")) {
+
+      btnReabirCaixa.setVisible(true);
+
+} else if (func.getNivel().equalsIgnoreCase("FUNCIONARIO")
+        || func.getNivel().equalsIgnoreCase("USU")) {
+
+       btnReabirCaixa.setVisible(false);
+}
         System.out.println("Funcionatrio recebido na tela de venda");
         System.out.println("id"+ this.func.getId());
         System.out.println("nome"+ this.func.getNivel());
         System.out.println("Nivel"+ this.func.getNivel());
-        
-        
-        
-        
         desabilitarCampos();
         btnAbriCaixa.setEnabled(true);
         btnFecharCaixa1.setEnabled(false);
@@ -53,10 +68,8 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
         public Component getTableCellRendererComponent(
                 JTable table, Object value, boolean isSelected,
                 boolean hasFocus, int row, int column) {
-
             Component c = super.getTableCellRendererComponent(
                     table, value, isSelected, hasFocus, row, column);
-
             if (!isSelected) {
                 if (row % 2 == 0) {
                     c.setBackground(Color.WHITE);
@@ -64,79 +77,57 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
                     c.setBackground(new Color(220, 240, 255));
                 }
             }
-           
-
             return c;
         }
     });
-
-
-         
-         
-         
-         
-         
-         
-         
-        
         lblSatus.setText("Caixa Fechado");
         setExtendedState(MAXIMIZED_BOTH);
-        
         txtDesconto.setEnabled(false);
         txtDesconto.setText("0,00");
         txtValorTotal.setText(txtSubTotal.getText());
-        
-        
          tabelaItens.getTableHeader().setFont(
         new java.awt.Font("Arial", java.awt.Font.BOLD, 16)
     );
-      
        tabelaItens.getTableHeader().setPreferredSize(
         new java.awt.Dimension(100,35)
     );
-         
-   
     tabelaItens.getTableHeader().setBackground(
         new java.awt.Color(0, 0, 128)
     );
-
     tabelaItens.getTableHeader().setForeground(
         java.awt.Color.red
     );
-        
      getRootPane().registerKeyboardAction(
     e -> btnAdicionarItem.doClick(),
     KeyStroke.getKeyStroke("F1"),
     JComponent.WHEN_IN_FOCUSED_WINDOW
 );   
-    
       getRootPane().registerKeyboardAction(
     e -> btnRemoverItem.doClick(),
     KeyStroke.getKeyStroke("F2"),
     JComponent.WHEN_IN_FOCUSED_WINDOW
 );   
-     
      getRootPane().registerKeyboardAction(
     e -> btncancelarItem.doClick(),
     KeyStroke.getKeyStroke("F3"),
     JComponent.WHEN_IN_FOCUSED_WINDOW
 );   
-     
       getRootPane().registerKeyboardAction(
     e -> btnFinalizarcompra.doClick(),
     KeyStroke.getKeyStroke("F4"),
     JComponent.WHEN_IN_FOCUSED_WINDOW
 );   
-      
          getRootPane().registerKeyboardAction(
     e -> btnEstoque.doClick(),
     KeyStroke.getKeyStroke("F5"),
     JComponent.WHEN_IN_FOCUSED_WINDOW
-);    
+);  
+    getRootPane().registerKeyboardAction(
+    e -> btnAbriCaixa.doClick(),
+    KeyStroke.getKeyStroke("F6"),
+    JComponent.WHEN_IN_FOCUSED_WINDOW
+);     
       
-      
-      
-     
     }
 
     
@@ -194,10 +185,7 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
 }
    
    
-   
-   
-    
-    
+     
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -264,6 +252,7 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
         btnLimparCaixa = new javax.swing.JButton();
         btnAbriCaixa = new javax.swing.JButton();
         btnFecharCaixa1 = new javax.swing.JButton();
+        btnReabirCaixa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -866,6 +855,16 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
             }
         });
 
+        btnReabirCaixa.setBackground(new java.awt.Color(0, 0, 18));
+        btnReabirCaixa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnReabirCaixa.setForeground(new java.awt.Color(255, 255, 255));
+        btnReabirCaixa.setText("F9 - REABRIR CAIXA");
+        btnReabirCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReabirCaixaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -902,10 +901,11 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(btnAbriCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnLimparCaixa, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(btnFecharCaixa1))
+                                    .addComponent(btnAbriCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btnLimparCaixa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnReabirCaixa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addComponent(btnFecharCaixa1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addContainerGap(150, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -951,6 +951,8 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
                                 .addComponent(btnFecharCaixa1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnLimparCaixa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnReabirCaixa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(46, 46, 46)))
@@ -1052,7 +1054,17 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
         btnAdicionarItem.setEnabled(false);
         btnRemoverItem.setEnabled(false);
         btnFinalizarcompra.setEnabled(false);
+      
         btnAbriCaixa.setEnabled(true);
+        
+       if (func.getNivel().equalsIgnoreCase("ADM")) {
+    btnReabirCaixa.setEnabled(true);
+} else {
+    btnReabirCaixa.setEnabled(false);
+} 
+        
+        
+       
         btnFecharCaixa1.setEnabled(false);
         lblSatus.setText("CAIXA FECHADO");
     }
@@ -1066,8 +1078,20 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
         btnAdicionarItem.setEnabled(true);
         btnRemoverItem.setEnabled(true);
         btnFinalizarcompra.setEnabled(true);
+        
         btnAbriCaixa.setEnabled(false);
-        btnFecharCaixa1.setEnabled(true);
+        
+        if (func.getNivel().equalsIgnoreCase("ADM")) {
+    btnReabirCaixa.setEnabled(true);
+} else {
+    btnReabirCaixa.setEnabled(false);
+}
+        btnFecharCaixa1.setEnabled(false);
+        
+        
+        
+        
+        
         lblSatus.setText("CAIXA ABERTO");
     }
     
@@ -1505,11 +1529,21 @@ if (troco < 0) {
     }//GEN-LAST:event_btnLimparCaixaActionPerformed
 
     private void btnAbriCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbriCaixaActionPerformed
+       
+       if(func == null){
+           JOptionPane.showMessageDialog(this, "Nenhum funcionário esta logado");
+           return;
+        
+    }        
         
         
+        if(lblSatus.getText().equals("CAIXA ABERTO")){
+            JOptionPane.showMessageDialog(this, "O caixa já esta aberto");
+            return;
+        }
         abrirCaixa();
         java.awt.EventQueue.invokeLater(() -> {
-    txtCodigo.requestFocusInWindow();
+        txtCodigo.requestFocusInWindow();
 });
         
     }//GEN-LAST:event_btnAbriCaixaActionPerformed
@@ -1530,6 +1564,37 @@ if (troco < 0) {
         
         
     }//GEN-LAST:event_cmbClientesActionPerformed
+
+    private void btnReabirCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReabirCaixaActionPerformed
+        
+       
+        if (func.getNivel().equalsIgnoreCase("Gerente")
+        || func.getNivel().equalsIgnoreCase("ADM")) {
+
+       abrirCaixa();
+       this.dispose();
+       
+       FormularioLogin login = new FormularioLogin();
+       login.setVisible(true);
+       
+
+} else {
+
+    JOptionPane.showMessageDialog(this,
+            "Somente Gerente ou Administrador pode reabrir o caixa.");
+
+}
+        
+        
+   
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnReabirCaixaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1575,6 +1640,7 @@ if (troco < 0) {
     private javax.swing.JButton btnFinalizarcompra;
     private javax.swing.JButton btnLimparCaixa;
     private javax.swing.JButton btnPesquisarCliente;
+    private javax.swing.JButton btnReabirCaixa;
     private javax.swing.JButton btnRemoverItem;
     private javax.swing.JButton btncancelarItem;
     private javax.swing.JComboBox<String> cmbClientes;

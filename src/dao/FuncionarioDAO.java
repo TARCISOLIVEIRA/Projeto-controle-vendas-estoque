@@ -22,7 +22,7 @@ public class FuncionarioDAO {
     public FuncionarioDAO(){
         this.conn = new ConexaoBanco().pegarConexao();
     }
-    public void Salvar(Funcionario cli){
+    public boolean Salvar(Funcionario cli){
         try {
             String sql = "insert into tb_funcionarios (nome,rg,cpf,email,senha,cargo,nivel_acesso, "
                     + "telefone,celular,cep,endereco,numero,complemento, bairro, cidade, estado)" 
@@ -49,11 +49,11 @@ public class FuncionarioDAO {
             stmt.close();
             
             JOptionPane.showMessageDialog(null,"Funcionario salvo com sucesso");
-                    
+            return true;        
             
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null,"Erro ao salvar o Funcionario"+ erro);
-            
+            return false;
         }
         
         
