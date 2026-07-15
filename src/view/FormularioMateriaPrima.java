@@ -331,7 +331,7 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
-        JOptionPane.showMessageDialog(null,"botao salva clidanco!");
+        //JOptionPane.showMessageDialog(null,"botao salva clidanco!");
         
         
         if (txtDescricao.getText().trim().isEmpty()) {
@@ -552,7 +552,7 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
     if (txtDescricao.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Nome não pode estar vazio ");
+        JOptionPane.showMessageDialog(null, "Descrição não pode estar vazio !!!");
         return;
     }
     try {
@@ -582,6 +582,23 @@ public class FormularioMateriaPrima extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         MateriaPrima obj = new MateriaPrima();
+        
+        if (txtEstoque.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Informe a descrição !!!! .");
+    return;
+}
+
+if (txtEstoqueMinimo.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Informe o estoque mínimo.");
+    return;
+}
+
+if (txtValorUnitario.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Informe o valor unitário.");
+    return;
+}
+        
+        
         obj.setId(Integer.valueOf(txtCodigo.getText()));
         MateriaPrimaDAO dao = new MateriaPrimaDAO();
         dao.Excluir(obj);

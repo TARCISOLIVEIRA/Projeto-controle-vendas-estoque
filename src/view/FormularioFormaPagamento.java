@@ -152,7 +152,7 @@ public class FormularioFormaPagamento extends javax.swing.JFrame {
 
                 rs.getString("forma_pagamento"),
                 rs.getInt("quantidade"),
-                rs.getDouble("total")
+                rs.getString("total")
 
             });
 

@@ -22,7 +22,7 @@ public class FornecedorDAO {
         this.conn = new ConexaoBanco().pegarConexao();
     }
     
-    public void Salvar(Fornecedor cli){
+    public boolean Salvar(Fornecedor cli){
         
         try {
             // 1 Criando o sql;
@@ -45,8 +45,12 @@ public class FornecedorDAO {
             stmt.executeUpdate();
             stmt.close();
             JOptionPane.showMessageDialog(null,"Fornecedores salvo com sucesso");
+            
+            return true;
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null,"Erro ao salvar o Fornecedores"+ erro);
+            JOptionPane.showMessageDialog(null,"Erro ao salvar o Fornecedores"+ erro.getMessage());
+            
+            return false;
         }
     }
      public void Editar(Fornecedor cli){

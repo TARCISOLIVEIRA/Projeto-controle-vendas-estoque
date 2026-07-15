@@ -66,7 +66,7 @@ public class ClientesDAO {
     
     
     
-    public void Salvar(Clientes cli){
+    public boolean Salvar(Clientes cli){
         
         try {
             // 1 Criando o sql;
@@ -92,11 +92,19 @@ public class ClientesDAO {
             stmt.close();
             
             JOptionPane.showMessageDialog(null,"cliente salvo com sucesso");
+             
+            return true;
+    
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null,"Erro ao salvar o cliente"+ erro);
-            
+            return false;    
         }
     }
+    
+    
+    
+    
+    
      public void Editar(Clientes cli){
         
         try {

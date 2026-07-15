@@ -11,6 +11,7 @@ import model.Clientes;
 import model.MateriaPrima;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 public class MateriaPrimaDAO {
     
@@ -178,10 +179,7 @@ public class MateriaPrimaDAO {
                 obj.setBairro(rs.getString("bairro"));
                 obj.setCidade(rs.getString("cidade"));
                 obj.setEstado(rs.getString("estado"));
-                
-                
-                
-                
+                 
             } 
             return obj;
         } catch (Exception erro) {
@@ -237,6 +235,10 @@ public class MateriaPrimaDAO {
         }
         return lista;
     }
+    
+    
+   
+
         
     
 }

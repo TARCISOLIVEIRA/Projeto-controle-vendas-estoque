@@ -50,6 +50,8 @@ public class FormularioCliente extends javax.swing.JFrame {
                  
    
     // retirei (java.awt.Frame parent, boolean modal)  eambaixo : super(parent, modal);
+      
+      private boolean clienteSalvo = false;
     public FormularioCliente() {
         
         initComponents();
@@ -106,7 +108,7 @@ public class FormularioCliente extends javax.swing.JFrame {
         btnNovo = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
         Paineltitulo = new javax.swing.JPanel();
         TituloCadastro = new javax.swing.JLabel();
@@ -140,6 +142,11 @@ public class FormularioCliente extends javax.swing.JFrame {
         jPanel2.add(jLabel18);
         jLabel18.setBounds(10, 50, 40, 15);
 
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtNomeKeyPressed(evt);
@@ -162,6 +169,12 @@ public class FormularioCliente extends javax.swing.JFrame {
         jLabel19.setText("email");
         jPanel2.add(jLabel19);
         jLabel19.setBounds(10, 80, 60, 15);
+
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtEmail);
         txtEmail.setBounds(56, 80, 210, 30);
 
@@ -174,6 +187,11 @@ public class FormularioCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCelular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCelularActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtCelular);
         txtCelular.setBounds(353, 80, 110, 30);
 
@@ -186,6 +204,11 @@ public class FormularioCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefoneActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtTelefone);
         txtTelefone.setBounds(530, 80, 170, 30);
 
@@ -198,30 +221,59 @@ public class FormularioCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCepActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtCep);
         txtCep.setBounds(70, 130, 133, 30);
 
         jLabel23.setText("Endereco ");
         jPanel2.add(jLabel23);
         jLabel23.setBounds(210, 140, 90, 15);
+
+        txtEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEnderecoActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtEndereco);
         txtEndereco.setBounds(310, 130, 180, 30);
 
         jLabel8.setText("nº");
         jPanel2.add(jLabel8);
         jLabel8.setBounds(510, 140, 20, 15);
+
+        txtNumero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtNumero);
         txtNumero.setBounds(580, 130, 70, 30);
 
         jLabel24.setText("Bairro");
         jPanel2.add(jLabel24);
         jLabel24.setBounds(10, 180, 120, 20);
+
+        txtBairro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBairroActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtBairro);
         txtBairro.setBounds(70, 170, 150, 30);
 
         jLabel25.setText("Cidade");
         jPanel2.add(jLabel25);
         jLabel25.setBounds(240, 180, 100, 15);
+
+        txtCidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCidadeActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtCidade);
         txtCidade.setBounds(300, 170, 120, 30);
 
@@ -238,12 +290,23 @@ public class FormularioCliente extends javax.swing.JFrame {
         txtComplemento.setBounds(90, 210, 50, 30);
 
         cbfEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PE", "SP", "RJ", "MA", "AC", "AL", "BA", "MA", "SE", "RN", "CE", "AM", "RO", "PI", "PB", "MG", "MS", "RR", "TO", "PA" }));
+        cbfEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbfEstadoActionPerformed(evt);
+            }
+        });
         jPanel2.add(cbfEstado);
         cbfEstado.setBounds(570, 180, 80, 24);
 
         jLabel27.setText("RG:");
         jPanel2.add(jLabel27);
         jLabel27.setBounds(250, 255, 50, 20);
+
+        txtRg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRgActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtRg);
         txtRg.setBounds(300, 250, 110, 30);
 
@@ -256,6 +319,11 @@ public class FormularioCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCpfActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtCpf);
         txtCpf.setBounds(90, 250, 130, 30);
 
@@ -333,11 +401,11 @@ public class FormularioCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/excluir.png"))); // NOI18N
-        jButton5.setText("EXCLUIR");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/excluir.png"))); // NOI18N
+        btnExcluir.setText("EXCLUIR");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
 
@@ -385,7 +453,7 @@ public class FormularioCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnImprimir)
                 .addGap(0, 74, Short.MAX_VALUE))
@@ -401,7 +469,7 @@ public class FormularioCliente extends javax.swing.JFrame {
                     .addComponent(btnSalvar)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnImprimir)
                         .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(26, 26, 26))
@@ -414,6 +482,27 @@ public class FormularioCliente extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
         Clientes obj = new Clientes();
+        
+        
+        
+     if (txtNome.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Informe o nome.");
+    txtNome.requestFocus();
+    return;
+}
+
+if (txtEmail.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Informe o e-mail.");
+    txtEmail.requestFocus();
+    return;
+}
+
+if (txtNumero.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Informe o número.");
+    txtNumero.requestFocus();
+    return;
+}
+        
         obj.setNome(txtNome.getText());
         obj.setRg(txtRg.getText());
         obj.setCpf(txtCpf.getText());
@@ -423,28 +512,42 @@ public class FormularioCliente extends javax.swing.JFrame {
         obj.setCep(txtCep.getText());
         obj.setEndereco(txtEndereco.getText());
         try{
+            
+            
         obj.setNumero(Integer.parseInt(txtNumero.getText()));   
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, " O campo numero aceita apenas numero");
+            txtNumero.requestFocus();
             return;
         }
+        
         obj.setComplemento(txtComplemento.getText());
         obj.setBairro(txtBairro.getText());
         obj.setCidade(txtCidade.getText());
         obj.setEstado(cbfEstado.getSelectedItem().toString());
         
         ClientesDAO dao = new ClientesDAO();
-        dao.Salvar(obj);
+        
+        
+        boolean retorno = dao.Salvar(obj);
+        if(retorno){
+            JOptionPane.showMessageDialog(null,"Cliente salvo com sucesso");
+            clienteSalvo = true;
+            btnSalvar.setEnabled(false);
+            btnEditar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+            
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
         
-        JOptionPane.showMessageDialog(null,"Salvou");
-            
+        
+        }  
         
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void txtComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtComplementoActionPerformed
         // TODO add your handling code here:
+        txtCpf.requestFocus();
     }//GEN-LAST:event_txtComplementoActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -478,10 +581,15 @@ public class FormularioCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        
+        clienteSalvo = false;
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
         txtCodigo.setEnabled(false);
-        
+        btnSalvar.setEnabled(true);
+        btnEditar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        txtNome.requestFocusInWindow();
         
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -560,7 +668,7 @@ public class FormularioCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         if(evt.getKeyCode()== KeyEvent.VK_ENTER){
-            String nome =  txtNome.getText();
+        String nome =  txtNome.getText();
         Clientes obj = new Clientes();
         ClientesDAO dao = new ClientesDAO();
         
@@ -609,6 +717,10 @@ public class FormularioCliente extends javax.swing.JFrame {
         txtBairro.setText(tabela.getValueAt(tabela.getSelectedRow(),11).toString());
         txtCidade.setText(tabela.getValueAt(tabela.getSelectedRow(),12).toString());
         cbfEstado.setSelectedItem(tabela.getValueAt(tabela.getSelectedRow(),13).toString());
+        
+        btnEditar.setEnabled(true);
+        btnExcluir.setEnabled(true);
+        btnSalvar.setEnabled(false);
         
         
         
@@ -676,7 +788,25 @@ public class FormularioCliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (tabela.getSelectedRow() == -1) {
+        JOptionPane.showMessageDialog(null, "Selecione um cliente na tabela!");
+        return;
+    }
+
+    //  campos obrigatórios
+    if (txtNome.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Nome não pode estar vazio ");
+        return;
+    }
+
+    if (txtNumero.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Número do endereço não pode estar vazio!");
+        return;
+    }
+        
+        
+        
         Clientes obj = new Clientes();
         obj.setId(Integer.valueOf(txtCodigo.getText()));
         ClientesDAO dao = new ClientesDAO();
@@ -688,7 +818,7 @@ public class FormularioCliente extends javax.swing.JFrame {
         
         
         
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
@@ -734,6 +864,75 @@ public class FormularioCliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnImprimirActionPerformed
 
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+        txtEmail.requestFocus();
+    }//GEN-LAST:event_txtNomeActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+        txtCelular.requestFocus();
+        
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCelularActionPerformed
+        // TODO add your handling code here:
+        txtTelefone.requestFocus();
+        
+        
+        
+    }//GEN-LAST:event_txtCelularActionPerformed
+
+    private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
+        // TODO add your handling code here:
+        txtCep.requestFocus();
+        
+        
+    }//GEN-LAST:event_txtTelefoneActionPerformed
+
+    private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
+        // TODO add your handling code here:
+        txtEndereco.requestFocus();
+        
+        
+    }//GEN-LAST:event_txtCepActionPerformed
+
+    private void txtEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnderecoActionPerformed
+        // TODO add your handling code here:
+        txtNumero.requestFocus();
+    }//GEN-LAST:event_txtEnderecoActionPerformed
+
+    private void txtNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroActionPerformed
+        // TODO add your handling code here:
+        txtBairro.requestFocus();
+    }//GEN-LAST:event_txtNumeroActionPerformed
+
+    private void txtBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBairroActionPerformed
+        // TODO add your handling code here:
+        txtCidade.requestFocus();
+    }//GEN-LAST:event_txtBairroActionPerformed
+
+    private void txtCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCidadeActionPerformed
+        // TODO add your handling code here:
+        
+        cbfEstado.requestFocus();
+    }//GEN-LAST:event_txtCidadeActionPerformed
+
+    private void cbfEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbfEstadoActionPerformed
+        // TODO add your handling code here:
+        txtComplemento.requestFocus();
+        
+    }//GEN-LAST:event_cbfEstadoActionPerformed
+
+    private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
+        // TODO add your handling code here:
+        txtRg.requestFocus();
+    }//GEN-LAST:event_txtCpfActionPerformed
+
+    private void txtRgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRgActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRgActionPerformed
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -772,13 +971,13 @@ public class FormularioCliente extends javax.swing.JFrame {
     private javax.swing.JPanel Paineltitulo;
     private javax.swing.JLabel TituloCadastro;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnpesquisar1;
     private javax.swing.JComboBox<String> cbfEstado;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;

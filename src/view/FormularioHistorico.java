@@ -9,6 +9,7 @@ import dao.ItensVendasDAO;
 import dao.VendasDAO;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import model.ItemVendas;
 import model.Vendas;
@@ -30,6 +32,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author Tarciso
  */
+
 public class FormularioHistorico extends javax.swing.JFrame {
 
     /**
@@ -37,6 +40,14 @@ public class FormularioHistorico extends javax.swing.JFrame {
      */
     public FormularioHistorico() {
         initComponents();
+         SwingUtilities.invokeLater(new Runnable() {
+        @Override
+        public void run() {
+            txtInicio.requestFocus();
+            txtInicio.selectAll();
+        }
+    });
+        
     }
 
     /**
@@ -92,6 +103,11 @@ public class FormularioHistorico extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtFim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFimActionPerformed(evt);
+            }
+        });
         txtFim.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtFimKeyPressed(evt);
@@ -216,12 +232,14 @@ public class FormularioHistorico extends javax.swing.JFrame {
         DefaultTableModel historico = (DefaultTableModel)Tabela.getModel();
         historico.setNumRows(0);
         for(Vendas v : lista){
+            String data = sdf.format(v.getData_venda());
+            String total = new DecimalFormat("#,##0.00").format(v.getTotal_venda());
             historico.addRow(new Object[]{
                 v.getId(),
                 v.getClientes().getNome(),
                 v.getFuncionario().getNome(),
-                v.getData_venda(),
-                v.getTotal_venda(),
+                data,
+                total,
                 v.getObservacao()
             });
            }
@@ -365,7 +383,9 @@ public class FormularioHistorico extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInicioActionPerformed
-        // TODO add your handling code here:
+        
+        txtFim.requestFocusInWindow();
+        
     }//GEN-LAST:event_txtInicioActionPerformed
 
     private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
@@ -384,8 +404,13 @@ public class FormularioHistorico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtInicioKeyPressed
 
     private void btnPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisarKeyPressed
-        // TODO add your handling code here:
-        btnPesquisar.doClick();
+        //  evento p
+        
+        if(evt.getKeyCode()== java.awt.event.KeyEvent.VK_ENTER){
+           btnPesquisar.doClick();
+        }
+        
+       
         
     }//GEN-LAST:event_btnPesquisarKeyPressed
 
@@ -404,6 +429,12 @@ public class FormularioHistorico extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_txtFimKeyPressed
+
+    private void txtFimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFimActionPerformed
+        // TODO add your handling code here:
+        btnPesquisar.requestFocusInWindow();
+        
+    }//GEN-LAST:event_txtFimActionPerformed
 
     /**
      * @param args the command line arguments

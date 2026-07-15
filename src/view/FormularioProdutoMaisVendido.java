@@ -134,30 +134,20 @@ public class FormularioProdutoMaisVendido extends javax.swing.JFrame {
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
       try {
-
         VendasDAO dao = new VendasDAO();
-
         ResultSet rs = dao.produtosMaisVendidos();
-
         DefaultTableModel modelo =
         (DefaultTableModel) tblProdutosVendidos.getModel();
-
         modelo.setNumRows(0);
-
         while(rs.next()) {
 
             modelo.addRow(new Object[]{
-
                 rs.getString("descricao"),
                 rs.getInt("quantidade"),
-                rs.getDouble("total")
-
+                rs.getString("total")
             });
-
         }
-
     } catch (Exception erro) {
-
         JOptionPane.showMessageDialog(null, erro);
 
     }

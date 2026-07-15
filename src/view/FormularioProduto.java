@@ -384,7 +384,8 @@ public class FormularioProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-         if(txtDescricao.getText().trim().isEmpty()){
+
+        if(txtDescricao.getText().trim().isEmpty()){
         JOptionPane.showMessageDialog(null, "Por favor preencha a descrição!");
         txtDescricao.requestFocus();
         return;
@@ -415,6 +416,8 @@ public class FormularioProduto extends javax.swing.JFrame {
         txtDescricao.requestFocus();
         return;
     }
+    
+    
     boolean retorno = dao.salvar(obj);
     if(retorno){
         produtoSalvo = true;
@@ -586,9 +589,6 @@ public class FormularioProduto extends javax.swing.JFrame {
      }    
         
         
-        
-        
-        
     Produto obj = new Produto();
     obj.setId(Integer.valueOf(txtCodigo.getText()));
     obj.setDescricao(txtDescricao.getText());
@@ -659,7 +659,7 @@ public class FormularioProduto extends javax.swing.JFrame {
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // TODO add your handling code here:
-                  Connection conn = null;
+          Connection conn = null;
     try {
         //  liga ao banco de dados 
         conn = new ConexaoBanco().pegarConexao();

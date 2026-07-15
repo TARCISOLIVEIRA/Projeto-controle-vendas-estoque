@@ -51,7 +51,7 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
    }
                  
    
-    
+    private boolean fornecedorSalvo = false;
     public FormularioFornecedor() {
         //super(parent, modal);
         initComponents();
@@ -139,6 +139,11 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
         jPanel2.add(jLabel18);
         jLabel18.setBounds(10, 50, 40, 15);
 
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtNomeKeyPressed(evt);
@@ -161,6 +166,12 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
         jLabel19.setText("email");
         jPanel2.add(jLabel19);
         jLabel19.setBounds(10, 80, 60, 15);
+
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtEmail);
         txtEmail.setBounds(90, 80, 176, 30);
 
@@ -173,6 +184,11 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCelular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCelularActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtCelular);
         txtCelular.setBounds(353, 80, 100, 30);
 
@@ -185,6 +201,11 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefoneActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtTelefone);
         txtTelefone.setBounds(510, 80, 134, 30);
 
@@ -197,30 +218,59 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCepActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtCep);
         txtCep.setBounds(70, 120, 133, 30);
 
         jLabel23.setText("Endereco ");
         jPanel2.add(jLabel23);
         jLabel23.setBounds(210, 120, 90, 15);
+
+        txtEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEnderecoActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtEndereco);
         txtEndereco.setBounds(310, 120, 190, 30);
 
         jLabel8.setText("nº");
         jPanel2.add(jLabel8);
         jLabel8.setBounds(540, 130, 20, 15);
+
+        txtNumero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtNumero);
         txtNumero.setBounds(610, 120, 90, 30);
 
         jLabel24.setText("Bairro");
         jPanel2.add(jLabel24);
         jLabel24.setBounds(10, 170, 120, 20);
+
+        txtBairro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBairroActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtBairro);
         txtBairro.setBounds(160, 160, 110, 30);
 
         jLabel25.setText("Cidade");
         jPanel2.add(jLabel25);
         jLabel25.setBounds(290, 170, 100, 15);
+
+        txtCidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCidadeActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtCidade);
         txtCidade.setBounds(390, 160, 130, 30);
 
@@ -237,8 +287,13 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
         txtComplemento.setBounds(110, 230, 50, 30);
 
         cbfEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PE", "SP", "RJ", "MA", "AC", "AL", "BA", "MA", "SE", "RN", "CE", "AM", "RO", "PI", "PB", "MG", "MS", "RR", "TO", "PA" }));
+        cbfEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbfEstadoActionPerformed(evt);
+            }
+        });
         jPanel2.add(cbfEstado);
-        cbfEstado.setBounds(580, 240, 80, 24);
+        cbfEstado.setBounds(580, 160, 80, 24);
 
         try {
             txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
@@ -404,6 +459,29 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
         // TODO add your handling code here:
         
         Fornecedor obj = new Fornecedor();
+        
+    if (txtNome.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Informe o nome.");
+    txtNome.requestFocus();
+    return;
+}
+
+if (txtEmail.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Informe o e-mail.");
+    txtEmail.requestFocus();
+    return;
+}
+
+if (txtNumero.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Informe o número.");
+    txtNumero.requestFocus();
+    return;
+}
+        
+        
+        
+        
+        
         obj.setNome(txtNome.getText());
         
         obj.setCnpj(txtCnpj.getText());
@@ -419,7 +497,19 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
         obj.setEstado(cbfEstado.getSelectedItem().toString());
         
         FornecedorDAO dao = new FornecedorDAO();
-        dao.Salvar(obj);
+        boolean retorno = dao.Salvar(obj);
+        
+        if(retorno){
+         fornecedorSalvo = true;
+            JOptionPane.showMessageDialog(null,"Fornecedor salvo com sucesso!");
+         }else{
+            JOptionPane.showMessageDialog(null,"Fornecedor não salvo....");    
+        btnSalvar.setEnabled(false);
+        btnEditar.setEnabled(true);
+        btnExcluir.setEnabled(true);
+    }
+        
+        
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
         
@@ -430,6 +520,8 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
 
     private void txtComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtComplementoActionPerformed
         // TODO add your handling code here:
+        
+        txtCnpj.requestFocus();
     }//GEN-LAST:event_txtComplementoActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -466,8 +558,12 @@ public class FormularioFornecedor extends javax.swing.JFrame  {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         Utilitarios util = new Utilitarios();
         util.LimpaTela(jPanel2);
-        txtCodigo.setEnabled(false);
         
+        txtCodigo.setEnabled(false);
+        btnSalvar.setEnabled(true);
+        btnEditar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        txtNome.requestFocusInWindow();
         
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -665,7 +761,29 @@ if(op== JOptionPane.YES_OPTION){
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        
+        
+        
+        
+        
+        
         Fornecedor obj = new Fornecedor();
+        
+         if (tabela.getSelectedRow() == -1) {
+        JOptionPane.showMessageDialog(null, "Selecione um cliente na tabela!");
+        return;
+    }
+
+    //  campos obrigatórios
+    if (txtNome.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Nome não pode estar vazio ");
+        return;
+    }
+
+    if (txtNumero.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Número do endereço não pode estar vazio!");
+        return;
+    }
         obj.setId(Integer.valueOf(txtCodigo.getText()));
         FornecedorDAO dao = new FornecedorDAO();
         dao.Excluir(obj);
@@ -707,6 +825,59 @@ if(op== JOptionPane.YES_OPTION){
         
         
     }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+        txtEmail.requestFocus();
+    }//GEN-LAST:event_txtNomeActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+        txtCelular.requestFocus();
+        
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCelularActionPerformed
+        // TODO add your handling code here:
+        txtTelefone.requestFocus();
+    }//GEN-LAST:event_txtCelularActionPerformed
+
+    private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
+        // TODO add your handling code here:
+        txtCep.requestFocus();
+    }//GEN-LAST:event_txtTelefoneActionPerformed
+
+    private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
+        // TODO add your handling code here:
+        txtEndereco.requestFocus();
+    }//GEN-LAST:event_txtCepActionPerformed
+
+    private void txtEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnderecoActionPerformed
+        // TODO add your handling code here:
+        
+        txtNumero.requestFocus();
+    }//GEN-LAST:event_txtEnderecoActionPerformed
+
+    private void txtNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroActionPerformed
+        // TODO add your handling code here:
+        txtBairro.requestFocus();
+    }//GEN-LAST:event_txtNumeroActionPerformed
+
+    private void txtBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBairroActionPerformed
+        // TODO add your handling code here:
+        txtCidade.requestFocus();
+    }//GEN-LAST:event_txtBairroActionPerformed
+
+    private void txtCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCidadeActionPerformed
+        // TODO add your handling code here:
+        
+        cbfEstado.requestFocus();
+    }//GEN-LAST:event_txtCidadeActionPerformed
+
+    private void cbfEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbfEstadoActionPerformed
+        // TODO add your handling code here:
+        txtComplemento.requestFocus();
+    }//GEN-LAST:event_cbfEstadoActionPerformed
 
     
     public static void main(String args[]) {
