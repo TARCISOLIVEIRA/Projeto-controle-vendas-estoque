@@ -1,6 +1,7 @@
 
 package view;
 
+import controledeestoque1.ConexaoBanco;
 import dao.ClientesDAO;
 import dao.ItensVendasDAO;
 import dao.ProdutoDAO;
@@ -17,8 +18,16 @@ import model.Vendas;
 import model.Clientes;
 import java.awt.Color;
 import java.awt.Component;
+import java.io.InputStream;
+import java.net.URL;
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 
@@ -31,24 +40,16 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
         initComponents();
     
     }
-    
-    
     private Funcionario func;
+    private int idVenda;
+    
     public formularioVendaSupermecado(Funcionario func) {
         initComponents();
-        
-      
-        
         btnReabirCaixa.setEnabled(false);
-        
        this.func = func;
-
 if (func.getNivel().equalsIgnoreCase("ADM")) {
-
     btnReabirCaixa.setVisible(true);
-
 } else if (func.getNivel().equalsIgnoreCase("Gerente")) {
-
       btnReabirCaixa.setVisible(true);
 
 } else if (func.getNivel().equalsIgnoreCase("FUNCIONARIO")
@@ -127,10 +128,7 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
     KeyStroke.getKeyStroke("F6"),
     JComponent.WHEN_IN_FOCUSED_WINDOW
 );     
-      
     }
-
-    
     public void carregarClientes(String nome){
         ClientesDAO dao = new ClientesDAO();
         List<Clientes> lista = dao.listarPorNome(nome);
@@ -139,18 +137,17 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
             cmbClientes.addItem(c.getNome());
         }
     }
-    
     private void limparCampos() {
     txtCodigo.setText("");
     //txtDescricao.setText("");
     txtValorUnitario.setText("");
     txtQuantidade.setText("");
     txtTotalItem.setText("");
-    txtSubTotal.setText("");
+    txtSubTotal.setText("0,00");
     txtDesconto.setText("0,00");
-    txtValorTotal.setText("");
-    txtRecebido.setText("");
-    txtTroco.setText("");
+    txtValorTotal.setText("0,00");
+    txtRecebido.setText("0,00");
+    txtTroco.setText("0,00");
     cmbClientes.setSelectedIndex(-1);
     cmbFormaPagamento.setSelectedIndex(0);
     DefaultTableModel modelo = (DefaultTableModel) tabelaItens.getModel();
@@ -158,9 +155,7 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
     tabelaItens.clearSelection();
     cmbClientes.setSelectedItem("Consumidor Final");
     txtCodigo.requestFocus();
-    
 }
-
    private void habilitarCampos() {
     txtCodigo.setEnabled(true);
     txtQuantidade.setEnabled(true);
@@ -253,6 +248,7 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
         btnAbriCaixa = new javax.swing.JButton();
         btnFecharCaixa1 = new javax.swing.JButton();
         btnReabirCaixa = new javax.swing.JButton();
+        btnCupomFiscal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -865,6 +861,16 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
             }
         });
 
+        btnCupomFiscal.setBackground(new java.awt.Color(0, 0, 18));
+        btnCupomFiscal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnCupomFiscal.setForeground(new java.awt.Color(255, 255, 255));
+        btnCupomFiscal.setText("F10 - C. FISCAL");
+        btnCupomFiscal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCupomFiscalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -905,7 +911,8 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(btnLimparCaixa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnReabirCaixa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                        .addComponent(btnFecharCaixa1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(btnFecharCaixa1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnCupomFiscal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                                 .addContainerGap(150, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -953,6 +960,8 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
                                 .addComponent(btnLimparCaixa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnReabirCaixa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCupomFiscal)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(46, 46, 46)))
@@ -1056,19 +1065,23 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
         btnFinalizarcompra.setEnabled(false);
       
         btnAbriCaixa.setEnabled(true);
+        btnFecharCaixa1.setEnabled(true);
+        lblSatus.setForeground(Color.red);
+        lblSatus.setText("Caixa Fechado");
         
        if (func.getNivel().equalsIgnoreCase("ADM")) {
     btnReabirCaixa.setEnabled(true);
 } else {
     btnReabirCaixa.setEnabled(false);
 } 
-        
-        
-       
         btnFecharCaixa1.setEnabled(false);
         lblSatus.setText("CAIXA FECHADO");
     }
-     private void abrirCaixa(){
+     
+    
+    
+    
+    private void abrirCaixa(){
         txtCodigo.setEnabled(true);
         txtQuantidade.setEnabled(true);
         txtValorUnitario.setEnabled(true);
@@ -1080,19 +1093,16 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
         btnFinalizarcompra.setEnabled(true);
         
         btnAbriCaixa.setEnabled(false);
-        
+        btnFecharCaixa1.setEnabled(true);
+        lblSatus.setText("CAIXA ABERTO");
         if (func.getNivel().equalsIgnoreCase("ADM")) {
     btnReabirCaixa.setEnabled(true);
 } else {
     btnReabirCaixa.setEnabled(false);
 }
-        btnFecharCaixa1.setEnabled(false);
         
-        
-        
-        
-        
-        lblSatus.setText("CAIXA ABERTO");
+       // btnFecharCaixa1.setEnabled(true);
+       // lblSatus.setText("CAIXA ABERTO");
     }
     
     private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
@@ -1117,28 +1127,22 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
     private void btnFinalizarcompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarcompraActionPerformed
         lblSatus.setForeground(java.awt.Color.red);
         lblSatus.setText("Caixa Fechado");
-        
         if(txtSubTotal.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(null, "O subtotsl está vazio");
             txtSubTotal.requestFocus();
             return;
         }
-        
-        
         if(txtValorTotal.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(null,"O valor toral está vazio");
             txtValorTotal.requestFocus();
         }
-        
         if(txtRecebido.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(null, "Inofrme o valor recebido");
         }
-        
         if (tabelaItens.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null,"Adicione pelo menos um item na venda!");
             return;
         }
-        
         if(txtTroco.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(null,"O campo troco está vazio");
             txtTroco.requestFocus();
@@ -1173,11 +1177,9 @@ if (troco < 0) {
             } else {
                 System.out.println("funcionario " + venda.getFuncionario().getId());
             }
-            
-            
-            
-            
             vendaDAO.Salvar(venda);
+            System.out.println("id da venda " + venda.getId());
+            idVenda = venda.getId();
             ItensVendasDAO itemDAO = new ItensVendasDAO();
             JOptionPane.showMessageDialog(null,"ID DA VENDA "+ venda.getId());
             JOptionPane.showMessageDialog(null, "Linhas da tabela:"+ tabelaItens.getRowCount());
@@ -1187,7 +1189,7 @@ if (troco < 0) {
                 Produto produto = new Produto();
                 Object valor = tabelaItens.getValueAt(i, 1);
                 if(valor == null){
-                    JOptionPane.showMessageDialog(null,"linnha"+ i+ "esta vazia");
+                    JOptionPane.showMessageDialog(null,"linha"+ i+ "esta vazia");
                     continue;
                 }
                 produto.setId(Integer.parseInt(tabelaItens.getValueAt(i, 1).toString() ));
@@ -1196,6 +1198,12 @@ if (troco < 0) {
                 item.setSubtotal(Double.parseDouble(tabelaItens.getValueAt(i, 4).toString().replace(",", ".")));
 
                 JOptionPane.showMessageDialog(null, "ID da venda"+ venda.getId());
+                System.out.println("Venda id " + item.getVendas().getId());
+                System.out.println("Produto" + item.getProduto().getId());
+                System.out.println("Qtd" + item.getQtd());
+                System.out.println("Subtotal " + item.getSubtotal());
+                
+                System.out.println("Coluna 4 = " + tabelaItens.getValueAt(i,4));
                 itemDAO.salvar(item);
             ProdutoDAO dao = new ProdutoDAO();
             Produto p = dao.BuscarProdutosCodigo(produto.getId());
@@ -1218,8 +1226,8 @@ if (troco < 0) {
             txtRecebido.setText("");
             txtTroco.setText("0,00");
             cmbFormaPagamento.setSelectedIndex(0);
-            lblStatus.setForeground(java.awt.Color.WHITE);
-            lblStatus.setText("Caixa Fechado");
+            lblStatus.setForeground(java.awt.Color.GREEN);
+            lblStatus.setText("Caixa Aberto");
             txtCodigo.requestFocus();
             
             cmbClientes.setSelectedItem("Consumidor Final");
@@ -1326,13 +1334,11 @@ if (troco < 0) {
                 p.getDescricao(),
                 txtQuantidade.getText(),
                 txtTotalItem.getText() });
-
-        txtCodigo.setText("");
-        txtValorUnitario.setText("");
-        txtQuantidade.setText("");
-        txtTotalItem.setText("");
-        txtCodigo.requestFocus();
-
+                       txtCodigo.setText("");
+                       txtValorUnitario.setText("");
+                       txtQuantidade.setText("");
+                       txtTotalItem.setText("");
+                       txtCodigo.requestFocus();
         double subtotal = 0;
         for (int i = 0; i < modelo.getRowCount(); i++) {
             Object valor = modelo.getValueAt(i, 4);
@@ -1342,10 +1348,10 @@ if (troco < 0) {
         }
         txtSubTotal.setText(String.format("%.2f", subtotal));
         txtValorTotal.setText(String.format("%.2f", subtotal));
-        
         lblStatus.setForeground(java.awt.Color.GREEN);
         lblStatus.setText("Caixa Aberto");
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this,"Erro ao adicionar item: " + e.getMessage());
         }
         txtRecebido.requestFocus();
@@ -1416,33 +1422,19 @@ if (troco < 0) {
                 "Erro: " + e.getMessage()
         );
     }
-        
-        
-        
-        
-        
-        
-        
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescontoActionPerformed
-        // TODO add your handling code here:
        txtDesconto.setEnabled(true);
        txtDesconto.requestFocus();
        txtDesconto.selectAll();
-        
-        
-        
     }//GEN-LAST:event_btnDescontoActionPerformed
 
     private void txtDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescontoActionPerformed
-        // TODO add your handling code here:
-        
         double subtotal = Double.parseDouble(txtSubTotal.getText().replace(",","."));
         double desconto = Double.parseDouble(txtDesconto.getText().replace(",","."));
         double valortotal = subtotal - desconto; 
         txtValorTotal.setText(String.format("%.2f", valortotal).replace(".","."));
-        
         txtRecebido.requestFocus();
     }//GEN-LAST:event_txtDescontoActionPerformed
 
@@ -1529,14 +1521,10 @@ if (troco < 0) {
     }//GEN-LAST:event_btnLimparCaixaActionPerformed
 
     private void btnAbriCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbriCaixaActionPerformed
-       
        if(func == null){
            JOptionPane.showMessageDialog(this, "Nenhum funcionário esta logado");
            return;
-        
     }        
-        
-        
         if(lblSatus.getText().equals("CAIXA ABERTO")){
             JOptionPane.showMessageDialog(this, "O caixa já esta aberto");
             return;
@@ -1545,13 +1533,13 @@ if (troco < 0) {
         java.awt.EventQueue.invokeLater(() -> {
         txtCodigo.requestFocusInWindow();
 });
-        
     }//GEN-LAST:event_btnAbriCaixaActionPerformed
 
     private void btnFecharCaixa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharCaixa1ActionPerformed
         // TODO add your handling code here:
-        limparCampos();
+        
         fecharCaixa();
+        limparCampos();
         
         btnAbriCaixa.requestFocus();
         
@@ -1596,6 +1584,44 @@ if (troco < 0) {
         
     }//GEN-LAST:event_btnReabirCaixaActionPerformed
 
+    private void btnCupomFiscalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCupomFiscalActionPerformed
+        // TODO add your handling code here:
+         Connection conn = null;
+         try {
+
+         conn = new ConexaoBanco().pegarConexao();
+
+        InputStream relatorio = getClass().getResourceAsStream(
+                "/relatorios/nota_fiscal2.jasper");
+
+        Map<String, Object> parametros = new HashMap<>();
+
+        // id da venda que acabou de ser salva
+        System.out.println("ID enviado para o Jasper: " + idVenda);
+
+        parametros.put("ID_VENDA", idVenda);
+
+        JasperPrint print = JasperFillManager.fillReport(
+                relatorio,
+                parametros,
+                conn);
+
+        JasperViewer.viewReport(print, false);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, e.getMessage());
+    }
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnCupomFiscalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1634,6 +1660,7 @@ if (troco < 0) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbriCaixa;
     private javax.swing.JButton btnAdicionarItem;
+    private javax.swing.JButton btnCupomFiscal;
     private javax.swing.JButton btnDesconto;
     private javax.swing.JButton btnEstoque;
     private javax.swing.JButton btnFecharCaixa1;

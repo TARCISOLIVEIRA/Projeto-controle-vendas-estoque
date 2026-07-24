@@ -658,8 +658,9 @@ public class FormularioProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_cbfFornecedorActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-        // TODO add your handling code here:
-          Connection conn = null;
+
+        
+        Connection conn = null;
     try {
         //  liga ao banco de dados 
         conn = new ConexaoBanco().pegarConexao();

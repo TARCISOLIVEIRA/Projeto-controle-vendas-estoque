@@ -158,7 +158,10 @@ if (func != null) {
         this.dispose();
 
     } else {
-        JOptionPane.showMessageDialog(null, "Login inválido");
+        JOptionPane.showMessageDialog(this, "Nome ou senha inválidos. \nTente novamente", "Erro de Login", JOptionPane.ERROR_MESSAGE);
+        txtNome.setText("");
+        txtSenha.setText("");
+        txtNome.requestFocus();
     }
 
         
