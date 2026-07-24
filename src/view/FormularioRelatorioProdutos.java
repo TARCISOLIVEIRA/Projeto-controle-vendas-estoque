@@ -58,7 +58,7 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
         lblTotalGeral = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        btnImprimiProdutos = new javax.swing.JButton();
+        btnImprimiProdutosTotal = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela2 = new javax.swing.JTable();
@@ -72,6 +72,7 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         JLabelTotalGeral = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btnImprimiProdutos1 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -202,8 +203,9 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTotalGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(lblTotalGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,12 +235,12 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
         );
 
-        btnImprimiProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/printer.png"))); // NOI18N
-        btnImprimiProdutos.setText("Produtos");
-        btnImprimiProdutos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 2));
-        btnImprimiProdutos.addActionListener(new java.awt.event.ActionListener() {
+        btnImprimiProdutosTotal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/printer.png"))); // NOI18N
+        btnImprimiProdutosTotal.setText("Rel total");
+        btnImprimiProdutosTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 2));
+        btnImprimiProdutosTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimiProdutosActionPerformed(evt);
+                btnImprimiProdutosTotalActionPerformed(evt);
             }
         });
 
@@ -343,9 +345,9 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addComponent(JLabelTotalGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,7 +355,7 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(JLabelTotalGeral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 15, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/printer.png"))); // NOI18N
@@ -361,6 +363,15 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        btnImprimiProdutos1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/imgs/printer.png"))); // NOI18N
+        btnImprimiProdutos1.setText("Produtos");
+        btnImprimiProdutos1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 2));
+        btnImprimiProdutos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimiProdutos1ActionPerformed(evt);
             }
         });
 
@@ -392,33 +403,33 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
                         .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(104, 104, 104)
-                        .addComponent(btnImprimiProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnPesquisar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)))
+                        .addComponent(btnImprimiProdutos1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnImprimiProdutosTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jCalendar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCalendar2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnImprimiProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnImprimiProdutosTotal)
+                            .addComponent(btnImprimiProdutos1))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -437,7 +448,7 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
                             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 3, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(713, 713, 713))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -503,7 +514,7 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnImprimiProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimiProdutosActionPerformed
+    private void btnImprimiProdutosTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimiProdutosTotalActionPerformed
         // TODO add your handling code here:
 
         try {
@@ -518,7 +529,7 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
             parametros.put("DATA_FIM", jCalendar2.getDate());
 
             JasperPrint relatorio = JasperFillManager.fillReport(
-                "src/relatorios/relatorioMaisVendidoPeriodo.jasper",
+                "src/relatorios/relatorioProduto.jasper",
                 parametros,
                 conn);
 
@@ -528,7 +539,7 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
-    }//GEN-LAST:event_btnImprimiProdutosActionPerformed
+    }//GEN-LAST:event_btnImprimiProdutosTotalActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         Date dataInicial = jCalendar1.getDate();
@@ -596,6 +607,35 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
+    private void btnImprimiProdutos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimiProdutos1ActionPerformed
+        // TODO add your handling code here:
+         try {
+
+            Connection conn = null;
+
+            conn = new ConexaoBanco().pegarConexao();
+
+            Map<String, Object> parametros = new HashMap<>();
+
+            parametros.put("DATA_INICIO", jCalendar1.getDate());
+            parametros.put("DATA_FIM", jCalendar2.getDate());
+
+            JasperPrint relatorio = JasperFillManager.fillReport(
+                "src/relatorios/relatorioMaisVendidoPeriodo.jasper",
+                parametros,
+                conn);
+
+            JasperViewer.viewReport(relatorio, false);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnImprimiProdutos1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -636,7 +676,8 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel JlabelTotalMateriais;
     private javax.swing.JTable Tabela;
     private javax.swing.JTable Tabela2;
-    private javax.swing.JButton btnImprimiProdutos;
+    private javax.swing.JButton btnImprimiProdutos1;
+    private javax.swing.JButton btnImprimiProdutosTotal;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JCalendar jCalendar1;

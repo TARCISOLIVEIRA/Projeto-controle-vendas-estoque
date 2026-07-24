@@ -14,7 +14,8 @@ import net.sf.jasperreports.view.JasperViewer;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
-import dao.FuncionarioDAO;
+import dao.FuncionarioDAO; 
+import java.awt.event.KeyEvent;
 import dao.VendasDAO;
 import java.util.Date;
 import model.Funcionario;
@@ -38,9 +39,16 @@ public class AreaTrabalho extends javax.swing.JFrame{
        
         verificarEstoque();
         
-       
+        JOptionPane.showMessageDialog(this, "Bem-vindo ao sistema! \n\nClique em F2 para fazer uma venda", "Dica",JOptionPane.INFORMATION_MESSAGE);
+        
+     
     }
    
+    
+    
+    
+ 
+    
      private Connection conn;
     
     
@@ -311,6 +319,7 @@ private void produtoMaisVendido() {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem22 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
@@ -335,6 +344,11 @@ private void produtoMaisVendido() {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
             }
         });
 
@@ -639,6 +653,14 @@ private void produtoMaisVendido() {
             }
         });
         jMenu12.add(jMenuItem7);
+
+        jMenuItem22.setText("Produto x Compras");
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem22ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem22);
 
         jMenuBar1.add(jMenu12);
 
@@ -951,8 +973,8 @@ private void produtoMaisVendido() {
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         // TODO add your handling code here:
         FormularioMateriaPrima login = new FormularioMateriaPrima();
-        this.dispose();
         login.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
@@ -960,8 +982,8 @@ private void produtoMaisVendido() {
         
         
         FormularioMovimentacaoEstoque  est = new FormularioMovimentacaoEstoque();
-        this.dispose();
         est.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
@@ -1167,6 +1189,29 @@ private void produtoMaisVendido() {
         
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
+    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
+        // TODO add your handling code here:
+        
+        FormularioRelatorioProdutos frp = new FormularioRelatorioProdutos();
+          frp.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jMenuItem22ActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_F2){
+         JOptionPane.showMessageDialog(this, "F2 presionado");
+         formularioVendaSupermecado tele = new formularioVendaSupermecado(func);
+         tele.setVisible(true);
+         
+    
+     }
+        
+        
+        
+    }//GEN-LAST:event_formKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -1235,6 +1280,7 @@ private void produtoMaisVendido() {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
+    private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

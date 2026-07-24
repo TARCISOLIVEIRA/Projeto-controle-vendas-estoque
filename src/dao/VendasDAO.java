@@ -48,6 +48,9 @@ public class VendasDAO {
              ResultSet rs = stmt.getGeneratedKeys();
              if(rs.next()) {
                obj.setId(rs.getInt(1));
+               int numeroNota = proximoNumeroNota();
+               obj.setNumeroNota(numeroNota);
+                 atualizarNumeroNota(obj);
              }
              stmt.close();
              JOptionPane.showMessageDialog(null,"Venda realizada Sucesso");
@@ -83,7 +86,40 @@ public class VendasDAO {
     return lista;
 }
 
+ 
+public int proximoNumeroNota() {
+    try {
+        String sql = "SELECT MAX(numero_nota) FROM tb_vendas";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            int ultimo = rs.getInt(1);
+
+            if (rs.wasNull()) {
+                return 1000;
+            }
+            if (ultimo < 1000) {
+                return 1000;
+            }
+
+            return ultimo + 1;
+        }
+
+        rs.close();
+        stmt.close();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return 1000;
+}
+
     
+    
+
+  
     
     
     public ResultSet formaPagamento() {
