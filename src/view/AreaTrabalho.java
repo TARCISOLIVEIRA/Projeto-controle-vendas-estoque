@@ -39,16 +39,26 @@ public class AreaTrabalho extends javax.swing.JFrame{
        
         verificarEstoque();
         
-        JOptionPane.showMessageDialog(this, "Bem-vindo ao sistema! \n\nClique em F2 para fazer uma venda", "Dica",JOptionPane.INFORMATION_MESSAGE);
+        int op = JOptionPane.showConfirmDialog(
+        this,
+        "Bem-vindo ao Sistema!\n\n"
+        + "Deseja abrir o módulo de Vendas (PDV)?\n\n"
+        + "Se preferir, você também pode pressionar F2 a qualquer momento.",
+        "Sistema de Vendas",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE);
+
+if (op == JOptionPane.YES_OPTION) {
+    formularioVendaSupermecado venda = new formularioVendaSupermecado(func);
+    venda.setVisible(true);
+}
+
         
-     
+        
+        
+        //JOptionPane.showMessageDialog(this, "Bem-vindo ao sistema! \n\nClique em F2 para fazer uma venda", "Dica",JOptionPane.INFORMATION_MESSAGE);
     }
    
-    
-    
-    
- 
-    
      private Connection conn;
     
     
@@ -323,6 +333,7 @@ private void produtoMaisVendido() {
         jMenu5 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem23 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
 
@@ -682,6 +693,7 @@ private void produtoMaisVendido() {
             }
         });
         jMenu5.add(jMenuItem14);
+        jMenu5.add(jMenuItem23);
 
         jMenuBar1.add(jMenu5);
 
@@ -1281,6 +1293,7 @@ private void produtoMaisVendido() {
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
+    private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

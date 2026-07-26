@@ -4,6 +4,7 @@ package view;
 import controledeestoque1.ConexaoBanco;
 import dao.MovimentacaoEstoqueDAO;
 import dao.VendasDAO;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.ResultSet;
@@ -517,28 +518,31 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
     private void btnImprimiProdutosTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimiProdutosTotalActionPerformed
         // TODO add your handling code here:
 
-        try {
-
-            Connection conn = null;
-
-            conn = new ConexaoBanco().pegarConexao();
-
-            Map<String, Object> parametros = new HashMap<>();
-
-            parametros.put("DATA_INICIO", jCalendar1.getDate());
-            parametros.put("DATA_FIM", jCalendar2.getDate());
-
-            JasperPrint relatorio = JasperFillManager.fillReport(
-                "src/relatorios/relatorioProduto.jasper",
-                parametros,
-                conn);
-
-            JasperViewer.viewReport(relatorio, false);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            
+        Connection conn = null;
+    try {
+        //  liga ao banco de dados 
+        conn = new ConexaoBanco().pegarConexao();
+        // Carregar o relatório
+        InputStream relatorio = getClass().getResourceAsStream(
+                "/relatorios/relatorioProduto.jasper"
+        );
+        if (relatorio == null) {
+            JOptionPane.showMessageDialog(null, 
+                "Relatório não encontrado!");
+            return;
         }
-
+        JasperPrint print = JasperFillManager.fillReport(
+                relatorio,
+                null,
+                conn
+        );
+        JasperViewer.viewReport(print, false);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "Erro ao gerar relatório: " + e.getMessage());
+    }
+        
     }//GEN-LAST:event_btnImprimiProdutosTotalActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -574,6 +578,8 @@ public class FormularioRelatorioProdutos extends javax.swing.JFrame {
             }
 
             MovimentacaoEstoqueDAO dam = new MovimentacaoEstoqueDAO();
+            System.out.println("data hoje" + dataInicial);
+            System.out.println("data hoje final" + datafinal);
             ResultSet rsm = dam.materiasPrimasMovimentadasPeriodo(dataInicial, datafinal);
             DefaultTableModel modelo2 = (DefaultTableModel) Tabela2.getModel();
             modelo2.setRowCount(0);

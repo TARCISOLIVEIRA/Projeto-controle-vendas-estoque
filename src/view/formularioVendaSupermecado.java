@@ -28,6 +28,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 
 
 
@@ -38,7 +43,25 @@ public class formularioVendaSupermecado extends javax.swing.JFrame {
 
     public formularioVendaSupermecado() {
         initComponents();
-    
+    KeyStroke f2 = KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0);
+
+getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+        .put(f2, "abrirVenda");
+
+getRootPane().getActionMap().put("abrirVenda",
+        new AbstractAction() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        formularioVendaSupermecado venda =
+                new formularioVendaSupermecado(func);
+        venda.setVisible(true);
+    }
+});
+        
+        
+        
+        
+        
     }
     private Funcionario func;
     private int idVenda;
@@ -249,6 +272,8 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
         btnFecharCaixa1 = new javax.swing.JButton();
         btnReabirCaixa = new javax.swing.JButton();
         btnCupomFiscal = new javax.swing.JButton();
+        btnCupomFiscal1 = new javax.swing.JButton();
+        btnCupomFiscal2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -864,10 +889,30 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
         btnCupomFiscal.setBackground(new java.awt.Color(0, 0, 18));
         btnCupomFiscal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnCupomFiscal.setForeground(new java.awt.Color(255, 255, 255));
-        btnCupomFiscal.setText("F10 - C. FISCAL");
+        btnCupomFiscal.setText("F12- 2ª VIA ");
         btnCupomFiscal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCupomFiscalActionPerformed(evt);
+            }
+        });
+
+        btnCupomFiscal1.setBackground(new java.awt.Color(0, 0, 18));
+        btnCupomFiscal1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnCupomFiscal1.setForeground(new java.awt.Color(255, 255, 255));
+        btnCupomFiscal1.setText("F10 - REIMPRIMIR");
+        btnCupomFiscal1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCupomFiscal1ActionPerformed(evt);
+            }
+        });
+
+        btnCupomFiscal2.setBackground(new java.awt.Color(0, 0, 18));
+        btnCupomFiscal2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnCupomFiscal2.setForeground(new java.awt.Color(255, 255, 255));
+        btnCupomFiscal2.setText("F11- NOVO ITEM");
+        btnCupomFiscal2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCupomFiscal2ActionPerformed(evt);
             }
         });
 
@@ -912,7 +957,9 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
                                         .addComponent(btnLimparCaixa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnReabirCaixa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                         .addComponent(btnFecharCaixa1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnCupomFiscal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                                        .addComponent(btnCupomFiscal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addComponent(btnCupomFiscal1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addComponent(btnCupomFiscal2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                                 .addContainerGap(150, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -960,9 +1007,13 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
                                 .addComponent(btnLimparCaixa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnReabirCaixa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCupomFiscal1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCupomFiscal)
+                                .addComponent(btnCupomFiscal2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCupomFiscal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(46, 46, 46)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1216,6 +1267,32 @@ if (troco < 0) {
             dao.baixaEstoque(p.getId(), novoEstoque);
             }
             JOptionPane.showMessageDialog(null,"Venda finalizada com sucesso!");
+            
+            try {
+    ConexaoBanco banco = new ConexaoBanco();
+    Connection conexao = banco.pegarConexao();
+
+    HashMap<String, Object> parametros = new HashMap<>();
+    parametros.put("ID_VENDA", idVenda);
+
+    JasperPrint jasperPrint = JasperFillManager.fillReport(
+            "src/relatorios/nota_fiscal.jasper",
+            parametros,
+            conexao);
+
+    JasperViewer.viewReport(jasperPrint, false);
+
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(null,
+            "Erro ao imprimir a nota fiscal: " + e.getMessage());
+}
+            
+            
+            
+            
+            
+            
+            
             DefaultTableModel modelo =(DefaultTableModel) tabelaItens.getModel();
             modelo.setRowCount(0);
             txtCodigo.setText("");
@@ -1586,33 +1663,12 @@ if (troco < 0) {
 
     private void btnCupomFiscalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCupomFiscalActionPerformed
         // TODO add your handling code here:
-         Connection conn = null;
-         try {
-
-         conn = new ConexaoBanco().pegarConexao();
-
-        InputStream relatorio = getClass().getResourceAsStream(
-                "/relatorios/nota_fiscal2.jasper");
-
-        Map<String, Object> parametros = new HashMap<>();
-
-        // id da venda que acabou de ser salva
-        System.out.println("ID enviado para o Jasper: " + idVenda);
-
-        parametros.put("ID_VENDA", idVenda);
-
-        JasperPrint print = JasperFillManager.fillReport(
-                relatorio,
-                parametros,
-                conn);
-
-        JasperViewer.viewReport(print, false);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, e.getMessage());
-    }
+         
+      
         
+        
+                
+      
         
         
         
@@ -1621,6 +1677,41 @@ if (troco < 0) {
         
         
     }//GEN-LAST:event_btnCupomFiscalActionPerformed
+
+    private void btnCupomFiscal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCupomFiscal1ActionPerformed
+        // TODO add your handling code here:
+        
+        String id = JOptionPane.showInputDialog(this,
+        "Informe o número da venda:");
+
+if (id == null || id.trim().isEmpty()) {
+    return;
+}
+
+try {
+    ConexaoBanco banco = new ConexaoBanco();
+    Connection conexao = banco.pegarConexao();
+
+    HashMap<String, Object> parametros = new HashMap<>();
+    parametros.put("ID_VENDA", Integer.parseInt(id));
+
+    JasperPrint jasperPrint = JasperFillManager.fillReport(
+            "src/relatorios/nota_fiscal.jasper",
+            parametros,
+            conexao);
+
+    JasperViewer.viewReport(jasperPrint, false);
+
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(this,
+            "Erro ao reimprimir: " + e.getMessage());
+}
+
+    }//GEN-LAST:event_btnCupomFiscal1ActionPerformed
+
+    private void btnCupomFiscal2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCupomFiscal2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCupomFiscal2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1661,6 +1752,8 @@ if (troco < 0) {
     private javax.swing.JButton btnAbriCaixa;
     private javax.swing.JButton btnAdicionarItem;
     private javax.swing.JButton btnCupomFiscal;
+    private javax.swing.JButton btnCupomFiscal1;
+    private javax.swing.JButton btnCupomFiscal2;
     private javax.swing.JButton btnDesconto;
     private javax.swing.JButton btnEstoque;
     private javax.swing.JButton btnFecharCaixa1;
