@@ -139,7 +139,7 @@ public ResultSet estoqueZerado() {
     
     
      public void Editar(Produto cli){
-        
+          System.out.println("entrou editar");
         try {
             // 1 Criando o sql;
             String sql = "update tb_produtos set descricao=?, preco=?, qtd_estoque=?,for_id=? where id=?";
@@ -150,12 +150,17 @@ public ResultSet estoqueZerado() {
             stmt.setInt(3,cli.getQtd_estoque());
             stmt.setInt(4,cli.getFornecedor().getId());
             stmt.setInt(5,cli.getId());
-            stmt.executeUpdate();
+            System.out.println("id" + cli.getId());
+            int linhas = stmt.executeUpdate();
+            System.out.println("linhas alteradas " + linhas);
             stmt.close();
-            JOptionPane.showMessageDialog(null,"Produto Editado com sucesso");
+            if(linhas > 0){
+                JOptionPane.showMessageDialog(null,"Produto Editado com sucesso");
+            } else{ 
+               JOptionPane.showMessageDialog(null,"Produto nao alterado "); 
+            }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null,"Erro ao salvar o Produto"+ erro);
-            
         }
         
         

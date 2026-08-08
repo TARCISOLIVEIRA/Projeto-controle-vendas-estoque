@@ -634,7 +634,7 @@ if (txtNumero.getText().trim().isEmpty()) {
 
     private void txtPesquisarNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarNomeKeyReleased
         // TODO add your handling code here:
-         String nome = "%"+txtPesquisarNome.getText()+"%";
+       String nome = "%"+txtPesquisarNome.getText()+"%";
        ClientesDAO dao = new ClientesDAO();
        List<Clientes> lista = dao.Filtrar(nome);
         
@@ -697,30 +697,37 @@ if (txtNumero.getText().trim().isEmpty()) {
         
     }//GEN-LAST:event_txtNomeKeyPressed
 
+    private String valorTabela(int coluna) {
+    Object valor = tabela.getValueAt(tabela.getSelectedRow(), coluna);
+    return valor == null ? "" : valor.toString();
+}
+    
+    
+    
+    
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         // TODO add your handling code here:
         
         painel_guias.setSelectedIndex(0);
-        txtCodigo.setText(tabela.getValueAt(tabela.getSelectedRow(),0).toString());
-        txtNome.setText(tabela.getValueAt(tabela.getSelectedRow(),1).toString());
-        txtRg.setText(tabela.getValueAt(tabela.getSelectedRow(),2).toString());
-        txtCpf.setText(tabela.getValueAt(tabela.getSelectedRow(),3).toString());
-        txtEmail.setText(tabela.getValueAt(tabela.getSelectedRow(),4).toString());
-        txtTelefone.setText(tabela.getValueAt(tabela.getSelectedRow(),5).toString());
-        txtCelular.setText(tabela.getValueAt(tabela.getSelectedRow(),6).toString());
-        txtCep.setText(tabela.getValueAt(tabela.getSelectedRow(),7).toString());
-        txtEndereco.setText(tabela.getValueAt(tabela.getSelectedRow(),8).toString());
-        txtNumero.setText(tabela.getValueAt(tabela.getSelectedRow(),9).toString());
-                
-                            
-        txtComplemento.setText(tabela.getValueAt(tabela.getSelectedRow(),10).toString());
-        txtBairro.setText(tabela.getValueAt(tabela.getSelectedRow(),11).toString());
-        txtCidade.setText(tabela.getValueAt(tabela.getSelectedRow(),12).toString());
-        cbfEstado.setSelectedItem(tabela.getValueAt(tabela.getSelectedRow(),13).toString());
-        
-        btnEditar.setEnabled(true);
-        btnExcluir.setEnabled(true);
-        btnSalvar.setEnabled(false);
+
+    txtCodigo.setText(valorTabela(0));
+    txtNome.setText(valorTabela(1));
+    txtRg.setText(valorTabela(2));
+    txtCpf.setText(valorTabela(3));
+    txtEmail.setText(valorTabela(4));
+    txtTelefone.setText(valorTabela(5));
+    txtCelular.setText(valorTabela(6));
+    txtCep.setText(valorTabela(7));
+    txtEndereco.setText(valorTabela(8));
+    txtNumero.setText(valorTabela(9));
+    txtComplemento.setText(valorTabela(10));
+    txtBairro.setText(valorTabela(11));
+    txtCidade.setText(valorTabela(12));
+    cbfEstado.setSelectedItem(valorTabela(13));
+
+    btnEditar.setEnabled(true);
+    btnExcluir.setEnabled(true);
+    btnSalvar.setEnabled(false); 
         
         
         
