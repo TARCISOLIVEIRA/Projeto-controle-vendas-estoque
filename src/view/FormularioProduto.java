@@ -24,7 +24,7 @@ import utilitario.Utilitarios;
 
 
 public class FormularioProduto extends javax.swing.JFrame {
-      
+      private boolean editando = false;
       public void listar(){
        ProdutoDAO dao = new ProdutoDAO();
        List<Produto> lista = dao.Listar();
@@ -271,6 +271,11 @@ public class FormularioProduto extends javax.swing.JFrame {
         jScrollPane1.setBounds(0, 50, 740, 240);
 
         btnpesquisar1.setText("Pesquisar");
+        btnpesquisar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnpesquisar1MouseClicked(evt);
+            }
+        });
         btnpesquisar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnpesquisar1ActionPerformed(evt);
@@ -384,7 +389,9 @@ public class FormularioProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-
+  
+    
+        
         if(txtDescricao.getText().trim().isEmpty()){
         JOptionPane.showMessageDialog(null, "Por favor preencha a descrição!");
         txtDescricao.requestFocus();
@@ -401,32 +408,46 @@ public class FormularioProduto extends javax.swing.JFrame {
         return;
     }
     String descricao = txtDescricao.getText().trim().toLowerCase();
-    if(!descricao.isEmpty()){
-        descricao = descricao.substring(0,1).toUpperCase()
-                + descricao.substring(1);
-    }
+    
+   // if(!descricao.isEmpty()){
+     //   descricao = descricao.substring(0,1).toUpperCase()
+   //             + descricao.substring(1);
+  //  }
     Produto obj = new Produto();
+    obj.setId(Integer.parseInt(txtCodigo.getText()));
     obj.setDescricao(descricao);
     obj.setPreco(Double.valueOf(txtPreco.getText().replace(",",".")));
     obj.setQtd_estoque(Integer.valueOf(txtQtd_Estoque.getText().replace(descricao, descricao)));
     obj.setFornecedor((Fornecedor) cbfFornecedor.getSelectedItem());
+   
     ProdutoDAO dao = new ProdutoDAO();
-    if(dao.existeDescricao(descricao)){
-        JOptionPane.showMessageDialog(null, "Já existe um produto com essa descrição");
-        txtDescricao.requestFocus();
-        return;
-    }
     
+ //   if(dao.existeDescricao(descricao)){
+      //  JOptionPane.showMessageDialog(null, "Já existe um produto com essa descrição");
+       // txtDescricao.requestFocus();
+        //return;
+  //  }
     
+    if (editando) {
+    dao.Editar(obj);
+    editando = false;
+    btnSalvar.setText("Salvar");
+    JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!");
+    return;
+} else {
     boolean retorno = dao.salvar(obj);
     if(retorno){
         produtoSalvo = true;
-        JOptionPane.showMessageDialog(null,"Produto salvo com sucesso!");
-        
-        btnSalvar.setEnabled(false);
-        btnEditar.setEnabled(true);
-        btnExcluir.setEnabled(true);
+        JOptionPane.showMessageDialog(null, "Produto salvo com sucesso");
     }
+    
+}
+   
+  
+  
+  
+  
+  
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -583,12 +604,16 @@ public class FormularioProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-     if(!produtoSalvo){
+     
+        editando = true;
+        
+        
+        System.out.println("cliequei no botao editar");
+        if(!produtoSalvo){
          JOptionPane.showMessageDialog(null, "Salve o produto antes de editar");
          return;
-     }    
-        
-        
+     } 
+        try{
     Produto obj = new Produto();
     obj.setId(Integer.valueOf(txtCodigo.getText()));
     obj.setDescricao(txtDescricao.getText());
@@ -600,8 +625,20 @@ public class FormularioProduto extends javax.swing.JFrame {
     if(f == null){JOptionPane.showMessageDialog(null,"Selecione um fornecedor");
     return;}
     obj.setFornecedor(f);
+            System.out.println("entrou no men editar");
+            
+    obj.setId(Integer.parseInt(txtCodigo.getText()));
+            System.out.println("ID "+ obj.getId());
     ProdutoDAO daop = new ProdutoDAO();
+           System.out.println("depois   de char editar");
+        System.out.println(obj.getId());
+            System.out.println("antes editar");
     daop.Editar(obj);
+            System.out.println("depois de editar");
+        } catch (Exception e ){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e. getMessage());
+        }
     Utilitarios util = new Utilitarios();
     util.LimpaTela(jPanel2);
     JOptionPane.showMessageDialog(null,"Salvou com sucesso.....!");
@@ -788,6 +825,10 @@ public class FormularioProduto extends javax.swing.JFrame {
 ;        
         
     }//GEN-LAST:event_txtQtd_EstoqueActionPerformed
+
+    private void btnpesquisar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpesquisar1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnpesquisar1MouseClicked
 
     
     

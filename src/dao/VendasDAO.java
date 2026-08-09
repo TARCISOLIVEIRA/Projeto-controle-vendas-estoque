@@ -25,7 +25,7 @@ public class VendasDAO {
         this.conn = new ConexaoBanco().pegarConexao();
     }
      
-    public void Salvar(Vendas obj){
+   public void Salvar(Vendas obj){
         
         try {
             

@@ -57,11 +57,6 @@ getRootPane().getActionMap().put("abrirVenda",
         venda.setVisible(true);
     }
 });
-        
-        
-        
-        
-        
     }
     private Funcionario func;
     private int idVenda;
@@ -150,8 +145,40 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
     e -> btnAbriCaixa.doClick(),
     KeyStroke.getKeyStroke("F6"),
     JComponent.WHEN_IN_FOCUSED_WINDOW
-);     
+); 
+
+
+    
+    
+    
+    
+    
+
+getRootPane().registerKeyboardAction(
+    e -> btnNovoItem.doClick(),
+    KeyStroke.getKeyStroke("F11"),
+    JComponent.WHEN_IN_FOCUSED_WINDOW
+); 
+
+
+    
     }
+    
+    
+    
+    private void novoItem(){
+    
+        txtCodigo.setText("");
+        txtValorUnitario.setText("");
+        txtQuantidade.setText("1");
+        txtTotalItem.setText("");
+        txtRecebido.setText("");
+        txtTroco.setText("");
+        txtCodigo.requestFocusInWindow();
+        
+        
+        
+}
     public void carregarClientes(String nome){
         ClientesDAO dao = new ClientesDAO();
         List<Clientes> lista = dao.listarPorNome(nome);
@@ -212,7 +239,6 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lblSatus = new javax.swing.JLabel();
-        lblStatus = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -271,9 +297,8 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
         btnAbriCaixa = new javax.swing.JButton();
         btnFecharCaixa1 = new javax.swing.JButton();
         btnReabirCaixa = new javax.swing.JButton();
-        btnCupomFiscal = new javax.swing.JButton();
         btnCupomFiscal1 = new javax.swing.JButton();
-        btnCupomFiscal2 = new javax.swing.JButton();
+        btnNovoItem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -291,18 +316,11 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblSatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 1207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(lblSatus, javax.swing.GroupLayout.DEFAULT_SIZE, 1580, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(lblSatus, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(lblSatus, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
         );
 
         jPanel4.setBackground(new java.awt.Color(0, 0, 102));
@@ -886,16 +904,6 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
             }
         });
 
-        btnCupomFiscal.setBackground(new java.awt.Color(0, 0, 18));
-        btnCupomFiscal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnCupomFiscal.setForeground(new java.awt.Color(255, 255, 255));
-        btnCupomFiscal.setText("F12- 2ª VIA ");
-        btnCupomFiscal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCupomFiscalActionPerformed(evt);
-            }
-        });
-
         btnCupomFiscal1.setBackground(new java.awt.Color(0, 0, 18));
         btnCupomFiscal1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnCupomFiscal1.setForeground(new java.awt.Color(255, 255, 255));
@@ -906,13 +914,13 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
             }
         });
 
-        btnCupomFiscal2.setBackground(new java.awt.Color(0, 0, 18));
-        btnCupomFiscal2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnCupomFiscal2.setForeground(new java.awt.Color(255, 255, 255));
-        btnCupomFiscal2.setText("F11- NOVO ITEM");
-        btnCupomFiscal2.addActionListener(new java.awt.event.ActionListener() {
+        btnNovoItem.setBackground(new java.awt.Color(0, 0, 18));
+        btnNovoItem.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnNovoItem.setForeground(new java.awt.Color(255, 255, 255));
+        btnNovoItem.setText("F11- NOVO ITEM");
+        btnNovoItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCupomFiscal2ActionPerformed(evt);
+                btnNovoItemActionPerformed(evt);
             }
         });
 
@@ -957,9 +965,8 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
                                         .addComponent(btnLimparCaixa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnReabirCaixa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                         .addComponent(btnFecharCaixa1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnCupomFiscal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                         .addComponent(btnCupomFiscal1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                        .addComponent(btnCupomFiscal2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                                        .addComponent(btnNovoItem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                                 .addContainerGap(150, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1010,10 +1017,8 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnCupomFiscal1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCupomFiscal2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCupomFiscal)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnNovoItem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(46, 46, 46)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1072,7 +1077,7 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1142,7 +1147,7 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
         btnAdicionarItem.setEnabled(true);
         btnRemoverItem.setEnabled(true);
         btnFinalizarcompra.setEnabled(true);
-        
+        cmbFormaPagamento.setEnabled(true);
         btnAbriCaixa.setEnabled(false);
         btnFecharCaixa1.setEnabled(true);
         lblSatus.setText("CAIXA ABERTO");
@@ -1176,7 +1181,15 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
     }//GEN-LAST:event_cmbFormaPagamentoActionPerformed
 
     private void btnFinalizarcompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarcompraActionPerformed
+        
+        
+        cmbFormaPagamento.hidePopup();
+        txtCodigo.requestFocus();
+        
+        
         lblSatus.setForeground(java.awt.Color.red);
+        
+        
         lblSatus.setText("Caixa Fechado");
         if(txtSubTotal.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(null, "O subtotsl está vazio");
@@ -1187,9 +1200,20 @@ if (func.getNivel().equalsIgnoreCase("ADM")) {
             JOptionPane.showMessageDialog(null,"O valor toral está vazio");
             txtValorTotal.requestFocus();
         }
-        if(txtRecebido.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Inofrme o valor recebido");
-        }
+        
+        String formaPagamento = cmbFormaPagamento.getSelectedItem().toString();
+
+if (formaPagamento.equals("Dinheiro")) {
+
+    if (txtRecebido.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Informe o valor recebido.");
+        txtRecebido.requestFocus();
+        return;
+    }
+
+}
+        
+        
         if (tabelaItens.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null,"Adicione pelo menos um item na venda!");
             return;
@@ -1276,7 +1300,7 @@ if (troco < 0) {
     parametros.put("ID_VENDA", idVenda);
 
     JasperPrint jasperPrint = JasperFillManager.fillReport(
-            "src/relatorios/nota_fiscal.jasper",
+            "src/relatorios/relatorionota_fiscal_atual.jasper",
             parametros,
             conexao);
 
@@ -1286,13 +1310,7 @@ if (troco < 0) {
     JOptionPane.showMessageDialog(null,
             "Erro ao imprimir a nota fiscal: " + e.getMessage());
 }
-            
-            
-            
-            
-            
-            
-            
+        
             DefaultTableModel modelo =(DefaultTableModel) tabelaItens.getModel();
             modelo.setRowCount(0);
             txtCodigo.setText("");
@@ -1302,9 +1320,9 @@ if (troco < 0) {
             txtSubTotal.setText("0,00");
             txtRecebido.setText("");
             txtTroco.setText("0,00");
+            txtValorTotal.setText("0,00");
             cmbFormaPagamento.setSelectedIndex(0);
-            lblStatus.setForeground(java.awt.Color.GREEN);
-            lblStatus.setText("Caixa Aberto");
+            
             txtCodigo.requestFocus();
             
             cmbClientes.setSelectedItem("Consumidor Final");
@@ -1334,8 +1352,7 @@ if (troco < 0) {
             txtTroco.setText("0,00");
             cmbFormaPagamento.setSelectedIndex(0);
 
-            lblStatus.setForeground(java.awt.Color.WHITE);
-            lblStatus.setText("Caixa Fechado");
+            
             txtCodigo.requestFocus();
         }
     }//GEN-LAST:event_btncancelarItemActionPerformed
@@ -1374,13 +1391,38 @@ if (troco < 0) {
                 modelo.removeRow(linha);
             }
             double subtotal = 0;
-            for (int i = 0; i < tabelaItens.getRowCount(); i++){
-                Object valor = tabelaItens.getValueAt(i,4);
-                if(valor != null){
-                    subtotal += Double.parseDouble(valor.toString());
-                }
-            }
-            txtSubTotal.setText(String.valueOf(subtotal));
+   
+            
+        for (int i = 0; i < tabelaItens.getRowCount(); i++) {
+    Object valor = tabelaItens.getValueAt(i, 4);
+
+    if (valor != null) {
+        subtotal += Double.parseDouble(valor.toString().replace(",", "."));
+    }
+}
+
+txtSubTotal.setText(String.format("%.2f", subtotal));
+txtValorTotal.setText(String.format("%.2f", subtotal));
+
+if (!txtRecebido.getText().trim().isEmpty()) {
+    double recebido = Double.parseDouble(txtRecebido.getText().replace(",", "."));
+    double troco = recebido - subtotal;
+
+    txtTroco.setText(String.format("%.2f", troco));
+}
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+           // txtSubTotal.setText(String.valueOf(subtotal));
         }
     }//GEN-LAST:event_btnRemoverItemActionPerformed
 
@@ -1425,8 +1467,7 @@ if (troco < 0) {
         }
         txtSubTotal.setText(String.format("%.2f", subtotal));
         txtValorTotal.setText(String.format("%.2f", subtotal));
-        lblStatus.setForeground(java.awt.Color.GREEN);
-        lblStatus.setText("Caixa Aberto");
+        
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this,"Erro ao adicionar item: " + e.getMessage());
@@ -1661,23 +1702,6 @@ if (troco < 0) {
         
     }//GEN-LAST:event_btnReabirCaixaActionPerformed
 
-    private void btnCupomFiscalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCupomFiscalActionPerformed
-        // TODO add your handling code here:
-         
-      
-        
-        
-                
-      
-        
-        
-        
-        
-        
-        
-        
-    }//GEN-LAST:event_btnCupomFiscalActionPerformed
-
     private void btnCupomFiscal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCupomFiscal1ActionPerformed
         // TODO add your handling code here:
         
@@ -1709,9 +1733,11 @@ try {
 
     }//GEN-LAST:event_btnCupomFiscal1ActionPerformed
 
-    private void btnCupomFiscal2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCupomFiscal2ActionPerformed
+    private void btnNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCupomFiscal2ActionPerformed
+        novoItem();
+        
+    }//GEN-LAST:event_btnNovoItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1751,14 +1777,13 @@ try {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbriCaixa;
     private javax.swing.JButton btnAdicionarItem;
-    private javax.swing.JButton btnCupomFiscal;
     private javax.swing.JButton btnCupomFiscal1;
-    private javax.swing.JButton btnCupomFiscal2;
     private javax.swing.JButton btnDesconto;
     private javax.swing.JButton btnEstoque;
     private javax.swing.JButton btnFecharCaixa1;
     private javax.swing.JButton btnFinalizarcompra;
     private javax.swing.JButton btnLimparCaixa;
+    private javax.swing.JButton btnNovoItem;
     private javax.swing.JButton btnPesquisarCliente;
     private javax.swing.JButton btnReabirCaixa;
     private javax.swing.JButton btnRemoverItem;
@@ -1802,7 +1827,6 @@ try {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblSatus;
-    private javax.swing.JLabel lblStatus;
     private javax.swing.JTable tabelaItens;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtCodigo;
